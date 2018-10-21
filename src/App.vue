@@ -1,8 +1,13 @@
 <template>
   <div id="app">
+    <div id="bar">topbar component here</div>
     <router-view/>
+    
+  
   </div>
 </template>
+
+
 
 <script>
 import test from "./components/test";
@@ -24,5 +29,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(40px, auto);
 }
+#bar{
+  grid-column: 1/3
+}
+
 </style>
