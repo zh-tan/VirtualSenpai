@@ -26,7 +26,7 @@
     <!-- Text -->
     <p class="card-text py-2">Some quick example text to build on the card title and make up the bulk of the card's</p>
     <!-- Button -->
-     <router-link to="/module" tag="button"> module </router-link>
+     <router-link to="/nav" tag="button"> Nav </router-link>
     
     <router-link to="/module">
     <btn color="success" rounded>

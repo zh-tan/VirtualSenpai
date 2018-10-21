@@ -4,6 +4,7 @@ import Homepage from "@/components/Homepage";
 import Module from "@/components/Module";
 import Career from "@/components/Career";
 import BadGateway from "@/components/BadGateway";
+import NavPage from "@/components/NavPage";
 
 Vue.use(Router);
 
@@ -20,7 +21,7 @@ export default new Router({
     },
     {
       path: "/module",
-      name: "Codule",
+      name: "Module",
       component: Module
     },
     {
@@ -36,6 +37,11 @@ export default new Router({
     {
       path: "*",
       redirect: "/404"
+    },
+    {
+      path: "/nav",
+      name: "Home",
+      component: NavPage
     }
   ]
 });
