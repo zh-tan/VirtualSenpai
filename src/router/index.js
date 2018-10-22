@@ -5,6 +5,7 @@ import Module from "@/components/Module";
 import Career from "@/components/Career";
 import BadGateway from "@/components/BadGateway";
 import NavPage from "@/components/NavPage";
+import dashboard from "@/components/dashboardlayout";
 
 Vue.use(Router);
 
@@ -17,7 +18,7 @@ export default new Router({
     {
       path: "/home",
       name: "Home",
-      component: Homepage
+      component: dashboard
     },
     {
       path: "/module",

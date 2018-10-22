@@ -1,12 +1,11 @@
 <template>
 <div classname="charts">
 
-<p>{{test}} </p>
 
 
  <GChart
       type="PieChart"
-      :data="piedata"
+      :data="piedata1"
       :options="chartOptions"
     />    
     </div>
@@ -21,18 +20,20 @@ var modRef = db.ref("mods");
 
 //console.log(modRef)
 export default {
+  props:{
+    piedata1:{
+      type: Array,
+      default: () => {return []} // object 
+    },
+    chartOptions1: {
+        chart: {
+          title: "Demographic breakdown",
+          subtitle: "Sales, Expenses, and Profit: 2014-2017"
+        }
+      }
+  },
   components:{
     GChart
-  },
-  created(){
-    console.log("create");
-  },
-    mounted(){
-    console.log("mounted" + this.mods);
-  },
-  beforeMount(){
-    this.getbreakdown();
-    console.log("b4 mount" + this.test);
   },
   data() {
     return {
@@ -47,17 +48,6 @@ export default {
         }
       }
     };
-  },
-  firebase: {
-    mods: {
-      // change the "test" to desired path
-      source: db.ref("mods"),
-      asObject: true,
-      // to throw back error
-      cancelCallback(err) {
-        console.error(err);
-      }
-    }
   },
   methods:{
     getbreakdown(){
