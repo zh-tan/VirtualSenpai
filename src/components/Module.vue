@@ -2,13 +2,11 @@
 <div classname="charts">
 
 <p>{{test}} </p>
-
-
- <GChart
+ <GChart v-if="rendered"
       type="PieChart"
       :data="piedata"
       :options="chartOptions"
-    />    
+    /> 
     </div>
 </template>
 
@@ -17,22 +15,19 @@ import { db } from "../firebase";
 import { GChart } from "vue-google-charts";
 import Vue from 'vue';
 // mods[modulecode][semester]
-var modRef = db.ref("mods");
+var modRef = db.ref("mods/ACC1002");
 
 //console.log(modRef)
 export default {
   components:{
     GChart
   },
-  created(){
-    console.log("create");
-  },
     mounted(){
+    modRef.once("value").then((snapshot)=>{
+     this.mods = snapshot.val();
+    }).then(()=>{
+      this.rendered=this.getbreakdown();})
     console.log("mounted" + this.mods);
-  },
-  beforeMount(){
-    this.getbreakdown();
-    console.log("b4 mount" + this.test);
   },
   data() {
     return {
@@ -40,6 +35,7 @@ export default {
       // got to do with Vue Lifecycle
       mods: {},
       piedata: [],
+      rendered: false,
       chartOptions: {
         chart: {
           title: "Demographic breakdown",
@@ -48,25 +44,15 @@ export default {
       }
     };
   },
-  firebase: {
-    mods: {
-      // change the "test" to desired path
-      source: db.ref("mods"),
-      asObject: true,
-      // to throw back error
-      cancelCallback(err) {
-        console.error(err);
-      }
-    }
-  },
   methods:{
     getbreakdown(){
-        const data = this.mods["ACC1002"]["1810"]["cohort"];
+        const data = this.mods["1810"]["cohort"];
         let piedata = [["Course", "Number"]];
         for(var value in data){
           piedata.push( [value,data[value]] ) //list of list
         }
-      this.piedata = piedata;          
+      this.piedata = piedata;
+      return true;          
     }
   }
 };
