@@ -1,39 +1,35 @@
 <template>
 <div classname="charts">
 
+<p>{{pieoptions1}} </p> 
+{{rendered}}
 
-
- <GChart
-      type="PieChart"
-      :data="piedata1"
-      :options="chartOptions"
-    />    
+<pie-chart v-if="rendered"
+:data="piedata1" :options="Object" :height="200"></pie-chart>
     </div>
 </template>
 
 <script>
 import { db } from "../firebase";
 import { GChart } from "vue-google-charts";
-import Vue from 'vue';
+import { PieChart } from "mdbvue";
+import Vue from "vue";
 // mods[modulecode][semester]
 var modRef = db.ref("mods");
 
 //console.log(modRef)
 export default {
-  props:{
-    piedata1:{
-      type: Array,
-      default: () => {return []} // object 
-    },
-    chartOptions1: {
-        chart: {
-          title: "Demographic breakdown",
-          subtitle: "Sales, Expenses, and Profit: 2014-2017"
-        }
-      }
+  mounted(){
+
   },
-  components:{
-    GChart
+  props: {
+    piedata1: Object,
+    pieoptions1: Object,
+    rendered: Boolean,  
+  },
+  components: {
+    GChart,
+    PieChart
   },
   data() {
     return {
@@ -46,18 +42,38 @@ export default {
           title: "Demographic breakdown",
           subtitle: "Sales, Expenses, and Profit: 2014-2017"
         }
+      },
+      pieChartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      },
+      pieChartData: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: [
+              "#F7464A",
+              "#46BFBD",
+              "#FDB45C",
+              "#949FB1",
+              "#4D5360",
+              "#ac64ad"
+            ],
+            hoverBackgroundColor: [
+              "#FF5A5E",
+              "#5AD3D1",
+              "#FFC870",
+              "#A8B3C5",
+              "#616774",
+              "#da92db"
+            ]
+          }
+        ]
       }
     };
   },
-  methods:{
-    getbreakdown(){
-        const data = this.mods["ACC1002"]["1810"]["cohort"];
-        let piedata = [["Course", "Number"]];
-        for(var value in data){
-          piedata.push( [value,data[value]] ) //list of list
-        }
-      this.piedata = piedata;          
-    }
+  methods: {
   }
 };
 </script>
