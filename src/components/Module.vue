@@ -1,8 +1,13 @@
 <template>
 <div classname="charts">
 
-<p> {{gradesdist}} </p> 
-
+<p>  </p> 
+  <div id="echarts">
+    <IEcharts
+      :option='wordcloud'
+      @ready='onReady'
+    />
+    </div>
 
 <pie-chart v-if="rendered"
 :data="piedata1" :options="pieoptions1" :height="200"></pie-chart>
@@ -17,6 +22,9 @@
 <script>
 import { db } from "../firebase";
 import { PieChart, BarChart } from "mdbvue";
+import IEcharts from 'vue-echarts-v3/src/lite.js';
+import randomcolor from 'randomcolor';
+import 'echarts-wordcloud';
 import Vue from "vue";
 // mods[modulecode][semester]
 var modRef = db.ref("mods");
@@ -34,6 +42,7 @@ export default {
     gradesdistoptions: Object  
   },
   components: {
+    IEcharts,
     PieChart,
     BarChart
   },
@@ -41,6 +50,9 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
+      wordcloud: {},
+       ins: null,
+      echarts: null,
       mods: {},
       piedata: [],
       chartOptions: {
@@ -106,6 +118,47 @@ options: {
     };
   },
   methods: {
+      onReady (instance, echarts) {
+      const that = this
+      that.ins = instance
+      that.echarts = echarts
+      that.wordcloud = {
+        tooltip: {
+          trigger: 'item',
+          triggerOn: 'click',
+            formatter: "x"
+        },
+        series: [
+          {
+            type: 'wordCloud',
+            gridSize: 2,
+            sizeRange: [17, 50],
+            rotationRange: [-90, 90],
+            shape: 'circle',
+            width: 2000,
+            height: 1000,
+            drawOutOfBound: true,
+            textStyle: {
+              normal: {
+                color: randomcolor
+              },
+              emphasis: {
+                shadowBlur: 10,
+                shadowColor: '#333'
+              }
+            },
+            data: [
+            {"name":"YY",
+            "value": 30},
+            {"name":"ZH",
+            "value": 20},
+            {"name": "Chiran",
+            "value": 100}
+            ]
+          }
+        ]
+      }
+    }
   }
 };
 </script>
