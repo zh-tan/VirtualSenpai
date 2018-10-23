@@ -6,7 +6,7 @@
   <div>search bar here</div>
   
   <div style="grid-column: 2/3">mods here 
-  <router-link :to="{ path : 'module', params:{rendered: true}}">Module</router-link>
+  <router-link :to="{ path : '/Module/'+'true'}">Module</router-link>
   </div>
 
 </div>

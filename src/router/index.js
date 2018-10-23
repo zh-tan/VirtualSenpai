@@ -22,7 +22,7 @@ export default new Router({
       component: testing
     },
     {
-      path: "/module",
+      path: "/module/:rendered",
       name: "Module",
       component: Module,
       props: true
