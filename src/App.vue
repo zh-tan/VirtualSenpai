@@ -1,22 +1,18 @@
 <template>
   <div id="app">
-    <div id="bar">topbar component here</div>
+  <NavPage style="grid-column: 1/3"></NavPage>
     <router-view/>
     
   
   </div>
 </template>
 
-
-
 <script>
-import test from "./components/test";
-import Homepage from "./components/Homepage";
+import NavPage from "./components/NavPage";
 export default {
   name: "App",
   components: {
-    test,
-    Homepage
+    NavPage
   }
 };
 </script>
@@ -30,11 +26,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   display:grid;
-  grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(40px, auto);
 }
-#bar{
-  grid-column: 1/3
-}
+
 
 </style>

@@ -1,7 +1,6 @@
 <template>
 <div classname="layout">
 <p> {{pieChartData}} </p>
-  <NavPage></NavPage>
 
   <Module 
     :piedata1="pieChartData"
