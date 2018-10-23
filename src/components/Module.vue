@@ -1,18 +1,23 @@
 <template>
 <div classname="charts">
 
-<p>{{pieoptions1}} </p> 
-{{rendered}}
+<p> {{gradesdist}} </p> 
+
 
 <pie-chart v-if="rendered"
-:data="piedata1" :options="Object" :height="200"></pie-chart>
+:data="piedata1" :options="pieoptions1" :height="200"></pie-chart>
+    
+
+<bar-chart v-if="rendered"
+:data="gradesdist" :options="options" :height="200"></bar-chart>
+    
     </div>
 </template>
 
 <script>
 import { db } from "../firebase";
 import { GChart } from "vue-google-charts";
-import { PieChart } from "mdbvue";
+import { PieChart, BarChart } from "mdbvue";
 import Vue from "vue";
 // mods[modulecode][semester]
 var modRef = db.ref("mods");
@@ -25,11 +30,14 @@ export default {
   props: {
     piedata1: Object,
     pieoptions1: Object,
-    rendered: Boolean,  
+    rendered: Boolean,
+    gradesdist: Object,
+    gradesdistoptions: Object  
   },
   components: {
     GChart,
-    PieChart
+    PieChart,
+    BarChart
   },
   data() {
     return {
@@ -70,7 +78,33 @@ export default {
             ]
           }
         ]
-      }
+      },
+      data: {
+  labels: ['Risk Level', 'test'],
+  datasets: [
+  {
+    label: 'Low',
+    data: [67.8, 15],
+    backgroundColor: '#D6E9C6' // green
+  },
+  {
+    label: 'Moderate',
+    data: [20.7, 20],
+    backgroundColor: '#FAEBCC' // yellow
+  },
+  {
+    label: 'High',
+    data: [11.4, 30],
+    backgroundColor: '#EBCCD1' // red
+  }
+]
+},
+options: {
+  scales: {
+    xAxes: [{ stacked: true }],
+    yAxes: [{ stacked: true }]
+  }
+}
     };
   },
   methods: {
