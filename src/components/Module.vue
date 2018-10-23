@@ -3,7 +3,7 @@
 
 <p>{{pieoptions1}} </p> 
 {{rendered}}
-
+<h1> HIII</h1>
 <pie-chart v-if="rendered"
 :data="piedata1" :options="Object" :height="200"></pie-chart>
     </div>
@@ -19,14 +19,18 @@ var modRef = db.ref("mods");
 
 //console.log(modRef)
 export default {
+  created(){
+    this.rendered=this.$route.params.rendered;
+  
+    
+  },
   mounted(){
-
+  
   },
   props: {
     piedata1: Object,
     pieoptions1: Object,
-    rendered: Boolean,  
-  },
+    },
   components: {
     GChart,
     PieChart
@@ -37,6 +41,7 @@ export default {
       // got to do with Vue Lifecycle
       mods: {},
       piedata: [],
+      rendered: false,
       chartOptions: {
         chart: {
           title: "Demographic breakdown",
