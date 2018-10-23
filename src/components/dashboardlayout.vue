@@ -17,7 +17,6 @@
 
 <script>
 import { db } from "../firebase";
-import { GChart } from "vue-google-charts";
 import Vue from "vue";
 import Module from "./Module";
 import NavPage from "./NavPage";
@@ -27,7 +26,6 @@ var modRef = db.ref("mods/ACC1002");
 export default {
   name: "Layout",
   components: {
-    GChart,
     NavPage,
     Module
   },

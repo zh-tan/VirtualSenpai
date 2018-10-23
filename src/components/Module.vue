@@ -16,7 +16,6 @@
 
 <script>
 import { db } from "../firebase";
-import { GChart } from "vue-google-charts";
 import { PieChart, BarChart } from "mdbvue";
 import Vue from "vue";
 // mods[modulecode][semester]
@@ -35,7 +34,6 @@ export default {
     gradesdistoptions: Object  
   },
   components: {
-    GChart,
     PieChart,
     BarChart
   },

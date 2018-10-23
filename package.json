@@ -18,7 +18,6 @@
     "mdbootstrap": "4.5.12",
     "mdbvue": "4.8.0",
     "vue": "^2.5.2",
-    "vue-google-charts": "0.3.2",
     "vue-router": "3.0.1",
     "vuefire": "1.4.5"
   },
