@@ -2,7 +2,13 @@
 <div classname="charts">
 
 <row class="firstrow">
-  <column col ="8">
+  <column col= "3">
+  <h6> Average Rating </h6>
+  <h2> {{avg_rating}} </h2>
+  <h5> {{opinion_rating}} </h5>
+  </column>
+
+  <column col ="5">
   <div class="piechart">
     <pie-chart 
       v-if="rendered"
@@ -65,6 +71,8 @@ export default {
       .then(() => {
         this.rendered = this.getbreakdown();
         this.gradesdist();
+        this.avg_rating = this.avgrating();
+        this.opinion_rating = this.opinionrating();
       });
   },
   props: {
@@ -83,10 +91,10 @@ export default {
   },
   data() {
     return {
-      AY:[],
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
       modRef: {},
+      AY: "2018-S1",
       wordcloud: {},
        ins: null,
       echarts: null,
@@ -95,11 +103,26 @@ export default {
       pieChartData: {},
       gradesdistdata: {},
       gradedistoptions: {},
-      rendered: false
+      rendered: false,
+      avg_rating: "",
+      opinion_rating: ""
     };
+  },
+  computed:{
+
   },
   methods: {
     // method for wordcloud to initialise
+    avgrating(){
+      //console.log(this.modRef[this.AY])
+      //this.avg_rating = this.modRef[this.AY]["avr_rating"]
+      return "not working";
+    },
+    opinionrating(){
+      //const opinions = this.modRef[this.AY];
+      //console.log(this.modRef["2018-S1"])
+      return 1;
+    },
       onReady (instance, echarts) {
       const that = this
       that.ins = instance
@@ -143,7 +166,7 @@ export default {
     },
     // method for piechart to initialise
     getbreakdown() {
-      const data = this.mods["2018-S1"]["cohort"];
+      const data = this.mods[this.AY]["cohort"];
       let pielabels = [];
       let piedata = [];
 
@@ -192,7 +215,7 @@ export default {
 
     // method for barchart to initialise
     gradesdist() {
-      const AY = "2017-S2";
+      //const AY = "2017-S2";
       const grades = [
         "F",
         "E",
@@ -222,7 +245,7 @@ export default {
         "A":10,
         "A+":11}
 
-      const data = this.mods[AY]["grades"];
+      const data = this.mods[this.AY]["grades"];
       const dataset = [];
       const percourse = {};
 
