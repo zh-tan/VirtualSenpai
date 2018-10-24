@@ -10,11 +10,11 @@
     </div>
 
 <pie-chart v-if="rendered"
-:data="piedata1" :options="pieoptions1" :height="200"></pie-chart>
+:data="pieChartData" :options="pieChartOptions" :height="200"></pie-chart>
     
 
 <bar-chart v-if="rendered"
-:data="gradesdist" :options="options" :height="200"></bar-chart>
+:data="gradesdistdata" :options="baroptions" :height="200"></bar-chart>
     
     </div>
 </template>
@@ -27,7 +27,7 @@ import randomcolor from 'randomcolor';
 import 'echarts-wordcloud';
 import Vue from "vue";
 // mods[modulecode][semester]
-var modRef = db.ref("mods");
+var modRef = db.ref("mods/ACC1002");
 
 //console.log(modRef)
 export default {
@@ -35,14 +35,22 @@ export default {
   this.modCode=this.$route.params.modCode;
   },
   mounted(){
-
+    modRef
+      .once("value")
+      .then(snapshot => {
+        this.mods = snapshot.val();
+      })
+      .then(() => {
+        this.rendered = this.getbreakdown();
+        this.gradesdist();
+      });
   },
   props: {
-    piedata1: Object,
-    pieoptions1: Object,
-    rendered: Boolean,
-    gradesdist: Object,
-    gradesdistoptions: Object  
+    // piedata1: Object,
+    // pieoptions1: Object,
+    // rendered: Boolean,
+    // gradesdist: Object,
+    // gradesdistoptions: Object  
   },
   components: {
     IEcharts,
@@ -57,70 +65,15 @@ export default {
        ins: null,
       echarts: null,
       mods: {},
-      piedata: [],
-      chartOptions: {
-        chart: {
-          title: "Demographic breakdown",
-          subtitle: "Sales, Expenses, and Profit: 2014-2017"
-        }
-      },
-      pieChartOptions: {
-        responsive: true,
-        maintainAspectRatio: false
-      },
-      pieChartData: {
-        labels: [],
-        datasets: [
-          {
-            data: [],
-            backgroundColor: [
-              "#F7464A",
-              "#46BFBD",
-              "#FDB45C",
-              "#949FB1",
-              "#4D5360",
-              "#ac64ad"
-            ],
-            hoverBackgroundColor: [
-              "#FF5A5E",
-              "#5AD3D1",
-              "#FFC870",
-              "#A8B3C5",
-              "#616774",
-              "#da92db"
-            ]
-          }
-        ]
-      },
-      data: {
-  labels: ['Risk Level', 'test'],
-  datasets: [
-  {
-    label: 'Low',
-    data: [67.8, 15],
-    backgroundColor: '#D6E9C6' // green
-  },
-  {
-    label: 'Moderate',
-    data: [20.7, 20],
-    backgroundColor: '#FAEBCC' // yellow
-  },
-  {
-    label: 'High',
-    data: [11.4, 30],
-    backgroundColor: '#EBCCD1' // red
-  }
-]
-},
-options: {
-  scales: {
-    xAxes: [{ stacked: true }],
-    yAxes: [{ stacked: true }]
-  }
-}
+      pieChartOptions: {},
+      pieChartData: {},
+      gradesdistdata: {},
+      gradedistoptions: {},
+      rendered: false
     };
   },
   methods: {
+    // method for wordcloud to initialise
       onReady (instance, echarts) {
       const that = this
       that.ins = instance
@@ -161,7 +114,121 @@ options: {
           }
         ]
       }
-    }
+    },
+    // method for piechart to initialise
+    getbreakdown() {
+      const data = this.mods["2018-S1"]["cohort"];
+      let pielabels = [];
+      let piedata = [];
+
+      for (var value in data) {
+        pielabels.push(value);
+        piedata.push(data[value]);
+      }
+
+      this.pieChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false
+      };
+      //altering the element would trigger a rerender?
+      this.pieChartData = {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: [
+              "#F7464A",
+              "#46BFBD",
+              "#FDB45C",
+              "#949FB1",
+              "#4D5360",
+              "#ac64ad"
+            ],
+            hoverBackgroundColor: [
+              "#FF5A5E",
+              "#5AD3D1",
+              "#FFC870",
+              "#A8B3C5",
+              "#616774",
+              "#da92db"
+            ]
+          }
+        ]
+      };
+
+      //this.rendered = true;
+      this.pieChartData["labels"] = pielabels;
+      this.pieChartData["datasets"][0]["data"] = piedata;
+      //this.piedata = piedata;
+      console.log(this.pieChartData);
+      return true;
+    },
+
+    // method for barchart to initialise
+    gradesdist() {
+      const AY = "2017-S2";
+      const grades = [
+        "F",
+        "E",
+        "D",
+        "C-",
+        "C",
+        "C+",
+        "B-",
+        "B",
+        "B+",
+        "A-",
+        "A",
+        "A+"
+      ];
+
+      const idxmap = {
+        "F":0, 
+        "E":1,
+        "D":2,
+        "C-":3,
+        "C":4,
+        "C+":5,
+        "B-":6,
+        "B":7,
+        "B+":8,
+        "A-":9,
+        "A":10,
+        "A+":11}
+
+      const data = this.mods[AY]["grades"];
+      const dataset = [];
+      const percourse = {};
+
+      for (var course in data){
+        const gradescount = [0,0,0,0,0,0,0,0,0,0,0,0];
+        // count the number of grades in each course
+        for(var lettergrade in data[course]){
+          // find index through mapping to increase count
+          const idx = idxmap[lettergrade];
+          //console.log(lettergrade);
+          gradescount[idx] += 1;
+        }
+        // append to datasets to contain standard format
+        dataset.push({
+          label: course,
+          data: gradescount,
+          backgroundColor: '#D6E9C6' // green
+        })
+      } // end of outer for loop
+
+      // reinitialise dataset so that charts will re-render
+      this.gradesdistdata = {
+        labels: grades,
+        datasets: dataset
+      };
+
+      this.gradedistoptions = {
+        scales: {
+        xAxes: [{ stacked: true }],
+        yAxes: [{ stacked: true }]
   }
+}}
+  } // end of methods brackets
 };
 </script>
