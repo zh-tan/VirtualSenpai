@@ -1,7 +1,9 @@
 <template>
 <div>
 <h1>career search</h1>
-<router-link :to="{ path : '/moduleview/'+'ACC1002'}">test</router-link>
+<router-link :to="{ path : '/careerview/' +'Bachelor of Arts (Architecture)'}">
+  Bachelor of Arts (Architecture)
+</router-link>
 </div>
 </template>
 
@@ -12,9 +14,9 @@ export default {
   name: "careerSearch",
   data() {
     return {
+      major: "Bachelor of Arts (Architecture)"
     };
   },
-  firebase: {
-  }
+  firebase: {}
 };
 </script>
