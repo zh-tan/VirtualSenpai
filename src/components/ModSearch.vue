@@ -10,14 +10,13 @@
 
 <script>
 import { db } from "../firebase";
+
 //db ref mods and extract module name and summaries
 export default {
   name: "modSearch",
   data() {
-    return {
-    };
+    return {};
   },
-  firebase: {
-  }
+  firebase: {}
 };
 </script>

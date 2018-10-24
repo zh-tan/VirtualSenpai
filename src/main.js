@@ -7,6 +7,12 @@ import router from "./router";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "mdbvue/build/css/mdb.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbvue/build/css/mdb.css";
+import VueChartkick from "vue-chartkick";
+import Highcharts from "highcharts";
+
+Vue.use(VueChartkick, { adapter: Highcharts });
 
 Vue.config.productionTip = false;
 

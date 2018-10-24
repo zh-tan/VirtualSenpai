@@ -38,7 +38,7 @@ export default new Router({
       component: careerSearch
     },
     {
-      path: "/careerView",
+      path: "/careerview/:major",
       name: "CareerView",
       component: Career
     },
@@ -55,7 +55,7 @@ export default new Router({
     {
       path: "/nav",
       name: "bar",
-      component: Navbar
+      component: dashboard
     }
   ]
 });
