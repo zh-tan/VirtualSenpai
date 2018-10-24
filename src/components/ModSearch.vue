@@ -1,10 +1,6 @@
 <template>
 <div>
 <h1>mod search</h1>
-<router-link :to="{ path : '/moduleview/'+'ACC1002'}">ACC1002</router-link>
-<br>
-<router-link :to="{ path : '/moduleview/'+'CS1010S'}">CS1010S</router-link>
-<br>
 <router-link v-for="code in mod_names" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
 
 </div>
@@ -23,7 +19,8 @@ export default {
     };
   },
   mounted(){
-    db.ref("/mods").once("value")
+    db.ref("/mods").once("value")//need smaller dataset to quicken loading
+
       .then(snapshot => {
         this.mod_data = snapshot.val();
       }).then(()=>{
