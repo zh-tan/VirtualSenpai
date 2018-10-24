@@ -27,15 +27,16 @@ import randomcolor from 'randomcolor';
 import 'echarts-wordcloud';
 import Vue from "vue";
 // mods[modulecode][semester]
-var modRef = db.ref("mods/ACC1002");
+
 
 //console.log(modRef)
 export default {
   created(){
   this.modCode=this.$route.params.modCode;
+  this.modRef = db.ref("mods/"+this.modCode);
   },
   mounted(){
-    modRef
+    this.modRef
       .once("value")
       .then(snapshot => {
         this.mods = snapshot.val();
@@ -61,6 +62,7 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
+      modRef: {},
       wordcloud: {},
        ins: null,
       echarts: null,
