@@ -8,8 +8,6 @@
     :pieoptions1="pieChartOptions"
     :rendered="rendered"
     :gradesdist="gradesdistdata">
-    
-    
     </Module>
     
 </div>
@@ -65,7 +63,7 @@ export default {
   },
   methods: {
     getbreakdown() {
-      const data = this.mods["1810"]["cohort"];
+      const data = this.mods["2018-S1"]["cohort"];
       let pielabels = [];
       let piedata = [];
 
@@ -107,7 +105,7 @@ export default {
       return true;
     },
     gradesdist() {
-      const AY = "1720";
+      const AY = "2017-S2";
       const grades = [
         "F",
         "E",
