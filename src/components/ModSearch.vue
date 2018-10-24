@@ -19,7 +19,7 @@ export default {
     };
   },
   mounted(){
-    db.ref("/mods").once("value")
+    db.ref("/mods").once("value")//need smaller dataset to quicken loading
       .then(snapshot => {
         this.mod_data = snapshot.val();
       }).then(()=>{
