@@ -1,7 +1,7 @@
 <template>
 <div classname="charts">
 
-<p>  </p> 
+<p> {{modCode}} </p> 
   <div id="echarts">
     <IEcharts
       :option='wordcloud'
@@ -31,6 +31,9 @@ var modRef = db.ref("mods");
 
 //console.log(modRef)
 export default {
+  created(){
+  this.modCode=this.$route.params.modCode;
+  },
   mounted(){
 
   },

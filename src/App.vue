@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="bar">topbar component here</div>
+    <Navbar></Navbar>
     <router-view/>
     
   
@@ -10,13 +10,11 @@
 
 
 <script>
-import test from "./components/test";
-import Homepage from "./components/Homepage";
+import Navbar from "./components/Navbar";
 export default {
   name: "App",
   components: {
-    test,
-    Homepage
+    Navbar
   }
 };
 </script>
@@ -28,13 +26,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
   display:grid;
-  grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(40px, auto);
 }
-#bar{
-  grid-column: 1/3
-}
-
 </style>

@@ -17,14 +17,13 @@
 import { db } from "../firebase";
 import Vue from "vue";
 import Module from "./Module";
-import NavPage from "./NavPage";
+
 // mods[modulecode][semester]
 var modRef = db.ref("mods/ACC1002");
 
 export default {
   name: "Layout",
   components: {
-    NavPage,
     Module
   },
   mounted() {

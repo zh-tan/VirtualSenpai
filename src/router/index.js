@@ -4,8 +4,10 @@ import Homepage from "@/components/Homepage";
 import Module from "@/components/Module";
 import Career from "@/components/Career";
 import BadGateway from "@/components/BadGateway";
-import NavPage from "@/components/NavPage";
+import Navbar from "@/components/Navbar";
 import dashboard from "@/components/dashboardlayout";
+import modSearch from "@/components/ModSearch";
+import careerSearch from "@/components/careerSearch";
 
 Vue.use(Router);
 
@@ -18,18 +20,29 @@ export default new Router({
     {
       path: "/home",
       name: "Home",
-      component: dashboard
+      component: modSearch
     },
     {
       path: "/module",
       name: "Module",
+      component: modSearch
+    },
+    {
+      path: "/moduleview/:modCode",
+      name: "ModuleView",
       component: Module
     },
     {
       path: "/career",
       name: "Career",
+      component: careerSearch
+    },
+    {
+      path: "/careerView",
+      name: "CareerView",
       component: Career
     },
+
     {
       path: "/404",
       name: "BadGateway",
@@ -41,8 +54,8 @@ export default new Router({
     },
     {
       path: "/nav",
-      name: "Home",
-      component: NavPage
+      name: "bar",
+      component: Navbar
     }
   ]
 });
