@@ -1,27 +1,48 @@
 <template>
 <div classname="charts">
 
-<p> {{modCode}} </p> 
-  <div id="echarts">
+<row class="firstrow">
+  <column col ="8">
+  <div class="piechart">
+    <pie-chart 
+      v-if="rendered"
+      :data="pieChartData" 
+      :options="pieChartOptions" 
+      :height="200"
+      :width="400">
+      </pie-chart>
+  </div>
+  </column>
+
+  <column col= "4">
+  <div class= "wordcloud" id="echarts">
     <IEcharts
       :option='wordcloud'
       @ready='onReady'
     />
-    </div>
+  </div>
+  </column>
+</row>
 
-<pie-chart v-if="rendered"
-:data="pieChartData" :options="pieChartOptions" :height="200"></pie-chart>
-    
 
-<bar-chart v-if="rendered"
-:data="gradesdistdata" :options="gradedistoptions" :height="200"></bar-chart>
-    
+<row class="secondrow">
+<column col="8">
+  <div class="barchart">
+    <bar-chart 
+      v-if="rendered"
+      :data="gradesdistdata" 
+      :options="gradedistoptions" 
+      :height="200">
+      </bar-chart>
+  </div>
+</column>
+</row>
     </div>
 </template>
 
 <script>
 import { db } from "../firebase";
-import { PieChart, BarChart } from "mdbvue";
+import { PieChart, BarChart, Column, Row } from "mdbvue";
 import IEcharts from 'vue-echarts-v3/src/lite.js';
 import randomcolor from 'randomcolor';
 import 'echarts-wordcloud';
@@ -54,6 +75,8 @@ export default {
     // gradesdistoptions: Object  
   },
   components: {
+    Column,
+    Row,
     IEcharts,
     PieChart,
     BarChart
@@ -234,3 +257,16 @@ export default {
   } // end of methods brackets
 };
 </script>
+
+
+<style>
+.firstrow{
+  margin-top: 10px;
+}
+
+.secondrow{
+  margin-top: 30px;
+}
+
+
+</style>
