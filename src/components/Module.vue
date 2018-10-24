@@ -14,7 +14,7 @@
     
 
 <bar-chart v-if="rendered"
-:data="gradesdistdata" :options="baroptions" :height="200"></bar-chart>
+:data="gradesdistdata" :options="gradedistoptions" :height="200"></bar-chart>
     
     </div>
 </template>
