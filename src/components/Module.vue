@@ -60,6 +60,7 @@ export default {
   },
   data() {
     return {
+      AY:[],
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
       modRef: {},
@@ -231,6 +232,6 @@ export default {
         yAxes: [{ stacked: true }]
   }
 }}
-  } // end of methods brackets
+} // end of methods brackets
 };
 </script>
