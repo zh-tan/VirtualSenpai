@@ -1,9 +1,7 @@
 <template>
 <div>
 <h1>mod search</h1>
-<router-link :to="{ path : '/moduleview/'+'ACC1002'}">ACC1002</router-link>
-<br>
-<router-link :to="{ path : '/moduleview/'+'CS1010S'}">CS1010S</router-link>
+<router-link v-for="code in mod_names" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
 
 </div>
 </template>
@@ -15,7 +13,18 @@ import { db } from "../firebase";
 export default {
   name: "modSearch",
   data() {
-    return {};
+    return {
+      mod_data:{},
+      mod_names:[]
+    };
+  },
+  mounted(){
+    db.ref("/mods").once("value")
+      .then(snapshot => {
+        this.mod_data = snapshot.val();
+      }).then(()=>{
+        this.mod_names=Object.keys(this.mod_data);
+      })
   },
   firebase: {}
 };
