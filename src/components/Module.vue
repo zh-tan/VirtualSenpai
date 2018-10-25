@@ -334,6 +334,7 @@ export default {
 .textinfo{
   background:#eee;
   padding:1em;
+
 }
 
 </style>
