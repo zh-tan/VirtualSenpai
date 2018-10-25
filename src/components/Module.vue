@@ -278,7 +278,7 @@ export default {
 .charts{
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: minmax(200px, auto);
 }
 
 </style>
