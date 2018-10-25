@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar></Navbar>
+    <Navbar></Navbar><br>
     <router-view/>
     
   
@@ -29,5 +29,7 @@ export default {
   margin-top: 10px;
   display:grid;
   grid-auto-rows: minmax(40px, auto);
+}
+router-view{
 }
 </style>

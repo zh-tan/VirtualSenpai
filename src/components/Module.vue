@@ -1,14 +1,10 @@
 <template>
-<div classname="charts">
-
-<row class="firstrow">
-  <column col= "3">
+<div class="charts">
+  <div>
   <h6> Average Rating </h6>
   <h2> {{avg_rating}} </h2>
   <h5> {{opinion_rating}} </h5>
-  </column>
-
-  <column col ="5">
+  </div>
   <div class="piechart">
     <pie-chart 
       v-if="rendered"
@@ -18,21 +14,17 @@
       :width="400">
       </pie-chart>
   </div>
-  </column>
 
-  <column col= "4">
+
+
   <div class= "wordcloud" id="echarts">
     <IEcharts
       :option='wordcloud'
       @ready='onReady'
     />
   </div>
-  </column>
-</row>
 
 
-<row class="secondrow">
-<column col="8">
   <div class="barchart">
     <bar-chart 
       v-if="rendered"
@@ -41,8 +33,7 @@
       :height="200">
       </bar-chart>
   </div>
-</column>
-</row>
+
     </div>
 </template>
 
@@ -284,13 +275,10 @@ export default {
 
 
 <style>
-.firstrow{
-  margin-top: 10px;
+.charts{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
 }
-
-.secondrow{
-  margin-top: 30px;
-}
-
 
 </style>
