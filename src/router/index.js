@@ -5,6 +5,8 @@ import Module from "@/components/Module";
 import Career from "@/components/Career";
 import BadGateway from "@/components/BadGateway";
 import NavPage from "@/components/NavPage";
+import dashboard from "@/components/dashboardlayout";
+import testing from "@/components/test";
 
 Vue.use(Router);
 
@@ -17,12 +19,13 @@ export default new Router({
     {
       path: "/home",
       name: "Home",
-      component: Homepage
+      component: testing
     },
     {
-      path: "/module",
+      path: "/module/:rendered",
       name: "Module",
-      component: Module
+      component: Module,
+      props: true
     },
     {
       path: "/career",
@@ -37,11 +40,6 @@ export default new Router({
     {
       path: "*",
       redirect: "/404"
-    },
-    {
-      path: "/nav",
-      name: "Home",
-      component: NavPage
     }
   ]
 });
