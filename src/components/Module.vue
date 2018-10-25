@@ -1,6 +1,5 @@
 <template>
 <div class="charts">
-
  <div class="pieandtext">
   <div class="textinfo">
   <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
@@ -19,7 +18,7 @@
 
    <div>
     <wordcloud
-      :data="word_cloud_b"
+      :data="word_cloud"
       nameKey="name"
       valueKey="value">
       </wordcloud>
@@ -38,7 +37,7 @@
 
    <div>
     <wordcloud
-      :data="word_cloud"
+      :data="word_cloud_b"
       nameKey="name"
       valueKey="value">
       </wordcloud>
@@ -75,6 +74,7 @@ export default {
         this.gradesdist();
         this.avg_rating = this.avgrating();
         this.opinion_rating = this.opinionrating();
+        this.get_words();
       });
   },
   props: {
@@ -86,22 +86,49 @@ export default {
   },
   data() {
     return {
-      // i think this is needed to make it reactive
-      // got to do with Vue Lifecycle
+      //need a method to dynamically select latest
+      //available AY
       modRef: {},
       AY: "2018-S1",
-      word_cloud: [{"name":"YY",
-                    "value": 30},
-                    {"name":"ZH",
-                    "value": 20},
-                    {"name": "Chiran",
-                      "value": 10}],
-      word_cloud_b: [{"name":"YY",
-                    "value": 30},
-                    {"name":"ZH",
-                    "value": 20},
-                    {"name": "Chiran",
-                      "value": 10}],
+      word_cloud: [],
+      test :[],
+      word_cloud_b: [{
+          "name": "Cat",
+          "value": 26
+        },
+        {
+          "name": "fish",
+          "value": 19
+        },
+        {
+          "name": "things",
+          "value": 18
+        },
+        {
+          "name": "look",
+          "value": 16
+        },
+        {
+          "name": "two",
+          "value": 15
+        },
+        {
+          "name": "fun",
+          "value": 9
+        },
+        {
+          "name": "know",
+          "value": 9
+        },
+        {
+          "name": "good",
+          "value": 9
+        },
+        {
+          "name": "play",
+          "value": 6
+        }
+      ],
       ins: null,
       echarts: null,
       mods: {},
@@ -277,9 +304,26 @@ export default {
         scales: {
         xAxes: [{ stacked: true }],
         yAxes: [{ stacked: true }]
-  }
-}}
-} // end of methods brackets
+    },
+    }
+    },
+    get_words(){
+      var goodwords=[];
+      var words =Object.keys(this.mods[this.AY]["likes_WC"])
+      for(var i in words){
+        goodwords.push({"name":words[i],"value":this.mods[this.AY]["likes_WC"][words[i]]});
+      }
+      var badwords=[]
+      words =Object.keys(this.mods[this.AY]["dislikes_WC"])
+      for(var j in words){
+        badwords.push({"name":words[j],"value":this.mods[this.AY]["dislikes_WC"][words[j]]});
+      }
+      this.word_cloud=goodwords;
+      this.word_cloud_b=badwords;
+    }
+
+  } // end of methods brackets
+
 };
 </script>
 
