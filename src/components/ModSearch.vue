@@ -3,7 +3,7 @@
 note: load time too slow.
 <div v-html="legacySystemHTML"></div>
 <h1>mod search</h1>
-<router-link v-for="code in mod_names" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
+<router-link v-for="code in mod_names" :key="code" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
 
 </div>
 </template>
