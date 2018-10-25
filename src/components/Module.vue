@@ -6,6 +6,7 @@
 <h1> HIII</h1>
 <pie-chart v-if="rendered"
 :data="piedata1" :options="Object" :height="200"></pie-chart>
+
     </div>
 </template>
 
@@ -15,25 +16,19 @@ import { GChart } from "vue-google-charts";
 import { PieChart } from "mdbvue";
 import Vue from "vue";
 // mods[modulecode][semester]
-var modRef = db.ref("mods");
+var modRef = db.ref("mods/ACC1002");
 
 //console.log(modRef)
 export default {
-  created(){
-    this.rendered=this.$route.params.rendered;
-  
-    
+  components:{
+    GChart
   },
-  mounted(){
-  
-  },
-  props: {
-    piedata1: Object,
-    pieoptions1: Object,
-    },
-  components: {
-    GChart,
-    PieChart
+    mounted(){
+    modRef.once("value").then((snapshot)=>{
+     this.mods = snapshot.val();
+    }).then(()=>{
+      this.rendered=this.getbreakdown();})
+    console.log("mounted" + this.mods);
   },
   data() {
     return {
@@ -78,7 +73,16 @@ export default {
       }
     };
   },
-  methods: {
+  methods:{
+    getbreakdown(){
+        const data = this.mods["1810"]["cohort"];
+        let piedata = [["Course", "Number"]];
+        for(var value in data){
+          piedata.push( [value,data[value]] ) //list of list
+        }
+      this.piedata = piedata;
+      return true;          
+    }
   }
 };
 </script>
