@@ -2,64 +2,70 @@
 <div classname="charts">
 
 <p> {{major}} </p> 
-<h4>Main Hiring Industries</h4>
-<pie-chart v-if="rendered"
-:data="pieChartData" 
-:options="pieChartOptions" 
-:height="300"
-:width="600"></pie-chart>
-
+<div class="charts">
+  <div class="piechart">
+    <h4>Hiring Industries</h4>
+    <pie-chart v-if="rendered"
+    :data="pieChartData" 
+    :options="pieChartOptions" 
+    :height="300"
+    :width="600"></pie-chart>
+  </div>
 <br>
-<h4>Common Roles</h4>    
-<table id="tablePreview" class="table table-striped table-bordered">
-<!--Table head-->
-  <thead>
-    <tr>
-      <th>Roles</th>
-      <th>% of Grads</th>
-      <th>Median Salary</th>
-      
-    </tr>
-  </thead>
+<div class="table">
+  <h4>Common Roles</h4>    
+  <table id="tablePreview" class="table table-striped table-bordered">
   <!--Table head-->
-  <!--Table body-->
-  <tbody>
-    <tr>
-      <th scope="row">Consultant</th>
-      <td>22.5%</td>
-      <td>4,072</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">Data Analyst</th>
-      <td>15.0%</td>
-      <td>3,950</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">Management Trainee</th>
-      <td>15.0%</td>
-      <td>3,483</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">Marketing Assistant</th>
-      <td>12.5%</td>
-      <td>3,620</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">Others</th>
-      <td>10.0%</td>
-      <td>3,825</td>
-      
-    </tr>
-  </tbody>
-  <!--Table body-->
-</table>
-<h4>Median Salaries</h4>
-<line-chart :data="lineData" />
-    
+    <thead>
+      <tr>
+        <th>Roles</th>
+        <th>% of Grads</th>
+        <th>Median Salary</th>
+        
+      </tr>
+    </thead>
+    <!--Table head-->
+    <!--Table body-->
+    <tbody>
+      <tr>
+        <th scope="row">Consultant</th>
+        <td>22.5%</td>
+        <td>4,072</td>
+        
+      </tr>
+      <tr>
+        <th scope="row">Data Analyst</th>
+        <td>15.0%</td>
+        <td>3,950</td>
+        
+      </tr>
+      <tr>
+        <th scope="row">Management Trainee</th>
+        <td>15.0%</td>
+        <td>3,483</td>
+        
+      </tr>
+      <tr>
+        <th scope="row">Marketing Assistant</th>
+        <td>12.5%</td>
+        <td>3,620</td>
+        
+      </tr>
+      <tr>
+        <th scope="row">Others</th>
+        <td>10.0%</td>
+        <td>3,825</td>
+        
+      </tr>
+    </tbody>
+    <!--Table body-->
+  </table>
+</div>
+<div class="medianSalary">
+  <h4>Median Salaries</h4>
+  <line-chart :data="lineData" />
+</div>
+</div>
     </div>
 </template>
 
@@ -192,3 +198,21 @@ export default {
   }
 }
 </script>
+<style scoped>
+.charts{
+  display:grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto
+}
+.piechart{
+  grid-column: 1 / 4;
+  grid-row: 1 / 3;
+}
+.table{
+  grid-column: 4 / 6;
+  grid-row: 1 / 3;
+}
+.medianSalary{
+  grid-column: 1/7;
+}
+</style>
