@@ -1,20 +1,21 @@
 <template>
 <div class="charts">
-  <div>
-  <h6> Average Rating </h6>
-  <h2> {{avg_rating}} </h2>
-  <h5> {{opinion_rating}} </h5>
+
+  <div class="pieandtext">
+  <div class="textinfo">
+  <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
+  <h2> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h2>
+  <h5>  {{opinion_rating}} </h5>
   </div>
   <div class="piechart">
     <pie-chart 
       v-if="rendered"
       :data="pieChartData" 
       :options="pieChartOptions" 
-      :height="200"
-      :width="400">
+      :height="200">
       </pie-chart>
   </div>
-
+  </div>
 
 
   <div class= "wordcloud" id="echarts">
@@ -30,8 +31,16 @@
       v-if="rendered"
       :data="gradesdistdata" 
       :options="gradedistoptions" 
-      :height="200">
+      :height="300"
+      :width="600">
       </bar-chart>
+  </div>
+
+  <div class= "wordcloud" id="echarts">
+    <IEcharts
+      :option='wordcloud'
+      @ready='onReady'
+    />
   </div>
 
     </div>
@@ -96,7 +105,8 @@ export default {
       gradedistoptions: {},
       rendered: false,
       avg_rating: "",
-      opinion_rating: ""
+      opinion_rating: "",
+      spancolor: ""
     };
   },
   computed:{
@@ -105,14 +115,48 @@ export default {
   methods: {
     // method for wordcloud to initialise
     avgrating(){
-      //console.log(this.modRef[this.AY])
-      //this.avg_rating = this.modRef[this.AY]["avr_rating"]
-      return "not working";
+      const test = this.mods[this.AY]["avr_rating"];
+      if (test >3.5){
+        this.spancolor = "color:lightgreen";
+      } else if (test > 2.5) {
+        this.spancolor = "color:orange";
+      } else {
+        this.spancolor = "color:red";
+      }
+      //console.log(this.mods[this.AY]["opinion"]);
+      return test;
     },
     opinionrating(){
-      //const opinions = this.modRef[this.AY];
-      //console.log(this.modRef["2018-S1"])
-      return 1;
+      // dictionary of values {Excellent: 0.5, Average: 0.5}
+      const values = this.mods[this.AY]["opinion"];
+      //console.log(values["Average"]);
+      var output = "";
+      var counter = 0;
+      // loop through maximum from Excellent to Poor
+      for(var x in values){
+          if("Excellent" in values){
+            //console.log("here");
+            output += values["Excellent"]*100 + "% rated Excellent"; 
+          } else if ("Good" in values){
+            output += values["Good"]*100 + "% rated Good";
+          } else if ("Average" in values){
+            //console.log("here")
+            output += values["Average"]*100 + "% rated Average";
+          } else if ("Below Average" in values){
+            output += values["Below Average"]*100 + "% rated Below Average";
+          } else if ("Poor" in values){
+            output += values["Poor"]*100 + "% rated Poor";
+          }
+          counter++;
+          
+          output += "\n";
+          // to show top 2 values
+          if(output.size == 2){
+            break;
+          }
+      }
+      console.log(output);
+      return output;
     },
       onReady (instance, echarts) {
       const that = this
@@ -120,9 +164,7 @@ export default {
       that.echarts = echarts
       that.wordcloud = {
         tooltip: {
-          trigger: 'item',
-          triggerOn: 'click',
-            formatter: "x"
+          show:true
         },
         series: [
           {
@@ -131,8 +173,8 @@ export default {
             sizeRange: [17, 50],
             rotationRange: [-90, 90],
             shape: 'circle',
-            width: 2000,
-            height: 1000,
+            width: "100%",
+            height: "100%",
             drawOutOfBound: true,
             textStyle: {
               normal: {
@@ -277,8 +319,21 @@ export default {
 <style>
 .charts{
   display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(100px, auto);
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto; 
+  //grid-auto-rows: minmax(100px, auto);
+  grid-row-gap: 1em;
+}
+
+.pieandtext{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.textinfo{
+  background:#eee;
+  padding:1em;
 }
 
 </style>
