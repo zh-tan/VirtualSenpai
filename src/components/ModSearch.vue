@@ -1,6 +1,5 @@
 <template>
 <div>
-note: load time too slow.
 <div v-html="legacySystemHTML"></div>
 <h1>mod search</h1>
 
@@ -13,7 +12,7 @@ note: load time too slow.
     </div>
 
 <div class="modules">
-<router-link v-for="code in mod_names" :key="code" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
+<router-link v-for="mod in mod_summary" :key="mod.code" :to="{ path : '/moduleview/'+mod.code}">{{mod.code}}<br></router-link>
 </div>
     <!-- Sidebar -->
 
@@ -40,8 +39,7 @@ export default {
   data() {
     return {
       activeItem : 1,
-      mod_data:{},
-      mod_names:[],
+      mod_summary:{},
       legacySystemHTML: `
         <FONT color="#faddad" size="-2">
           <MARQUEE>If you are looking at this, Good job. Fuck you understand? :)).</MARQUEE>
@@ -51,12 +49,9 @@ export default {
     };
   },
   mounted(){
-    db.ref("/mods").once("value")//need smaller dataset to quicken loading
-
+    db.ref("/mod_summary").once("value")//need smaller dataset to quicken loading
       .then(snapshot => {
-        this.mod_data = snapshot.val();
-      }).then(()=>{
-        this.mod_names=Object.keys(this.mod_data);
+        this.mod_summary = snapshot.val();
       })
   },
   firebase: {},
