@@ -1,6 +1,7 @@
 <template>
 <div>
 note: load time too slow.
+<div v-html="legacySystemHTML"></div>
 <h1>mod search</h1>
 <router-link v-for="code in mod_names" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
 
@@ -16,7 +17,13 @@ export default {
   data() {
     return {
       mod_data:{},
-      mod_names:[]
+      mod_names:[],
+      legacySystemHTML: `
+        <FONT color="#faddad" size="-2">
+          <MARQUEE>If you are looking at this, Good job. Fuck you understand? :)).</MARQUEE>
+          ...
+        </FONT>
+      `
     };
   },
   mounted(){
