@@ -24,11 +24,11 @@ export default {
     };
   },
   mounted(){
-    db.ref("career").once("value")
+    db.ref("majors_list").once("value")
       .then(snapshot => {
         return snapshot.val();
       }).then(result => {
-        this.majors=Object.keys(result);
+        this.majors=result;
       });
   },
   firebase: {}
