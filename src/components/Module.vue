@@ -1,7 +1,7 @@
 <template>
 <div class="charts">
 
-  <div class="pieandtext">
+ <div class="pieandtext">
   <div class="textinfo">
   <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
   <h2> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h2>
@@ -17,14 +17,14 @@
   </div>
   </div>
 
-
-  <div class= "wordcloud" id="echarts">
-    <IEcharts
-      :option='wordcloud'
-      @ready='onReady'
-    />
-  </div>
-
+   <div>
+    <wordcloud
+      :data="word_cloud_b"
+      nameKey="name"
+      valueKey="value">
+      </wordcloud>
+  </div>  
+  
 
   <div class="barchart">
     <bar-chart 
@@ -36,22 +36,24 @@
       </bar-chart>
   </div>
 
-  <div class= "wordcloud" id="echarts">
-    <IEcharts
-      :option='wordcloud'
-      @ready='onReady'
-    />
+   <div>
+    <wordcloud
+      :data="word_cloud"
+      nameKey="name"
+      valueKey="value">
+      </wordcloud>
   </div>
 
-    </div>
+</div>
 </template>
 
 <script>
 import { db } from "../firebase";
-import { PieChart, BarChart, Column, Row } from "mdbvue";
+import { PieChart, BarChart} from "mdbvue";
 import IEcharts from 'vue-echarts-v3/src/lite.js';
 import randomcolor from 'randomcolor';
-import 'echarts-wordcloud';
+import wordcloud from 'vue-wordcloud';
+
 import Vue from "vue";
 // mods[modulecode][semester]
 
@@ -76,18 +78,11 @@ export default {
       });
   },
   props: {
-    // piedata1: Object,
-    // pieoptions1: Object,
-    // rendered: Boolean,
-    // gradesdist: Object,
-    // gradesdistoptions: Object  
   },
   components: {
-    Column,
-    Row,
-    IEcharts,
     PieChart,
-    BarChart
+    BarChart,
+    wordcloud
   },
   data() {
     return {
@@ -95,8 +90,19 @@ export default {
       // got to do with Vue Lifecycle
       modRef: {},
       AY: "2018-S1",
-      wordcloud: {},
-       ins: null,
+      word_cloud: [{"name":"YY",
+                    "value": 30},
+                    {"name":"ZH",
+                    "value": 20},
+                    {"name": "Chiran",
+                      "value": 10}],
+      word_cloud_b: [{"name":"YY",
+                    "value": 30},
+                    {"name":"ZH",
+                    "value": 20},
+                    {"name": "Chiran",
+                      "value": 10}],
+      ins: null,
       echarts: null,
       mods: {},
       pieChartOptions: {},
@@ -158,45 +164,7 @@ export default {
       console.log(output);
       return output;
     },
-      onReady (instance, echarts) {
-      const that = this
-      that.ins = instance
-      that.echarts = echarts
-      that.wordcloud = {
-        tooltip: {
-          show:true
-        },
-        series: [
-          {
-            type: 'wordCloud',
-            gridSize: 2,
-            sizeRange: [17, 50],
-            rotationRange: [-90, 90],
-            shape: 'circle',
-            width: "100%",
-            height: "100%",
-            drawOutOfBound: true,
-            textStyle: {
-              normal: {
-                color: randomcolor
-              },
-              emphasis: {
-                shadowBlur: 10,
-                shadowColor: '#333'
-              }
-            },
-            data: [
-            {"name":"YY",
-            "value": 30},
-            {"name":"ZH",
-            "value": 20},
-            {"name": "Chiran",
-            "value": 100}
-            ]
-          }
-        ]
-      }
-    },
+      
     // method for piechart to initialise
     getbreakdown() {
       const data = this.mods[this.AY]["cohort"];
@@ -335,6 +303,10 @@ export default {
   background:#eee;
   padding:1em;
 
+}
+
+wordcloud{
+  border-color: black;
 }
 
 </style>

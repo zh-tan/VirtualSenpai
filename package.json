@@ -26,6 +26,7 @@
     "vue-chartkick": "0.5.0",
     "vue-echarts-v3": "1.0.19",
     "vue-router": "3.0.1",
+    "vue-wordcloud": "1.0.2",
     "vuefire": "1.4.5"
   },
   "devDependencies": {

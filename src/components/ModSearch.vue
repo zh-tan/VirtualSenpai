@@ -13,7 +13,7 @@ note: load time too slow.
     </div>
 
 <div class="modules">
-<router-link v-for="code in mod_names" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
+<router-link v-for="code in mod_names" :key="code" :to="{ path : '/moduleview/'+code}">{{code}}<br></router-link>
 </div>
     <!-- Sidebar -->
 
