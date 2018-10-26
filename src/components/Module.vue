@@ -1,5 +1,11 @@
 <template>
 <div class="charts">
+<select  @change="refreshAY(curSem)" v-model="curSem">
+  <option v-for="sem in AYList" :key="sem">
+  {{sem}}
+  </option>
+</select><br>
+
  <div class="pieandtext">
   <div class="textinfo">
   <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
@@ -43,10 +49,6 @@
       valueKey="value">
       </wordcloud>
   </div>
-  <div>
-  <p v-for="sem in AYList" @click="refreshAY(sem)">{{sem}}</p>
-  </div>
-
 </div>
 </template>
 

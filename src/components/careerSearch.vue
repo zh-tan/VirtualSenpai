@@ -5,7 +5,6 @@
   <option v-for="deg in majors" :key="deg">
   {{deg}}
   </option>
-
 </select><br>
 </div>
 </template>
@@ -18,17 +17,19 @@ export default {
   name: "careerSearch",
   data() {
     return {
-      majors:[],
+      majors: [],
 
       major: "Bachelor of Arts (Architecture)"
     };
   },
-  mounted(){
-    db.ref("majors_list").once("value")
+  mounted() {
+    db.ref("majors_list")
+      .once("value")
       .then(snapshot => {
         return snapshot.val();
-      }).then(result => {
-        this.majors=result;
+      })
+      .then(result => {
+        this.majors = result;
       });
   },
   firebase: {}
