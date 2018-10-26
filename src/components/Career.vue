@@ -4,7 +4,7 @@
 
 <script>
 import { db } from "../firebase";
-
+//impt
 export default {
   data() {
     return {

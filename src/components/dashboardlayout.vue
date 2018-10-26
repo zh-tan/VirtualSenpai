@@ -19,6 +19,7 @@ import Vue from "vue";
 import Module from "./Module";
 import NavPage from "./NavPage";
 // mods[modulecode][semester]
+//testing
 var modRef = db.ref("mods/ACC1002");
 
 export default {

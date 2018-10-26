@@ -47,7 +47,7 @@
 
 <script>
 import { Btn, Fa } from "mdbvue";
-
+//impt
 export default {
   components: {
     Btn,
