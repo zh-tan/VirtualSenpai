@@ -1,96 +1,138 @@
 <template>
 <div classname="charts">
 
-<p> {{major}} </p>
-<ul class="smooth-scroll list-unstyled">
-  <li>
-    <h5><a href="#piechart">Hiring Indutry</a></h5>
-  </li>
-  <br>
-  <li>
-    <h5><a href="#table">Common Roles</a></h5>
-  </li>
-  <br>
-  <li>
-    <h5><a href="#medianSalary">Median Salary</a></h5>
-  </li>
-  <br>
-</ul> 
+<h2> {{major}} </h2>
+<row>
+
 <div class="charts">
-  <div id="piechart">
-    <h4>Hiring Industries</h4>
-    <pie-chart v-if="rendered"
-    :data="pieChartData" 
-    :options="pieChartOptions" 
-    :height="300"
-    :width="600"></pie-chart>
-  </div>
-<br>
-<div id="table">
-  <h4>Common Roles</h4>    
-  <table id="tablePreview" class="table table-striped table-bordered">
-  <!--Table head-->
-    <thead>
-      <tr>
-        <th>Roles</th>
-        <th>% of Grads</th>
-        <th>Median Salary</th>
+
+  <column lx="10">
+  <row>
+    <column lx="6">
+    <card cascade class="cascading-admin-card">
+      <div class="piechart">
+      <h4>Hiring Industries</h4>
+      <card-body>
+      <pie-chart v-if="rendered"
+      :data="pieChartData" 
+      :options="pieChartOptions" 
+      :height="300"
+      :width="600"></pie-chart>
+      </card-body>
+      </div>
+    </card>
+    </column>
+    <column lx="6">
+    <card>
+      <div class="table">
+        <h4>Common Roles</h4>
+        <card-body>    
+        <table id="tablePreview" class="table table-striped table-bordered">
+        <!--Table head-->
+          <thead>
+            <tr>
+              <th>Roles</th>
+              <th>% of Grads</th>
+              <th>Median Salary</th>
+              
+            </tr>
+          </thead>
+          <!--Table head-->
+          <!--Table body-->
+          <tbody>
+            <tr>
+              <th scope="row">Consultant</th>
+              <td>22.5%</td>
+              <td>4,072</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Data Analyst</th>
+              <td>15.0%</td>
+              <td>3,950</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Management Trainee</th>
+              <td>15.0%</td>
+              <td>3,483</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Marketing Assistant</th>
+              <td>12.5%</td>
+              <td>3,620</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Others</th>
+              <td>10.0%</td>
+              <td>3,825</td>
+              
+            </tr>
+          </tbody>
+          <!--Table body-->
+        </table>
+        </card-body>
         
-      </tr>
-    </thead>
-    <!--Table head-->
-    <!--Table body-->
-    <tbody>
-      <tr>
-        <th scope="row">Consultant</th>
-        <td>22.5%</td>
-        <td>4,072</td>
-        
-      </tr>
-      <tr>
-        <th scope="row">Data Analyst</th>
-        <td>15.0%</td>
-        <td>3,950</td>
-        
-      </tr>
-      <tr>
-        <th scope="row">Management Trainee</th>
-        <td>15.0%</td>
-        <td>3,483</td>
-        
-      </tr>
-      <tr>
-        <th scope="row">Marketing Assistant</th>
-        <td>12.5%</td>
-        <td>3,620</td>
-        
-      </tr>
-      <tr>
-        <th scope="row">Others</th>
-        <td>10.0%</td>
-        <td>3,825</td>
-        
-      </tr>
-    </tbody>
-    <!--Table body-->
-  </table>
+      </div>
+      </card>
+      </column>
+      <br>
+  </row>
+  <row>
+    <column lx="6">
+    <card>
+      
+      <h4>Median Salaries</h4>
+      <card-body>
+      <div class="d-flex justify-content-center" style="display:block">
+      <line-chart :data="salaryData" width="400px" height="250px"/>
+      </div>
+      </card-body>
+      
+    </card>
+    
+    </column>
+    <column lx="6">
+    <card>
+      
+      <h4>Hiring Volume</h4>
+      <card-body>
+        <div class="d-flex justify-content-center" style="display:block">
+        <line-chart :data="hiringData" width="400px" height="250px"/>
+        </div>
+      </card-body>
+      
+      
+    </card>
+
+     
+    </column>
+  </row>
+  
+
+
+
+  </column>
+
 </div>
-<div id="medianSalary">
-  <h4>Median Salaries</h4>
-  <line-chart :data="lineData" />
-</div>
-</div>
+<column lx="2">Unpreparedness column</column>
+
+</row>
+
     </div>
+    
 </template>
 
 <script>
 import { db } from "../firebase";
-import { PieChart, BarChart} from "mdbvue";
 import IEcharts from "vue-echarts-v3/src/lite.js";
 import randomcolor from "randomcolor";
 import "echarts-wordcloud";
 import Vue from "vue";
 import careerSearch from "./careerSearch";
+import {  Row, Column, Btn,Fa, PieChart, BarChart, Card, CardBody, CardHeader, CardText } from "mdbvue";
 // mods[modulecode][semester]
 
 var careerRef = db.ref("career/Bachelor of Arts (Architecture)");
@@ -115,9 +157,16 @@ export default {
   
   },
   components: {
-    IEcharts,
+    Row,
+    Column,
+    Btn,
+    Fa,
     PieChart,
     BarChart,
+    Card,
+    CardBody,
+    CardHeader,
+    CardText,
     careerSearch
   },
   data() {
@@ -140,13 +189,20 @@ export default {
           }
         ]
       },
-      lineData:[
+      salaryData:[
         {name: 'Healthcare', data: {'2015': 3344, '2016': 3400, '2017': 3500, '2018': 3480}},
         {name: 'Real Estate', data: {'2015': 4001, '2016': 4100, '2017': 3889, '2018': 3609}},
         {name: 'Scientific R&D', data: {'2015': 4590, '2016': 4690, '2017': 4580, '2018': 4500}},
         {name: 'Society & Community', data: {'2015': 2900, '2016': 3000, '2017': 2390, '2018': 3148}}
         
-      ]
+      ],
+      hiringData:[
+        {name: 'Healthcare', data: {'2015': 33, '2016': 34, '2017': 35, '2018': 34}},
+        {name: 'Real Estate', data: {'2015': 41, '2016': 40, '2017': 38, '2018': 36}},
+        {name: 'Scientific R&D', data: {'2015': 40, '2016': 40, '2017': 45, '2018': 45}},
+        {name: 'Society & Community', data: {'2015': 29, '2016': 30, '2017': 23, '2018': 31}}
+        
+      ],
     };
   },
   methods: {
@@ -215,8 +271,8 @@ export default {
 <style scoped>
 /*.charts{
   display:grid;
-  grid-template-columns: auto auto auto auto auto auto;
-  grid-template-rows: auto auto auto auto
+  grid-template-columns: 1fx 1fx 1fx;
+  grid-template-rows: auto
 }
 .piechart{
   grid-column: 1 / 4;
