@@ -7,7 +7,7 @@
   <h5>  {{opinion_rating}} </h5>
   </div>
   <div class="piechart">
-    <pie-chart 
+    <pie-chart ref="PC"
       v-if="rendered"
       :data="pieChartData" 
       :options="pieChartOptions" 
@@ -15,12 +15,13 @@
       </pie-chart>
   </div>
   </div>
-
+  
    <div>
     <wordcloud
       :data="word_cloud"
       nameKey="name"
       valueKey="value">
+      :
       </wordcloud>
   </div>  
   
@@ -41,6 +42,9 @@
       nameKey="name"
       valueKey="value">
       </wordcloud>
+  </div>
+  <div>
+  <p v-for="sem in AYList" @click="refreshAY(sem)">{{sem}}</p>
   </div>
 
 </div>
@@ -70,6 +74,7 @@ export default {
         this.mods = snapshot.val();
       })
       .then(() => {
+        this.getAY();
         this.rendered = this.getbreakdown();
         this.gradesdist();
         this.avg_rating = this.avgrating();
@@ -89,46 +94,11 @@ export default {
       //need a method to dynamically select latest
       //available AY
       modRef: {},
+      AYList:[],
       AY: "2018-S1",
       word_cloud: [],
       test :[],
-      word_cloud_b: [{
-          "name": "Cat",
-          "value": 26
-        },
-        {
-          "name": "fish",
-          "value": 19
-        },
-        {
-          "name": "things",
-          "value": 18
-        },
-        {
-          "name": "look",
-          "value": 16
-        },
-        {
-          "name": "two",
-          "value": 15
-        },
-        {
-          "name": "fun",
-          "value": 9
-        },
-        {
-          "name": "know",
-          "value": 9
-        },
-        {
-          "name": "good",
-          "value": 9
-        },
-        {
-          "name": "play",
-          "value": 6
-        }
-      ],
+      word_cloud_b: [],
       ins: null,
       echarts: null,
       mods: {},
@@ -143,10 +113,32 @@ export default {
     };
   },
   computed:{
-
   },
   methods: {
-    // method for wordcloud to initialise
+    toggle(){
+      this.rendered=!this.rendered;
+      console.log(this.rendered);
+      setTimeout(()=>{
+              this.rendered=!this.rendered;
+       },100)
+      console.log(this.rendered);
+    },
+    getAY(){
+      this.AYList = Object.keys(this.mods);
+      this.AYList.sort();
+      this.AYList.reverse();
+      this.AY=this.AYList[0];
+    },
+    refreshAY:async function(year){
+      this.AY=year;
+      this.rendered = false;
+      let outcome = await this.getbreakdown();
+      this.gradesdist();
+      this.avg_rating = this.avgrating();
+      this.opinion_rating = this.opinionrating();
+      this.get_words();
+      this.toggle();
+    },
     avgrating(){
       const test = this.mods[this.AY]["avr_rating"];
       if (test >3.5){
@@ -238,6 +230,7 @@ export default {
       this.pieChartData["datasets"][0]["data"] = piedata;
       //this.piedata = piedata;
       console.log(this.pieChartData);
+      console.log(this.AY);
       return true;
     },
 
@@ -303,9 +296,9 @@ export default {
       this.gradedistoptions = {
         scales: {
         xAxes: [{ stacked: true }],
-        yAxes: [{ stacked: true }]
-    },
+        yAxes: [{ stacked: true }]},
     }
+    this.rendered=true;
     },
     get_words(){
       var goodwords=[];
