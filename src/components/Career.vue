@@ -1,9 +1,23 @@
 <template>
 <div classname="charts">
 
-<p> {{major}} </p> 
+<p> {{major}} </p>
+<ul class="smooth-scroll list-unstyled">
+  <li>
+    <h5><a href="#piechart">Hiring Indutry</a></h5>
+  </li>
+  <br>
+  <li>
+    <h5><a href="#table">Common Roles</a></h5>
+  </li>
+  <br>
+  <li>
+    <h5><a href="#medianSalary">Median Salary</a></h5>
+  </li>
+  <br>
+</ul> 
 <div class="charts">
-  <div class="piechart">
+  <div id="piechart">
     <h4>Hiring Industries</h4>
     <pie-chart v-if="rendered"
     :data="pieChartData" 
@@ -12,7 +26,7 @@
     :width="600"></pie-chart>
   </div>
 <br>
-<div class="table">
+<div id="table">
   <h4>Common Roles</h4>    
   <table id="tablePreview" class="table table-striped table-bordered">
   <!--Table head-->
@@ -61,7 +75,7 @@
     <!--Table body-->
   </table>
 </div>
-<div class="medianSalary">
+<div id="medianSalary">
   <h4>Median Salaries</h4>
   <line-chart :data="lineData" />
 </div>
@@ -199,7 +213,7 @@ export default {
 }
 </script>
 <style scoped>
-.charts{
+/*.charts{
   display:grid;
   grid-template-columns: auto auto auto auto auto auto;
   grid-template-rows: auto auto auto auto
@@ -213,6 +227,6 @@ export default {
   grid-row: 1 / 3;
 }
 .medianSalary{
-  grid-column: 1/7;
-}
+  grid-column: 1/4;
+}*/
 </style>

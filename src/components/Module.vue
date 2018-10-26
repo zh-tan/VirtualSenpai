@@ -116,6 +116,7 @@ export default {
   },
   methods: {
     toggle(){
+
       this.rendered=false;
       setTimeout(()=>{
               this.rendered=true;
@@ -127,6 +128,7 @@ export default {
       this.AYList.reverse();
       this.AY=this.AYList[0];
     },
+
     refreshAY: function(year){
       this.AY=year;
       this.getbreakdown();
