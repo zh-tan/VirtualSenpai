@@ -1,27 +1,96 @@
 <template>
 <div class="charts">
-<select  @change="refreshAY(curSem)" v-model="curSem">
-  <option v-for="sem in AYList" :key="sem">
-  {{sem}}
-  </option>
-</select><br>
 
- <div class="pieandtext">
-  <div class="textinfo">
-  <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
+<row >
+    <column xl="6" md="6" class="mb-r">
+          <card cascade class="cascading-admin-card">
+            <div class="admin-up">
+              <fa icon="line-chart" class="warning-color"/>
+              <div class="data">
+                <p>Module Information</p>
+
+              </div>
+            </div>
+            <card-body>
+              <p> Put in moduel name + prof </p>
+            <select  @change="refreshAY(curSem)" v-model="curSem">
+              <option v-for="sem in AYList" :key="sem">
+              {{sem}}
+              </option>
+            </select>
+            </card-body>
+          </card>
+    </column>
+
+ <column xl="3" md="6">
+          <card cascade class="cascading-admin-card">
+            <div class="admin-up">
+              <fa icon="line-chart" class="warning-color"/>
+              <div class="data">
+                <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
   <h2> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h2>
-  <h5>  {{opinion_rating}} </h5>
-  </div>
+              </div>
+            </div>
+            <card-body>
+              <div class="progress">
+                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar bg grey darken-2" role="progressbar"
+                  style="width: 25%"></div>
+              </div>
+              <card-text>Worse than last week (25%)</card-text>
+            </card-body>
+          </card>
+  </column>
+  <column xl="3" md="6" class="mb-r">
+          <card cascade class="cascading-admin-card">
+            <div class="admin-up">
+              <fa icon="pie-chart" class="light-blue lighten-1"/>
+              <div class="data">
+                <p>TRAFFIC</p>
+                <h4>
+                  <strong>  {{opinion_rating}} </strong>
+                </h4>
+              </div>
+            </div>
+            <card-body>
+              <div class="progress">
+                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress-bar grey darken-2" role="progressbar"
+                  style="width: 75%"></div>
+              </div>
+              <card-text>Worse than last week (75%)</card-text>
+            </card-body>
+          </card>
+  </column>
+
+</row>
+
+  <row>
+    <column xl="6" md="6">
+  <card cascade class="cascading-admin-card">
+  <card-body>
   <div class="piechart">
     <pie-chart ref="PC"
       v-if="rendered"
       :data="pieChartData" 
       :options="pieChartOptions" 
-      :height="200">
+      :height="150">
       </pie-chart>
   </div>
-  </div>
   
+   <div class="barchart">
+    <bar-chart 
+      v-if="rendered"
+      :data="gradesdistdata" 
+      :options="gradedistoptions" 
+      :height="200"
+      :width="600">
+      </bar-chart>
+  </div>
+
+  </card-body>
+  </card>
+    </column>
+
+      <column>
    <div>
     <wordcloud
       :data="word_cloud"
@@ -30,18 +99,9 @@
       :
       </wordcloud>
   </div>  
-  
+  </column>
 
-  <div class="barchart">
-    <bar-chart 
-      v-if="rendered"
-      :data="gradesdistdata" 
-      :options="gradedistoptions" 
-      :height="300"
-      :width="600">
-      </bar-chart>
-  </div>
-
+<column>
    <div>
     <wordcloud
       :data="word_cloud_b"
@@ -49,12 +109,19 @@
       valueKey="value">
       </wordcloud>
   </div>
+</column>
+  </row>
+
+
+
+ 
+
 </div>
 </template>
 
 <script>
 import { db } from "../firebase";
-import {  Row, Column, Btn, PieChart, BarChart, Card, CardBody, CardHeader, CardText } from "mdbvue";
+import {  Row, Column, Btn,Fa, PieChart, BarChart, Card, CardBody, CardHeader, CardText } from "mdbvue";
 import IEcharts from 'vue-echarts-v3/src/lite.js';
 import randomcolor from 'randomcolor';
 import wordcloud from 'vue-wordcloud';
@@ -90,6 +157,7 @@ export default {
     Row,
     Column,
     Btn,
+    Fa,
     PieChart,
     BarChart,
     wordcloud,
@@ -337,16 +405,16 @@ export default {
 
 <style>
 .charts{
-  display:grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto; 
-  //grid-auto-rows: minmax(100px, auto);
-  grid-row-gap: 1em;
+  // display:grid;
+  // grid-template-columns: 2fr 1fr;
+  // grid-template-rows: auto auto; 
+  // //grid-auto-rows: minmax(100px, auto);
+  // grid-row-gap: 1em;
 }
 
 .pieandtext{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
+  // display:grid;
+  // grid-template-columns: 1fr 1fr;
 
 }
 
@@ -355,6 +423,8 @@ export default {
   padding:1em;
 
 }
+.d-flex { display:flex; }
+
 
 wordcloud{
   border-color: black;
