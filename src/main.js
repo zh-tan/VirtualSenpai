@@ -13,7 +13,6 @@ import VueChartkick from "vue-chartkick";
 import Highcharts from "highcharts";
 
 Vue.use(VueChartkick, { adapter: Highcharts });
-
 Vue.config.productionTip = false;
 
 //console.log(testref);
