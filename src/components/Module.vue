@@ -116,12 +116,11 @@ export default {
   },
   methods: {
     toggle(){
-      this.rendered=!this.rendered;
-      console.log(this.rendered);
+
+      this.rendered=false;
       setTimeout(()=>{
-              this.rendered=!this.rendered;
-       },100)
-      console.log(this.rendered);
+              this.rendered=true;
+       },1);
     },
     getAY(){
       this.AYList = Object.keys(this.mods);
@@ -129,10 +128,10 @@ export default {
       this.AYList.reverse();
       this.AY=this.AYList[0];
     },
-    refreshAY:async function(year){
+
+    refreshAY: function(year){
       this.AY=year;
-      this.rendered = false;
-      let outcome = await this.getbreakdown();
+      this.getbreakdown();
       this.gradesdist();
       this.avg_rating = this.avgrating();
       this.opinion_rating = this.opinionrating();
