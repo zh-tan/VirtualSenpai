@@ -54,7 +54,7 @@
 
 <script>
 import { db } from "../firebase";
-import { PieChart, BarChart} from "mdbvue";
+import {  Row, Column, Btn, PieChart, BarChart, Card, CardBody, CardHeader, CardText } from "mdbvue";
 import IEcharts from 'vue-echarts-v3/src/lite.js';
 import randomcolor from 'randomcolor';
 import wordcloud from 'vue-wordcloud';
@@ -87,9 +87,16 @@ export default {
   props: {
   },
   components: {
+    Row,
+    Column,
+    Btn,
     PieChart,
     BarChart,
-    wordcloud
+    wordcloud,
+    Card,
+    CardBody,
+    CardHeader,
+    CardText,
   },
   data() {
     return {
@@ -158,19 +165,25 @@ export default {
       //console.log(values["Average"]);
       var output = "";
       var counter = 0;
+      const visited = [];
       // loop through maximum from Excellent to Poor
       for(var x in values){
-          if("Excellent" in values){
+          if("Excellent" in values && !visited.includes("Excellent")){
+            visited.push("Excellent");
             //console.log("here");
             output += values["Excellent"]*100 + "% rated Excellent"; 
-          } else if ("Good" in values){
+          } else if ("Good" in values && !visited.includes("Good")){
+            visited.push("Good");
             output += values["Good"]*100 + "% rated Good";
-          } else if ("Average" in values){
+          } else if ("Average" in values && !visited.includes("Average")){
             //console.log("here")
+            visited.push("Average");
             output += values["Average"]*100 + "% rated Average";
-          } else if ("Below Average" in values){
-            output += values["Below Average"]*100 + "% rated Below Average";
-          } else if ("Poor" in values){
+          } else if ("Below average" in values && !visited.includes("Below average")){
+            visited.push("Below average");
+            output += values["Below average"]*100 + "% rated Below average";
+          } else if ("Poor" in values && !visited.includes("Poor")){
+            visited.push("Poor");
             output += values["Poor"]*100 + "% rated Poor";
           }
           counter++;
