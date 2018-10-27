@@ -6,7 +6,7 @@
 
 <div class="charts">
 
-  <column lx="8">
+  <column lx="10" md="auto">
   <row>
     <column lx="6">
     <card cascade class="cascading-admin-card">
@@ -80,6 +80,9 @@
       </column>
   </row>
   <row>
+    <br>
+  </row>
+  <row>
     <column lx="6">
     <card>
       
@@ -116,9 +119,11 @@
   </column>
 
 </div>
-<column lx="4">
+<column lx="2">
+  <card>
+  <div class="d-flex justify-content-around">
+  <div class="w-30 p-3">
   <h4>Most Important Skills</h4>
-  
   <row>
   <div class="card card-cascade wider">
   <!-- Card image -->
@@ -172,6 +177,11 @@
   </div>
   </div>
   </row>
+
+  </div>
+  
+  </div>
+  </card>
 </column>
 
 </row>
