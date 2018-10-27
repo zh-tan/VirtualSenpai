@@ -1,17 +1,17 @@
 <template>
 <div classname="charts">
 
-<h2> {{major}} </h2>
+<h2> {{careerTitle}} </h2>
 <row>
 
 <div class="charts">
 
-  <column lx="10">
+  <column lx="8">
   <row>
     <column lx="6">
     <card cascade class="cascading-admin-card">
       <div class="piechart">
-      <h4>Hiring Industries</h4>
+      <card-title>Hiring Industries</card-title>
       <card-body>
       <pie-chart v-if="rendered"
       :data="pieChartData" 
@@ -24,8 +24,8 @@
     </column>
     <column lx="6">
     <card>
-      <div class="table">
-        <h4>Common Roles</h4>
+      <div class="table table-sm">
+        <card-title>Common Roles</card-title>
         <card-body>    
         <table id="tablePreview" class="table table-striped table-bordered">
         <!--Table head-->
@@ -78,13 +78,12 @@
       </div>
       </card>
       </column>
-      <br>
   </row>
   <row>
     <column lx="6">
     <card>
       
-      <h4>Median Salaries</h4>
+      <card-title>Median Salaries</card-title>
       <card-body>
       <div class="d-flex justify-content-center" style="display:block">
       <line-chart :data="salaryData" width="400px" height="250px"/>
@@ -97,7 +96,7 @@
     <column lx="6">
     <card>
       
-      <h4>Hiring Volume</h4>
+      <card-title>Hiring Volume</card-title>
       <card-body>
         <div class="d-flex justify-content-center" style="display:block">
         <line-chart :data="hiringData" width="400px" height="250px"/>
@@ -117,7 +116,63 @@
   </column>
 
 </div>
-<column lx="2">Unpreparedness column</column>
+<column lx="4">
+  <h4>Most Important Skills</h4>
+  
+  <row>
+  <div class="card card-cascade wider">
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+    <h2><span class="badge red">Domain/Technical Knowledge</span></h2>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+    <!-- Title -->
+    <h4 class="card-title"><strong>3.5 / 5</strong></h4>
+    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
+  </div>
+  </div>
+  </row>
+
+  <row>
+  <div class="card card-cascade wider">
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+    <h2><span class="badge red">Creativity and Innovation</span></h2>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+    <!-- Title -->
+    <h4 class="card-title"><strong>3.7 / 5</strong></h4>
+    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
+  </div>
+  </div>
+  </row>
+
+  <row>
+  <div class="card card-cascade wider">
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+    <h2><span class="badge red">Critical Thinking / Problem Solving</span></h2>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+    <!-- Title -->
+    <h4 class="card-title"><strong>4.0 / 5</strong></h4>
+    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
+  </div>
+  </div>
+  </row>
+</column>
 
 </row>
 
@@ -140,7 +195,7 @@ var careerRef = db.ref("career/Bachelor of Arts (Architecture)");
 //console.log(modRef)
 export default {
   created() {
-    this.major = this.$route.params.major;
+    this.careerTitle = this.$route.params.careerTitle;
   },
   mounted() {
     
@@ -148,11 +203,13 @@ export default {
       .once("value")
       .then(snapshot => {
         this.career = snapshot.val();
+        console.log("Print career: ")
+        console.log(this.career)
       })
       .then(() => {
         this.rendered = this.getbreakdown();
       });
-    console.log("mounted" + this.career);
+    console.log("mounted " + this.career);
     
   
   },
