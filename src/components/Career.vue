@@ -6,7 +6,7 @@
 
 <div class="charts">
 
-  <column lx="10" md="auto">
+  <column md="auto">
   <row>
     <column lx="6">
     <card cascade class="cascading-admin-card">
@@ -68,13 +68,11 @@
               <th scope="row">Others</th>
               <td>10.0%</td>
               <td>3,825</td>
-              
             </tr>
           </tbody>
           <!--Table body-->
         </table>
         </card-body>
-        
       </div>
       </card>
       </column>
@@ -85,37 +83,25 @@
   <row>
     <column lx="6">
     <card>
-      
       <card-title>Median Salaries</card-title>
       <card-body>
       <div class="d-flex justify-content-center" style="display:block">
       <line-chart :data="salaryData" width="400px" height="250px"/>
       </div>
       </card-body>
-      
     </card>
-    
     </column>
     <column lx="6">
     <card>
-      
       <card-title>Hiring Volume</card-title>
       <card-body>
         <div class="d-flex justify-content-center" style="display:block">
         <line-chart :data="hiringData" width="400px" height="250px"/>
         </div>
       </card-body>
-      
-      
     </card>
-
-     
     </column>
   </row>
-  
-
-
-
   </column>
 
 </div>
@@ -197,31 +183,39 @@ import randomcolor from "randomcolor";
 import "echarts-wordcloud";
 import Vue from "vue";
 import careerSearch from "./careerSearch";
-import {  Row, Column, Btn,Fa, PieChart, BarChart, Card, CardBody, CardHeader, CardText } from "mdbvue";
+import {
+  Row,
+  Column,
+  Btn,
+  Fa,
+  PieChart,
+  BarChart,
+  Card,
+  CardBody,
+  CardHeader,
+  CardText,
+  CardTitle
+} from "mdbvue";
 // mods[modulecode][semester]
 
-var careerRef = db.ref("career/Bachelor of Arts (Architecture)");
 
+console.log("Getting the ref ");
 //console.log(modRef)
 export default {
   created() {
     this.careerTitle = this.$route.params.careerTitle;
+    this.careerRef = db.ref("career/" + this.careerTitle);
+    console.log("Getting the title ");
   },
   mounted() {
-    
-    careerRef
+    this.careerRef
       .once("value")
       .then(snapshot => {
         this.career = snapshot.val();
-        console.log("Print career: ")
-        console.log(this.career)
       })
       .then(() => {
         this.rendered = this.getbreakdown();
       });
-    console.log("mounted " + this.career);
-    
-  
   },
   components: {
     Row,
@@ -233,6 +227,7 @@ export default {
     Card,
     CardBody,
     CardHeader,
+    CardTitle,
     CardText,
     careerSearch
   },
@@ -241,7 +236,7 @@ export default {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
       rendered: false,
-
+      careerRef:[],
       pieChartOptions: {
         responsive: true,
         maintainAspectRatio: false
@@ -256,35 +251,60 @@ export default {
           }
         ]
       },
-      salaryData:[
-        {name: 'Healthcare', data: {'2015': 3344, '2016': 3400, '2017': 3500, '2018': 3480}},
-        {name: 'Real Estate', data: {'2015': 4001, '2016': 4100, '2017': 3889, '2018': 3609}},
-        {name: 'Scientific R&D', data: {'2015': 4590, '2016': 4690, '2017': 4580, '2018': 4500}},
-        {name: 'Society & Community', data: {'2015': 2900, '2016': 3000, '2017': 2390, '2018': 3148}}
-        
+      salaryData: [
+        {
+          name: "Healthcare",
+          data: { "2015": 3344, "2016": 3400, "2017": 3500, "2018": 3480 }
+        },
+        {
+          name: "Real Estate",
+          data: { "2015": 4001, "2016": 4100, "2017": 3889, "2018": 3609 }
+        },
+        {
+          name: "Scientific R&D",
+          data: { "2015": 4590, "2016": 4690, "2017": 4580, "2018": 4500 }
+        },
+        {
+          name: "Society & Community",
+          data: { "2015": 2900, "2016": 3000, "2017": 2390, "2018": 3148 }
+        }
       ],
-      hiringData:[
-        {name: 'Healthcare', data: {'2015': 33, '2016': 34, '2017': 35, '2018': 34}},
-        {name: 'Real Estate', data: {'2015': 41, '2016': 40, '2017': 38, '2018': 36}},
-        {name: 'Scientific R&D', data: {'2015': 40, '2016': 40, '2017': 45, '2018': 45}},
-        {name: 'Society & Community', data: {'2015': 29, '2016': 30, '2017': 23, '2018': 31}}
-        
-      ],
+      hiringData: [
+        {
+          name: "Healthcare",
+          data: { "2015": 33, "2016": 34, "2017": 35, "2018": 34 }
+        },
+        {
+          name: "Real Estate",
+          data: { "2015": 41, "2016": 40, "2017": 38, "2018": 36 }
+        },
+        {
+          name: "Scientific R&D",
+          data: { "2015": 40, "2016": 40, "2017": 45, "2018": 45 }
+        },
+        {
+          name: "Society & Community",
+          data: { "2015": 29, "2016": 30, "2017": 23, "2018": 31 }
+        }
+      ]
     };
   },
   methods: {
     getbreakdown() {
-      const data = this.career["industries"];
+      console.log("Printing career: ")
+      console.log(this.career)
       let pielabels = [];
       let piedata = [];
       let lineData = [];
-
-      //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
+      let industryObjects =[];
+      //This line below gets all the industry names for this major
+      const data = this.career["industries"];      
       
+      //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
+
       for (var value in data) {
         pielabels.push(value);
-        piedata.push(1);
-        /*
+        
         let tempLine = {};
         tempLine.name = value;
         tempLine.data = {};
@@ -293,11 +313,28 @@ export default {
             tempLine.data.year = salary
           }
         }
-        lineData.push(tempLine)*/
+        lineData.push(tempLine)
       }
-      
-
-
+      industryObjects.push(this.career["industries"])
+      var industries = industryObjects[0]
+      let industryList = [];
+      for(var i in industries){
+        industryList.push(industries[i])
+      }
+      console.log(industryList)
+      let hiringCount = [];
+      for(var attribute in industryList){
+        var thisIndustry = (industryList[attribute]["hiringCount"])
+        var count = 0
+        for(var year in thisIndustry){
+          count = count + thisIndustry[year]
+          hiringCount.push(count)
+        }
+      }
+      console.log(hiringCount)
+      for(var key in hiringCount){
+        piedata.push(hiringCount[key])
+      }
       this.pieChartData = {
         labels: [],
         datasets: [
@@ -327,13 +364,12 @@ export default {
       this.pieChartData["labels"] = pielabels;
       this.pieChartData["datasets"][0]["data"] = piedata;
       //this.piedata = piedata;
-      console.log(this.pieChartData);
-      console.log(this.pieChartOptions)
-      
+     
+
       return true;
     }
   }
-}
+};
 </script>
 <style scoped>
 /*.charts{
