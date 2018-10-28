@@ -1,7 +1,11 @@
 <template>
 <div classname="charts">
+<div class = "page-header">
+   <h1>
+      {{careerTitle}}
+   </h1>
+</div>
 
-<h2> {{careerTitle}} </h2>
 <row>
 
 <div class="charts">
