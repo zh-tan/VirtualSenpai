@@ -5,11 +5,10 @@
     <column xl="6" md="6" class="mb-r">
     <div class="module" style="height:90px">
           <card cascade class="cascading-admin-card">
+          <card-header class="text-left">Module Information </card-header>
             <div class="admin-up">
               <fa icon="line-chart" class="warning-color"/>
               <div class="data">
-                <p>Module Information</p>
-
               </div>
             </div>
             <card-body>
@@ -26,13 +25,14 @@
 
  <column xl="3" md="6">
           <card cascade class="cascading-admin-card">
+          <card-header class="text-left">Average Rating </card-header>
             <div class="admin-up">
               <fa icon="line-chart" class="warning-color"/>
-              <div class="data">
-                <h6 :style="{textDecoration: 'underline'}"> Average Rating</h6>
+
+            </div>
+                          <div class="data">
   <h4> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h4>
               </div>
-            </div>
             <card-body>
               <div class="progress">
                 <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar bg grey darken-2" role="progressbar"
@@ -47,15 +47,16 @@
   
   <column xl="3" md="6" class="mb-r">
           <card cascade class="cascading-admin-card">
+          <card-header class="text-left"> Opinion Rating </card-header>
             <div class="admin-up">
               <fa icon="pie-chart" class="light-blue lighten-1"/>
-              <div class="data">
-                <p>Opinion Rating</p>
-                <h4>  
-                  <strong>  {{opinion_rating}} </strong>
-                </h4>
-              </div>
+
             </div>
+                          <div class="data">
+                  
+                  <strong>  {{opinion_rating}} </strong>
+                
+              </div>
             <card-body>
               <div class="progress">
                 <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress-bar green" role="progressbar"
@@ -133,7 +134,8 @@
 </template>
 
 
-<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> </script>
+<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</script>
 <script>
 import { db } from "../firebase";
 import {
@@ -151,7 +153,7 @@ import {
 import IEcharts from "vue-echarts-v3/src/lite.js";
 import randomcolor from "randomcolor";
 import wordcloud from "vue-wordcloud";
-import '@fortawesome/fontawesome-free/css/all.css';
+import "@fortawesome/fontawesome-free/css/all.css";
 import Vue from "vue";
 // mods[modulecode][semester]
 
@@ -434,7 +436,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .charts {
   // display:grid;
   // grid-template-columns: 2fr 1fr;
@@ -456,8 +458,30 @@ export default {
   display: flex;
 }
 
-.module {
-  height: 50px;
+.cascading-admin-card {
+  margin: 10px;
+}
+.cascading-admin-card .admin-up {
+  margin-left: 50%;
+  margin-right: 4%;
+  margin-top: -70px;
+}
+.cascading-admin-card .admin-up .fa {
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.2), 0 2px 13px 0 rgba(0, 0, 0, 0.19);
+}
+.cascading-admin-card .admin-up .fa {
+  padding: 1.7rem;
+  font-size: 2rem;
+  color: #fff;
+  text-align: left;
+  margin-right: 1rem;
+  border-radius: 3px;
+}
+.cascading-admin-card .admin-up .data {
+  margin-left: 10px;
+  float: left;
+  margin-top: 2rem;
+  text-align: left;
 }
 
 wordcloud {
