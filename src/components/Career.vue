@@ -8,7 +8,7 @@
 
   <column md="auto">
   <row>
-    <column lx="6">
+    <column lx="4">
     <card cascade class="cascading-admin-card">
       <div class="piechart">
       <card-header class="text-left">Hiring industries </card-header>
@@ -16,13 +16,13 @@
       <pie-chart v-if="rendered"
       :data="pieChartData" 
       :options="pieChartOptions" 
-      :height="365"
+      :height="420"
       :width="600"></pie-chart>
       </card-body>
       </div>
     </card>
     </column>
-    <column lx="6">
+    <column lx="4">
     <card>
       <div class="table table-sm">
         <card-header class="text-left">Common Roles</card-header>
@@ -76,6 +76,79 @@
       </div>
       </card>
       </column>
+      <!-- put the unpreparedness here -->
+      <column lx="4">
+  <div class="view overlay">
+    <card>
+  <card-header class="text-left">Areas of Improvement</card-header>
+  <div class="d-flex justify-content-around">
+  <div class="w-30 p-3">
+  
+  <row>
+  <div class="card card-cascade wider">
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+    <h2><span class="badge red">{{top3Skills[0]}}</span></h2>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+    <!-- Title -->
+    <h4 class="card-title"><strong>{{top3Scores[0].toFixed(1)}} / 5</strong></h4>
+    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
+  </div>
+  </div>
+  </row>
+  <br>
+  <row>
+  <div class="card card-cascade wider">
+  
+  <div class="view view-cascade overlay">
+    <h2><span class="badge red">{{top3Skills[1]}}</span></h2>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+    <!-- Title -->
+    <h4 class="card-title"><strong>{{top3Scores[1].toFixed(1)}} / 5</strong></h4>
+    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
+  </div>
+  </div>
+  </row>
+  <br>
+  <row>
+  <div class="card card-cascade wider">
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+    <h2><span class="badge red">{{top3Skills[2]}}</span></h2>
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+    <!-- Title -->
+    <h4 class="card-title"><strong>{{top3Scores[2].toFixed(1)}} / 5</strong></h4>
+    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
+  </div>
+  </div>
+  </row>
+  </div>
+  </div>
+  </card>
+    <div class="mask flex-center rgba-red-strong">
+        <p class="white-text flex-center">
+        This section shows the scores of the top 3 skills that graduates of {{this.careerTitle}} felt they were the most lacking in when they entered the workforce
+        <br>
+        A higher score for a skill shows that for this skill, graduates were more unprepared for it
+        </p>
+    </div>
+</div>
+</column>
   </row>
   <row>
     <br>
@@ -105,76 +178,9 @@
   </column>
 
 </div>
-<column lx="2">
-  <card>
-  <card-header class="text-left">Areas of Improvement</card-header>
-  <div class="d-flex justify-content-around">
-  <div class="w-30 p-3">
-  
-  <row>
-  <div class="card card-cascade wider">
-  <!-- Card image -->
-  <div class="view view-cascade overlay">
-    <h2><span class="badge red">{{top3Skills[0]}}</span></h2>
-    <a href="#!">
-      <div class="mask rgba-white-slight"></div>
-    </a>
-  </div>
-  <!-- Card content -->
-  <div class="card-body card-body-cascade text-center">
-    <!-- Title -->
-    <h4 class="card-title"><strong>{{top3Scores[0].toFixed(1)}} / 5</strong></h4>
-    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
-  </div>
-  </div>
-  </row>
-
-  <row>
-  <div class="card card-cascade wider">
-  <!-- Card image -->
-  <div class="view view-cascade overlay">
-    <h2><span class="badge red">{{top3Skills[1]}}</span></h2>
-    <a href="#!">
-      <div class="mask rgba-white-slight"></div>
-    </a>
-  </div>
-  <!-- Card content -->
-  <div class="card-body card-body-cascade text-center">
-    <!-- Title -->
-    <h4 class="card-title"><strong>{{top3Scores[1].toFixed(1)}} / 5</strong></h4>
-    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
-  </div>
-  </div>
-  </row>
-
-  <row>
-  <div class="card card-cascade wider">
-  <!-- Card image -->
-  <div class="view view-cascade overlay">
-    <h2><span class="badge red">{{top3Skills[2]}}</span></h2>
-    <a href="#!">
-      <div class="mask rgba-white-slight"></div>
-    </a>
-  </div>
-  <!-- Card content -->
-  <div class="card-body card-body-cascade text-center">
-    <!-- Title -->
-    <h4 class="card-title"><strong>{{top3Scores[2].toFixed(1)}} / 5</strong></h4>
-    <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
-  </div>
-  </div>
-  </row>
-
-  </div>
-  
-  </div>
-  </card>
-</column>
 
 </row>
-
     </div>
-    
 </template>
 
 <script>
