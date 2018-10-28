@@ -71,6 +71,7 @@
   <row>
     <column xl="6" md="6">
   <card cascade class="cascading-admin-card">
+   <card-header class="text-left">Cohort Breakdown </card-header>
   <card-body>
   <div class="piechart">
     <pie-chart ref="PC"
