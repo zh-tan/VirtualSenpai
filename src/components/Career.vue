@@ -11,12 +11,12 @@
     <column lx="6">
     <card cascade class="cascading-admin-card">
       <div class="piechart">
-      <card-title>Hiring Industries</card-title>
+      <card-header class="text-left">Hiring industries </card-header>
       <card-body>
       <pie-chart v-if="rendered"
       :data="pieChartData" 
       :options="pieChartOptions" 
-      :height="300"
+      :height="365"
       :width="600"></pie-chart>
       </card-body>
       </div>
@@ -25,7 +25,7 @@
     <column lx="6">
     <card>
       <div class="table table-sm">
-        <card-title>Common Roles</card-title>
+        <card-header class="text-left">Common Roles</card-header>
         <card-body>    
         <table id="tablePreview" class="table table-striped table-bordered">
         <!--Table head-->
@@ -83,7 +83,7 @@
   <row>
     <column lx="6">
     <card>
-      <card-title>Median Salaries</card-title>
+      <card-header class="text-left">Median Salaries</card-header>
       <card-body>
       <div class="d-flex justify-content-center" style="display:block">
       <line-chart :data="salaryData" width="400px" height="250px"/>
@@ -93,7 +93,7 @@
     </column>
     <column lx="6">
     <card>
-      <card-title>Hiring Volume</card-title>
+      <card-header class="text-left">Hiring Volume</card-header>
       <card-body>
         <div class="d-flex justify-content-center" style="display:block">
         <line-chart :data="hiringData" width="400px" height="250px"/>
@@ -107,9 +107,10 @@
 </div>
 <column lx="2">
   <card>
+  <card-header class="text-left">Areas of Improvement</card-header>
   <div class="d-flex justify-content-around">
   <div class="w-30 p-3">
-  <h4>Most Important Skills</h4>
+  
   <row>
   <div class="card card-cascade wider">
   <!-- Card image -->
@@ -244,48 +245,12 @@ export default {
         maintainAspectRatio: false
       },
       pieChartData: {},
-      salaryData: [
-        {
-          name: "Healthcare",
-          data: { "2015": 3344, "2016": 3400, "2017": 3500, "2018": 3480 }
-        },
-        {
-          name: "Real Estate",
-          data: { "2015": 4001, "2016": 4100, "2017": 3889, "2018": 3609 }
-        },
-        {
-          name: "Scientific R&D",
-          data: { "2015": 4590, "2016": 4690, "2017": 4580, "2018": 4500 }
-        },
-        {
-          name: "Society & Community",
-          data: { "2015": 2900, "2016": 3000, "2017": 2390, "2018": 3148 }
-        }
-      ],
-      hiringData: [
-        {
-          name: "Healthcare",
-          data: { "2015": 33, "2016": 34, "2017": 35, "2018": 34 }
-        },
-        {
-          name: "Real Estate",
-          data: { "2015": 41, "2016": 40, "2017": 38, "2018": 36 }
-        },
-        {
-          name: "Scientific R&D",
-          data: { "2015": 40, "2016": 40, "2017": 45, "2018": 45 }
-        },
-        {
-          name: "Society & Community",
-          data: { "2015": 29, "2016": 30, "2017": 23, "2018": 31 }
-        }
-      ]
+      salaryData: [],
+      hiringData: []
     };
   },
   methods: {
     getbreakdown() {
-      console.log("Printing career: ")
-      console.log(this.career)
 
       let pielabels = [];
       let piedata = [];
@@ -317,8 +282,6 @@ export default {
       const top3Ranking = {};
       var count = 0
       for(var i in sortRanking){
-        console.log(sortRanking[i][0])
-        console.log(sortRanking[i][1])
         top3Ranking[sortRanking[i][0]] = sortRanking[i][1]
         count++
         if(count===3){
@@ -329,24 +292,33 @@ export default {
         this.top3Skills.push(i)
         this.top3Scores.push(top3Ranking[i])
       }
-      
-
-      //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
 
       for (var value in data) {
         pielabels.push(value);
-        
-        let tempLine = {};
-        tempLine.name = value;
-        tempLine.data = {};
-        for(var year in data["median_sal"]){
-          for(var salary in year){
-            tempLine.data.year = salary
-          }
-        }
-        lineData.push(tempLine)
       }
+      //this.salaryData
       industryObjects.push(this.career["industries"])
+      
+      let medianSalary = [];
+      let hiring = [];
+      /*{
+          name: "Healthcare",
+          data: { "2015": 33, "2016": 34, "2017": 35, "2018": 34 }
+        }*/
+      for(var name in pielabels){
+        var oneSal = {}
+        var oneHire = {}
+        oneSal["name"]=pielabels[name]
+        oneHire["name"]=pielabels[name]
+        oneSal["data"]=this.career["industries"][pielabels[name]]["median_sal"]
+        oneHire["data"]=this.career["industries"][pielabels[name]]["hiringCount"]
+        medianSalary.push(oneSal)
+        hiring.push(oneHire)
+      }
+      
+      this.salaryData=medianSalary
+      this.hiringData=hiring
+
       var industries = industryObjects[0]
       let industryList = [];
       for(var i in industries){
@@ -354,19 +326,24 @@ export default {
       }
       
       let hiringCount = [];
+      
+      
       for(var attribute in industryList){
         var thisIndustry = (industryList[attribute]["hiringCount"])
+        
+        
         var count = 0
         for(var year in thisIndustry){
           count = count + thisIndustry[year]
-          hiringCount.push(count)
+          
         }
+        hiringCount.push(count)
       }
       
       for(var key in hiringCount){
         piedata.push(hiringCount[key])
       }
-
+      
       this.pieChartData = {
         labels: [],
         datasets: [
