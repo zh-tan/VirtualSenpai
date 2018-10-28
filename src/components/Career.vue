@@ -114,7 +114,7 @@
   <div class="card card-cascade wider">
   <!-- Card image -->
   <div class="view view-cascade overlay">
-    <h2><span class="badge red">Domain/Technical Knowledge</span></h2>
+    <h2><span class="badge red">{{top3Skills[0]}}</span></h2>
     <a href="#!">
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -122,7 +122,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>3.5 / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[0]}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -132,7 +132,7 @@
   <div class="card card-cascade wider">
   <!-- Card image -->
   <div class="view view-cascade overlay">
-    <h2><span class="badge red">Creativity and Innovation</span></h2>
+    <h2><span class="badge red">{{top3Skills[1]}}</span></h2>
     <a href="#!">
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -140,7 +140,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>3.7 / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[1]}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -150,7 +150,7 @@
   <div class="card card-cascade wider">
   <!-- Card image -->
   <div class="view view-cascade overlay">
-    <h2><span class="badge red">Critical Thinking / Problem Solving</span></h2>
+    <h2><span class="badge red">{{top3Skills[2]}}</span></h2>
     <a href="#!">
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -158,7 +158,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>4.0 / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[2]}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -235,22 +235,15 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
+      top3Skills: [],
+      top3Scores:[],
       rendered: false,
       careerRef:[],
       pieChartOptions: {
         responsive: true,
         maintainAspectRatio: false
       },
-      pieChartData: {
-        labels: [],
-        datasets: [
-          {
-            data: [],
-            backgroundColor: [],
-            hoverBackgroundColor: []
-          }
-        ]
-      },
+      pieChartData: {},
       salaryData: [
         {
           name: "Healthcare",
@@ -293,13 +286,51 @@ export default {
     getbreakdown() {
       console.log("Printing career: ")
       console.log(this.career)
+
       let pielabels = [];
       let piedata = [];
       let lineData = [];
       let industryObjects =[];
+
+      let ranking = {};
       //This line below gets all the industry names for this major
-      const data = this.career["industries"];      
+      const data = this.career["industries"];
+      const preparedness = this.career["preparedness"]
+
       
+      for(var year in preparedness){
+        for(var k in preparedness[year]){
+          ranking[preparedness[year][k][0]]=preparedness[year][k][1]
+        }
+      }
+
+      // Create items array
+      var sortRanking = Object.keys(ranking).map(function(key) {
+        return [key, ranking[key]];
+      });
+
+      // Sort the array based on the second element
+      sortRanking.sort(function(first, second) {
+        return second[1] - first[1];
+      });
+      
+      const top3Ranking = {};
+      var count = 0
+      for(var i in sortRanking){
+        console.log(sortRanking[i][0])
+        console.log(sortRanking[i][1])
+        top3Ranking[sortRanking[i][0]] = sortRanking[i][1]
+        count++
+        if(count===3){
+          break;
+        }
+      }
+      for(var i in top3Ranking){
+        this.top3Skills.push(i)
+        this.top3Scores.push(top3Ranking[i])
+      }
+      
+
       //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
 
       for (var value in data) {
@@ -321,7 +352,7 @@ export default {
       for(var i in industries){
         industryList.push(industries[i])
       }
-      console.log(industryList)
+      
       let hiringCount = [];
       for(var attribute in industryList){
         var thisIndustry = (industryList[attribute]["hiringCount"])
@@ -331,10 +362,11 @@ export default {
           hiringCount.push(count)
         }
       }
-      console.log(hiringCount)
+      
       for(var key in hiringCount){
         piedata.push(hiringCount[key])
       }
+
       this.pieChartData = {
         labels: [],
         datasets: [
