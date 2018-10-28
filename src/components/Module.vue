@@ -310,27 +310,27 @@ export default {
           visited.push("Very good");
           //console.log("here");
           this.total_opinion_rating["good"] += values["Very good"];
-          output += values["Very good"] * 100 + "% rated Very good";
+          output += (values["Very good"] * 100).toFixed(1) + "% rated Very good";
         } else if ("Good" in values && !visited.includes("Good")) {
           visited.push("Good");
           this.total_opinion_rating["good"] += values["Good"];
-          output += values["Good"] * 100 + "% rated Good";
+          output += (values["Good"] * 100).toFixed(1) + "% rated Good";
         } else if ("Average" in values && !visited.includes("Average")) {
           //console.log("here")
           this.total_opinion_rating["average"] += values["Average"];
           visited.push("Average");
-          output += values["Average"] * 100 + "% rated Average";
+          output += (values["Average"] * 100).toFixed(1) + "% rated Average";
         } else if (
           "Below average" in values &&
           !visited.includes("Below average")
         ) {
           this.total_opinion_rating["bad"] += values["Below average"];
           visited.push("Below average");
-          output += values["Below average"] * 100 + "% rated Below average";
+          output += (values["Below average"] * 100).toFixed(1) + "% rated Below average";
         } else if ("Poor" in values && !visited.includes("Poor")) {
           this.total_opinion_rating["bad"] += values["Poor"];
           visited.push("Poor");
-          output += values["Poor"] * 100 + "% rated Poor";
+          output += (values["Poor"] * 100).toFixed(1) + "% rated Poor";
         }
         counter++;
 
