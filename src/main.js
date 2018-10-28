@@ -11,6 +11,11 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbvue/build/css/mdb.css";
 import VueChartkick from "vue-chartkick";
 import Highcharts from "highcharts";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import BootstrapVue from "bootstrap-vue";
+
+Vue.use(BootstrapVue);
 
 Vue.use(VueChartkick, { adapter: Highcharts });
 Vue.config.productionTip = false;

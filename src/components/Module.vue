@@ -33,15 +33,14 @@
                           <div class="data">
   <h4> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h4>
               </div>
+            <div style="height: 70px">
             <card-body>
-              <div class="progress">
-                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar bg grey darken-2" role="progressbar"
-                  style="width: 25%"></div>
+            <div class="commentary">
+            <div> <b-progress :value="avg_rating" :max="5" :variant="avg_rating_bar" animated></b-progress> </div>
+              <card-text>{{avg_rating_commentary}} </card-text>
               </div>
-
-              <b-progress-bar :value="1*(6/10)" variant="success"></b-progress-bar>
-              <card-text>Worse than last week (25%)</card-text>
             </card-body>
+            </div>
           </card>
   </column>
   
@@ -212,10 +211,30 @@ export default {
       rendered: false,
       avg_rating: "",
       opinion_rating: "",
-      spancolor: ""
+      spancolor: "",
+      avg_rating_bar: ""
     };
   },
-  computed: {},
+  computed: {
+    avg_rating_commentary() {
+      var output = "";
+      const percentage = Math.round((this.avg_rating / 5) * 100);
+      if (this.avg_rating > 3.5) {
+        this.avg_rating_bar = "success";
+        output = "high";
+      } else if (this.avg_rating > 2.5) {
+        this.avg_rating_bar = "warning";
+        output = "normal";
+      } else {
+        this.avg_rating_bar = "danger";
+        output = "low";
+      }
+
+      return (
+        "Students have a " + output + " Average Rating of " + percentage + "%"
+      );
+    }
+  },
   methods: {
     toggle() {
       this.rendered = false;
@@ -460,6 +479,7 @@ export default {
 
 .cascading-admin-card {
   margin: 10px;
+  margin-top: 10px;
 }
 .cascading-admin-card .admin-up {
   margin-left: 50%;
@@ -482,6 +502,14 @@ export default {
   float: left;
   margin-top: 2rem;
   text-align: left;
+}
+
+.cascading-admin-card {
+  margin-top: 0px;
+}
+
+.commentary {
+  margin-top: -25px;
 }
 
 wordcloud {
