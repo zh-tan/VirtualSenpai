@@ -12,7 +12,7 @@
               </div>
             </div>
             <card-body>
-              <p> Put in moduel name + prof </p>
+              <p> {{modCode}}:  {{mod_name}}</p>
             <select  @change="refreshAY(curSem)" v-model="curSem">
               <option v-for="sem in AYList" :key="sem">
               {{sem}}
@@ -181,6 +181,10 @@ export default {
         this.opinion_rating = this.opinionrating();
         this.get_words();
       });
+      db.ref("mod_summary/" + this.modCode)
+      .once("value").then(snapshot=>{
+        this.mod_name=snapshot.val().mod_name;
+      });
   },
   props: {},
   components: {
@@ -209,6 +213,7 @@ export default {
       ins: null,
       echarts: null,
       mods: {},
+      mod_name:"" ,
       pieChartOptions: {},
       pieChartData: {},
       gradesdistdata: {},
