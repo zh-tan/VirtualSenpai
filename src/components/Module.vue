@@ -1,6 +1,5 @@
 <template>
 <div class="charts">
-
 <row >
     <column xl="6" md="6" class="mb-r">
     <div class="module" style="height:90px">
@@ -108,14 +107,13 @@
       <card class="mb-4">
         <card-header class="text-left"> Positive Feedback </card-header>
         <card-body>
-          <div>
-          <wordcloud
-            :data="word_cloud"
-            nameKey="name"
-            valueKey="value">
-            :
-            </wordcloud>
-        </div>  
+      <div class="echarts">
+              <IEcharts
+      v-if="rendered"
+      :option='wordcloud'
+      @ready='onReady'
+      />
+      </div>
         </card-body>
     </card>
    
@@ -125,17 +123,18 @@
 <card class="mb-4">
           <card-header class="text-left"> Negative Feedback </card-header>
           <card-body>
-            <div>
-              <wordcloud
-                :data="word_cloud_b"
-                nameKey="name"
-                valueKey="value">
-                </wordcloud>
-            </div>
+      <div  class="echarts">
+      <IEcharts class="wc"
+      v-if="rendered"
+      :option='wordcloudB'
+      @ready='onReadyB'
+      />
+    </div>
             </card-body>
       </card>
 </column>
   </row>
+
 
 </div>
 </template>
@@ -144,6 +143,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </script>
 <script>
+
 import { db } from "../firebase";
 import {
   Row,
@@ -159,16 +159,19 @@ import {
 } from "mdbvue";
 import IEcharts from "vue-echarts-v3/src/lite.js";
 import randomcolor from "randomcolor";
-import wordcloud from "vue-wordcloud";
+//import wordcloud from "vue-wordcloud";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Vue from "vue";
+//import wordcloud from "echarts-wordcloud";
 // mods[modulecode][semester]
+import 'echarts-wordcloud'
 
 //console.log(modRef)
 export default {
   created() {
     this.modCode = this.$route.params.modCode;
     this.modRef = db.ref("mods/" + this.modCode);
+    
   },
   mounted() {
     this.modRef
@@ -178,11 +181,12 @@ export default {
       })
       .then(() => {
         this.getAY();
+        this.get_words();
         this.rendered = this.getbreakdown();
         this.gradesdist();
         this.avg_rating = this.avgrating();
         this.opinion_rating = this.opinionrating();
-        this.get_words();
+        
       });
       db.ref("mod_summary/" + this.modCode)
       .once("value").then(snapshot=>{
@@ -197,7 +201,7 @@ export default {
     Fa,
     PieChart,
     BarChart,
-    wordcloud,
+    IEcharts,
     Card,
     CardBody,
     CardHeader,
@@ -209,13 +213,14 @@ export default {
       //available AY
       modRef: {},
       AYList: [],
-      AY: "2018-S1",
+      AY: "2017-S2",
       word_cloud: [],
-      test: [],
       word_cloud_b: [],
       ins: null,
       echarts: null,
       mods: {},
+      wordcloud:{},
+      wordcloudB:{},
       mod_name:"" ,
       pieChartOptions: {},
       pieChartData: {},
@@ -357,6 +362,88 @@ export default {
       return output;
     },
 
+    onReady (instance, echarts) {
+      const that = this
+      that.ins = instance
+      that.echarts = echarts
+      that.wordcloud = {
+        tooltip: {},
+        series: [
+          {
+            type: 'wordCloud',
+            gridSize: 1,
+            sizeRange: [12, 30],
+            rotationRange: [0, 0],
+            shape: 'pentagon',
+            width: 300,
+            height: 350,
+            drawOutOfBound: false,
+            textStyle: {
+              normal: {
+                color: function () {
+                  return (
+                    'rgb(' +
+                    [
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160)
+                    ].join(',') +
+                    ')'
+                  )
+                }
+              },
+              emphasis: {
+                shadowBlur: 10,
+                shadowColor: '#333'
+              }
+            },
+            data: this.word_cloud
+          }
+        ]
+      }
+    }
+,
+onReadyB (instance, echarts) {
+      const that = this
+      that.ins = instance
+      that.echarts = echarts
+      that.wordcloudB = {
+        tooltip: {},
+        series: [
+          {
+            type: 'wordCloud',
+            gridSize: 3,
+            sizeRange: [12, 30],
+            rotationRange: [0, 0],
+            shape: 'pentagon',
+            width: 280,
+            height: 360,
+            drawOutOfBound: false,
+            textStyle: {
+              normal: {
+                color: function () {
+                  return (
+                    'rgb(' +
+                    [
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160),
+                      Math.round(Math.random() * 160)
+                    ].join(',') +
+                    ')'
+                  )
+                }
+              },
+              emphasis: {
+                shadowBlur: 10,
+                shadowColor: '#333'
+              }
+            },
+            data: this.word_cloud_b
+          }
+        ]
+      }
+    },
+
     // method for piechart to initialise
     getbreakdown() {
       const data = this.mods[this.AY]["cohort"];
@@ -481,7 +568,7 @@ export default {
       for (var i in words) {
         goodwords.push({
           name: words[i],
-          value: this.mods[this.AY]["likes_WC"][words[i]]
+          value: this.mods[this.AY]["likes_WC"][words[i]],
         });
       }
       var badwords = [];
@@ -508,6 +595,12 @@ export default {
   // //grid-auto-rows: minmax(100px, auto);
   // grid-row-gap: 1em;
 }
+ .echarts {
+    width: 280px;
+    height: 360px;
+    margin: 0px;
+    padding: 0px;
+  }
 
 .pieandtext {
   // display:grid;
@@ -557,7 +650,4 @@ export default {
   margin-top: -25px;
 }
 
-wordcloud {
-  border-color: black;
-}
 </style>
