@@ -411,7 +411,7 @@ export default {
           // find index through mapping to increase count
           const idx = idxmap[lettergrade];
           //console.log(lettergrade);
-          gradescount[idx] += 1;
+          gradescount[idx] += data[course][lettergrade];
         }
         // append to datasets to contain standard format
         dataset.push({

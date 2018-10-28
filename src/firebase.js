@@ -1,12 +1,12 @@
 import Firebase from "firebase";
 
 let config = {
-  apiKey: "AIzaSyBxKthg4LSVlQXzG-8IdQF-SaykhGFxWNI",
-  authDomain: "virtualsenpai-71ac3.firebaseapp.com",
-  databaseURL: "https://virtualsenpai-71ac3.firebaseio.com",
-  projectId: "virtualsenpai-71ac3",
-  storageBucket: "virtualsenpai-71ac3.appspot.com",
-  messagingSenderId: "906077178422"
+  apiKey: "AIzaSyD9sybcUqJyppHJww0AiKrWCBpU_7Dytng",
+  authDomain: "virtualsenpaiv2.firebaseapp.com",
+  databaseURL: "https://virtualsenpaiv2.firebaseio.com",
+  projectId: "virtualsenpaiv2",
+  storageBucket: "virtualsenpaiv2.appspot.com",
+  messagingSenderId: "696334416212"
 };
 
 let app = Firebase.initializeApp(config);
