@@ -19,7 +19,7 @@
     </div>
     <div>
     <p>Latest Feedback from: {{mod.latest_Sem}}</p>
-    <p>Average Rating: {{mod.avr_rating}} / 5</p>
+    <p :class="{red_rating:mod.avr_rating<3,green_rating:mod.avr_rating>=3}">Average Rating: {{mod.avr_rating}} / 5</p>
     </div>
   </div>
 </div>
@@ -88,5 +88,12 @@ export default {
   display:grid;
   grid-template-columns: 1fr 1fr;
 }
+.red_rating{
+  color:red;
+}
+.green_rating{
+  color:green;
+}
+
 
 </style>
