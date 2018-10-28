@@ -122,7 +122,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>{{top3Scores[0]}} / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[0].toFixed(1)}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -140,7 +140,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>{{top3Scores[1]}} / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[1].toFixed(1)}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -158,7 +158,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>{{top3Scores[2]}} / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[2].toFixed(1)}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>

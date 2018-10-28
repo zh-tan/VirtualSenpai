@@ -1,11 +1,13 @@
 <template>
 <div>
-<h1>career search</h1>
+<h1>Select a Degree Program</h1>
 <select  @change="$router.push({ path: '/careerview/'+prog})" v-model="prog">
   <option v-for="deg in majors" :key="deg">
   {{deg}}
   </option>
 </select><br>
+<div style="height: 1000px">
+</div>
 </div>
 </template>
 
