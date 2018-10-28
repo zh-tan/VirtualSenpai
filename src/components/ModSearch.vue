@@ -12,12 +12,15 @@
     </div>
 
 <div class="modules">
-  <div v-for="mod in mod_summary" :key="mod.code" style="{border: 1px solid #ff3366;}">
+  <div v-for="mod in mod_summary" :key="mod.code" class = "mod_info">
+    <div>
     <router-link :to="{ path : '/moduleview/'+mod.code}"><h5>{{mod.code}}</h5></router-link>
     <p>{{mod.mod_name}}</p>
+    </div>
+    <div>
     <p>Latest Feedback from: {{mod.latest_Sem}}</p>
-    <p>Average Rating: {{mod.avr_rating}}</p>
-    <br>
+    <p>Average Rating: {{mod.avr_rating}} / 5</p>
+    </div>
   </div>
 </div>
     <!-- Sidebar -->
@@ -79,6 +82,11 @@ export default {
   background-color: #fff;
   padding: 1.5rem;
   padding-top: 0;
+}
+.mod_info{
+  border: 1px solid black;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 </style>
