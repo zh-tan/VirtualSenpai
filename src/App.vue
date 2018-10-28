@@ -36,6 +36,7 @@ export default {
   },
   data() {
     return {
+
       headerBgVariant: "danger",
       headerTextVariant: "light",
       bodyBgVariant: "light",
