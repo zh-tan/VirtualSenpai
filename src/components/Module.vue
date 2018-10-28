@@ -59,10 +59,13 @@
                 
               </div>
             <card-body>
-              <div class="progress">
-                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" class="progress-bar green" role="progressbar"
-                  style="width: 75%"></div>
-              </div>
+                <b-progress class="mt-1" :max="100" show-value>
+                  <b-progress-bar :value="opinion_rating_bad" variant="danger"></b-progress-bar>
+                  <b-progress-bar :value="opinion_rating_average" variant="warning"></b-progress-bar>
+                  <b-progress-bar :value="opinion_rating_good" variant="success"></b-progress-bar>
+                  
+                </b-progress>
+
               <card-text>Worse than last week (75%)</card-text>
             </card-body>
           </card>
@@ -213,10 +216,12 @@ export default {
       rendered: false,
       avg_rating: "",
       opinion_rating: "",
+      total_opinion_rating: {},
       spancolor: "",
-
-      avg_rating_bar: ""
-
+      avg_rating_bar: "",
+      opinion_rating_average: "",
+      opinion_rating_good: "",
+      opinion_rating_bad: ""
     };
   },
   computed: {
@@ -224,7 +229,6 @@ export default {
       var output = "";
       const percentage = Math.round((this.avg_rating / 5) * 100);
       if (this.avg_rating > 3.5) {
-
         this.avg_rating_bar = "success";
         output = "high";
       } else if (this.avg_rating > 2.5) {
@@ -282,26 +286,41 @@ export default {
       var output = "";
       var counter = 0;
       const visited = [];
+
+      //reset total opinion rating
+      this.total_opinion_rating["good"] = 0;
+      this.total_opinion_rating["average"] = 0;
+      this.total_opinion_rating["bad"] = 0;
+
+      this.opinion_rating_average = 0;
+      this.opinion_rating_good = 0;
+      this.opinion_rating_bad = 0;
+
       // loop through maximum from Excellent to Poor
       for (var x in values) {
-        if ("Excellent" in values && !visited.includes("Excellent")) {
-          visited.push("Excellent");
+        if ("Very good" in values && !visited.includes("Very good")) {
+          visited.push("Very good");
           //console.log("here");
-          output += values["Excellent"] * 100 + "% rated Excellent";
+          this.total_opinion_rating["good"] += values["Very good"];
+          output += values["Very good"] * 100 + "% rated Very good";
         } else if ("Good" in values && !visited.includes("Good")) {
           visited.push("Good");
+          this.total_opinion_rating["good"] += values["Good"];
           output += values["Good"] * 100 + "% rated Good";
         } else if ("Average" in values && !visited.includes("Average")) {
           //console.log("here")
+          this.total_opinion_rating["average"] += values["Average"];
           visited.push("Average");
           output += values["Average"] * 100 + "% rated Average";
         } else if (
           "Below average" in values &&
           !visited.includes("Below average")
         ) {
+          this.total_opinion_rating["bad"] += values["Below average"];
           visited.push("Below average");
           output += values["Below average"] * 100 + "% rated Below average";
         } else if ("Poor" in values && !visited.includes("Poor")) {
+          this.total_opinion_rating["bad"] += values["Poor"];
           visited.push("Poor");
           output += values["Poor"] * 100 + "% rated Poor";
         }
@@ -313,7 +332,20 @@ export default {
           break;
         }
       }
-      console.log(output);
+
+      // check if 0, otherwise 0 * 100 = NAN0 ERROR
+      if (this.total_opinion_rating["average"] != 0) {
+        this.opinion_rating_average =
+          this.total_opinion_rating["average"] * 100;
+      }
+      if (this.total_opinion_rating["bad"] != 0) {
+        this.opinion_rating_bad = this.total_opinion_rating["bad"] * 100;
+      }
+      if (this.total_opinion_rating["good"]) {
+        this.opinion_rating_good = this.total_opinion_rating["good"] * 100;
+      }
+
+      //console.log(this.total_opinion_rating);
       return output;
     },
 
@@ -362,8 +394,8 @@ export default {
       this.pieChartData["labels"] = pielabels;
       this.pieChartData["datasets"][0]["data"] = piedata;
       //this.piedata = piedata;
-      console.log(this.pieChartData);
-      console.log(this.AY);
+      // console.log(this.pieChartData);
+      // console.log(this.AY);
       return true;
     },
 
