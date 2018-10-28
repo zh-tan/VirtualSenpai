@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <Navbar></Navbar> <br>
+    <Navbar></Navbar> 
+    <main>
+    <br>
     <router-view/>
-
+    </main>
     <b-modal ref="myModalRef" 
     hide-footer title="Welcome to Virtual Senpai!"
                  :header-bg-variant="headerBgVariant"
@@ -63,5 +65,9 @@ export default {
   grid-auto-rows: minmax(40px, auto);
 }
 router-view {
+}
+
+main {
+  background-color: #f0f0f1;
 }
 </style>
