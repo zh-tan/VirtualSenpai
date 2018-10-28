@@ -19,7 +19,7 @@ export default {
     return {
       majors: [],
 
-      major: "Bachelor of Arts (Architecture)"
+      major: this.prog
     };
   },
   mounted() {
