@@ -13,7 +13,10 @@
             </div>
             <card-body>
               <p> {{modCode}}:  {{mod_name}}</p>
+              <p> Currently Displaying: {{AY}}</p>
+              Select Semester:
             <select  @change="refreshAY(curSem)" v-model="curSem">
+              <option selected disabled>Select a semester</option>
               <option v-for="sem in AYList" :key="sem">
               {{sem}}
               </option>
