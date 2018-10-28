@@ -36,7 +36,9 @@
             <div style="height: 70px">
             <card-body>
             <div class="commentary">
-            <div> <b-progress :value="avg_rating" :max="5" variant="success" animated></b-progress> </div>
+
+            <div> <b-progress :value="avg_rating" :max="5" :variant="avg_rating_bar" animated></b-progress> </div>
+
               <card-text>{{avg_rating_commentary}} </card-text>
               </div>
             </card-body>
@@ -212,7 +214,9 @@ export default {
       avg_rating: "",
       opinion_rating: "",
       spancolor: "",
-      avg_rating_bar: "progress-bar green"
+
+      avg_rating_bar: ""
+
     };
   },
   computed: {
@@ -220,10 +224,14 @@ export default {
       var output = "";
       const percentage = Math.round((this.avg_rating / 5) * 100);
       if (this.avg_rating > 3.5) {
+
+        this.avg_rating_bar = "success";
         output = "high";
       } else if (this.avg_rating > 2.5) {
+        this.avg_rating_bar = "warning";
         output = "normal";
       } else {
+        this.avg_rating_bar = "danger";
         output = "low";
       }
 
