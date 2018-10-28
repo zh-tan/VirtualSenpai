@@ -291,6 +291,7 @@ export default {
       let piedata = [];
       let lineData = [];
       let industryObjects =[];
+
       let ranking = {};
       //This line below gets all the industry names for this major
       const data = this.career["industries"];
@@ -329,6 +330,7 @@ export default {
         this.top3Scores.push(top3Ranking[i])
       }
       
+
       //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
 
       for (var value in data) {
@@ -364,6 +366,7 @@ export default {
       for(var key in hiringCount){
         piedata.push(hiringCount[key])
       }
+
       this.pieChartData = {
         labels: [],
         datasets: [
