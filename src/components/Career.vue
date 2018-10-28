@@ -6,7 +6,7 @@
 
 <div class="charts">
 
-  <column lx="10" md="auto">
+  <column md="auto">
   <row>
     <column lx="6">
     <card cascade class="cascading-admin-card">
@@ -68,13 +68,11 @@
               <th scope="row">Others</th>
               <td>10.0%</td>
               <td>3,825</td>
-              
             </tr>
           </tbody>
           <!--Table body-->
         </table>
         </card-body>
-        
       </div>
       </card>
       </column>
@@ -85,37 +83,25 @@
   <row>
     <column lx="6">
     <card>
-      
       <card-title>Median Salaries</card-title>
       <card-body>
       <div class="d-flex justify-content-center" style="display:block">
       <line-chart :data="salaryData" width="400px" height="250px"/>
       </div>
       </card-body>
-      
     </card>
-    
     </column>
     <column lx="6">
     <card>
-      
       <card-title>Hiring Volume</card-title>
       <card-body>
         <div class="d-flex justify-content-center" style="display:block">
         <line-chart :data="hiringData" width="400px" height="250px"/>
         </div>
       </card-body>
-      
-      
     </card>
-
-     
     </column>
   </row>
-  
-
-
-
   </column>
 
 </div>
@@ -128,7 +114,7 @@
   <div class="card card-cascade wider">
   <!-- Card image -->
   <div class="view view-cascade overlay">
-    <h2><span class="badge red">Domain/Technical Knowledge</span></h2>
+    <h2><span class="badge red">{{top3Skills[0]}}</span></h2>
     <a href="#!">
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -136,7 +122,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>3.5 / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[0]}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -146,7 +132,7 @@
   <div class="card card-cascade wider">
   <!-- Card image -->
   <div class="view view-cascade overlay">
-    <h2><span class="badge red">Creativity and Innovation</span></h2>
+    <h2><span class="badge red">{{top3Skills[1]}}</span></h2>
     <a href="#!">
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -154,7 +140,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>3.7 / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[1]}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -164,7 +150,7 @@
   <div class="card card-cascade wider">
   <!-- Card image -->
   <div class="view view-cascade overlay">
-    <h2><span class="badge red">Critical Thinking / Problem Solving</span></h2>
+    <h2><span class="badge red">{{top3Skills[2]}}</span></h2>
     <a href="#!">
       <div class="mask rgba-white-slight"></div>
     </a>
@@ -172,7 +158,7 @@
   <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <!-- Title -->
-    <h4 class="card-title"><strong>4.0 / 5</strong></h4>
+    <h4 class="card-title"><strong>{{top3Scores[2]}} / 5</strong></h4>
     <!-- <h5 class="blue-text pb-2"><strong>3.5/5</strong></h5> -->
   </div>
   </div>
@@ -197,31 +183,39 @@ import randomcolor from "randomcolor";
 import "echarts-wordcloud";
 import Vue from "vue";
 import careerSearch from "./careerSearch";
-import {  Row, Column, Btn,Fa, PieChart, BarChart, Card, CardBody, CardHeader, CardText } from "mdbvue";
+import {
+  Row,
+  Column,
+  Btn,
+  Fa,
+  PieChart,
+  BarChart,
+  Card,
+  CardBody,
+  CardHeader,
+  CardText,
+  CardTitle
+} from "mdbvue";
 // mods[modulecode][semester]
 
-var careerRef = db.ref("career/Bachelor of Arts (Architecture)");
 
+console.log("Getting the ref ");
 //console.log(modRef)
 export default {
   created() {
     this.careerTitle = this.$route.params.careerTitle;
+    this.careerRef = db.ref("career/" + this.careerTitle);
+    console.log("Getting the title ");
   },
   mounted() {
-    
-    careerRef
+    this.careerRef
       .once("value")
       .then(snapshot => {
         this.career = snapshot.val();
-        console.log("Print career: ")
-        console.log(this.career)
       })
       .then(() => {
         this.rendered = this.getbreakdown();
       });
-    console.log("mounted " + this.career);
-    
-  
   },
   components: {
     Row,
@@ -233,6 +227,7 @@ export default {
     Card,
     CardBody,
     CardHeader,
+    CardTitle,
     CardText,
     careerSearch
   },
@@ -240,51 +235,105 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
+      top3Skills: [],
+      top3Scores:[],
       rendered: false,
-
+      careerRef:[],
       pieChartOptions: {
         responsive: true,
         maintainAspectRatio: false
       },
-      pieChartData: {
-        labels: [],
-        datasets: [
-          {
-            data: [],
-            backgroundColor: [],
-            hoverBackgroundColor: []
-          }
-        ]
-      },
-      salaryData:[
-        {name: 'Healthcare', data: {'2015': 3344, '2016': 3400, '2017': 3500, '2018': 3480}},
-        {name: 'Real Estate', data: {'2015': 4001, '2016': 4100, '2017': 3889, '2018': 3609}},
-        {name: 'Scientific R&D', data: {'2015': 4590, '2016': 4690, '2017': 4580, '2018': 4500}},
-        {name: 'Society & Community', data: {'2015': 2900, '2016': 3000, '2017': 2390, '2018': 3148}}
-        
+      pieChartData: {},
+      salaryData: [
+        {
+          name: "Healthcare",
+          data: { "2015": 3344, "2016": 3400, "2017": 3500, "2018": 3480 }
+        },
+        {
+          name: "Real Estate",
+          data: { "2015": 4001, "2016": 4100, "2017": 3889, "2018": 3609 }
+        },
+        {
+          name: "Scientific R&D",
+          data: { "2015": 4590, "2016": 4690, "2017": 4580, "2018": 4500 }
+        },
+        {
+          name: "Society & Community",
+          data: { "2015": 2900, "2016": 3000, "2017": 2390, "2018": 3148 }
+        }
       ],
-      hiringData:[
-        {name: 'Healthcare', data: {'2015': 33, '2016': 34, '2017': 35, '2018': 34}},
-        {name: 'Real Estate', data: {'2015': 41, '2016': 40, '2017': 38, '2018': 36}},
-        {name: 'Scientific R&D', data: {'2015': 40, '2016': 40, '2017': 45, '2018': 45}},
-        {name: 'Society & Community', data: {'2015': 29, '2016': 30, '2017': 23, '2018': 31}}
-        
-      ],
+      hiringData: [
+        {
+          name: "Healthcare",
+          data: { "2015": 33, "2016": 34, "2017": 35, "2018": 34 }
+        },
+        {
+          name: "Real Estate",
+          data: { "2015": 41, "2016": 40, "2017": 38, "2018": 36 }
+        },
+        {
+          name: "Scientific R&D",
+          data: { "2015": 40, "2016": 40, "2017": 45, "2018": 45 }
+        },
+        {
+          name: "Society & Community",
+          data: { "2015": 29, "2016": 30, "2017": 23, "2018": 31 }
+        }
+      ]
     };
   },
   methods: {
     getbreakdown() {
-      const data = this.career["industries"];
+      console.log("Printing career: ")
+      console.log(this.career)
+
       let pielabels = [];
       let piedata = [];
       let lineData = [];
+      let industryObjects =[];
+      let ranking = {};
+      //This line below gets all the industry names for this major
+      const data = this.career["industries"];
+      const preparedness = this.career["preparedness"]
 
-      //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
       
+      for(var year in preparedness){
+        for(var k in preparedness[year]){
+          ranking[preparedness[year][k][0]]=preparedness[year][k][1]
+        }
+      }
+
+      // Create items array
+      var sortRanking = Object.keys(ranking).map(function(key) {
+        return [key, ranking[key]];
+      });
+
+      // Sort the array based on the second element
+      sortRanking.sort(function(first, second) {
+        return second[1] - first[1];
+      });
+      
+      const top3Ranking = {};
+      var count = 0
+      for(var i in sortRanking){
+        console.log(sortRanking[i][0])
+        console.log(sortRanking[i][1])
+        top3Ranking[sortRanking[i][0]] = sortRanking[i][1]
+        count++
+        if(count===3){
+          break;
+        }
+      }
+      for(var i in top3Ranking){
+        this.top3Skills.push(i)
+        this.top3Scores.push(top3Ranking[i])
+      }
+      
+      //{name: 'Real Estate', data: {'2017': 5, '2018': 3}}
+
       for (var value in data) {
         pielabels.push(value);
-        piedata.push(1);
-        /*
+        
         let tempLine = {};
         tempLine.name = value;
         tempLine.data = {};
@@ -293,11 +342,28 @@ export default {
             tempLine.data.year = salary
           }
         }
-        lineData.push(tempLine)*/
+        lineData.push(tempLine)
+      }
+      industryObjects.push(this.career["industries"])
+      var industries = industryObjects[0]
+      let industryList = [];
+      for(var i in industries){
+        industryList.push(industries[i])
       }
       
-
-
+      let hiringCount = [];
+      for(var attribute in industryList){
+        var thisIndustry = (industryList[attribute]["hiringCount"])
+        var count = 0
+        for(var year in thisIndustry){
+          count = count + thisIndustry[year]
+          hiringCount.push(count)
+        }
+      }
+      
+      for(var key in hiringCount){
+        piedata.push(hiringCount[key])
+      }
       this.pieChartData = {
         labels: [],
         datasets: [
@@ -327,13 +393,12 @@ export default {
       this.pieChartData["labels"] = pielabels;
       this.pieChartData["datasets"][0]["data"] = piedata;
       //this.piedata = piedata;
-      console.log(this.pieChartData);
-      console.log(this.pieChartOptions)
-      
+     
+
       return true;
     }
   }
-}
+};
 </script>
 <style scoped>
 /*.charts{
