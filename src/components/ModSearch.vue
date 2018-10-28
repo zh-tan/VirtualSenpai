@@ -1,9 +1,9 @@
 <template>
 <div>
 <div v-html="legacySystemHTML"></div>
-<h1>mod search</h1>
+<h1>Select Module</h1>
 
-    <div class="sidebar-fixed position-fixed">
+    <div class="sidebar-fixed position-fixed" v-show="false">
       <a class="logo-wrapper">VirtualSenpai</a>
       <list-group class="side-bar-group">
         <list-group-item :action="true" :class="activeItem === 3 && 'active'">
@@ -12,7 +12,13 @@
     </div>
 
 <div class="modules">
-<router-link v-for="mod in mod_summary" :key="mod.code" :to="{ path : '/moduleview/'+mod.code}">{{mod.code}}<br></router-link>
+  <div v-for="mod in mod_summary" :key="mod.code" style="{border: 1px solid #ff3366;}">
+    <router-link :to="{ path : '/moduleview/'+mod.code}"><h5>{{mod.code}}</h5></router-link>
+    <p>{{mod.mod_name}}</p>
+    <p>Latest Feedback from: {{mod.latest_Sem}}</p>
+    <p>Average Rating: {{mod.avr_rating}}</p>
+    <br>
+  </div>
 </div>
     <!-- Sidebar -->
 
