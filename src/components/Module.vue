@@ -15,10 +15,12 @@
             <div class="moduleinfo">
             <div class="modulebtn">
             <b-button :pressed="true" variant="info">{{modCode}}:  {{mod_name}}</b-button>
-              </br>
-              <b-button  variant="warning">Currently Displaying: {{AY}}</b-button>
-              </div>
                
+              <br>
+              <b-button  variant="warning">Currently Displaying: {{AY}}</b-button>
+              
+              </div>
+                
               
               Select Semester:
             <select  @change="refreshAY(curSem)" v-model="curSem">
@@ -245,7 +247,8 @@ export default {
       avg_rating_bar: "",
       opinion_rating_average: "",
       opinion_rating_good: "",
-      opinion_rating_bad: ""
+      opinion_rating_bad: "",
+      bar_colour: ["#9284C1", "#D18296", "#E9A784", "#85A3BC"]
     };
   },
   computed: {
@@ -479,6 +482,11 @@ export default {
           {
             data: [],
             backgroundColor: [
+              "#9284C1",
+              "#D18296",
+              "#E9A784",
+              "#85A3BC",
+
               "#F7464A",
               "#46BFBD",
               "#FDB45C",
@@ -543,6 +551,7 @@ export default {
       const data = this.mods[this.AY]["grades"];
       const dataset = [];
       const percourse = {};
+      var counter = 0;
 
       for (var course in data) {
         const gradescount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -557,8 +566,10 @@ export default {
         dataset.push({
           label: course,
           data: gradescount,
-          backgroundColor: "#D6E9C6" // green
+          backgroundColor: this.bar_colour[counter] //"#D6E9C6" // green
         });
+
+        counter++;
       } // end of outer for loop
 
       // reinitialise dataset so that charts will re-render
