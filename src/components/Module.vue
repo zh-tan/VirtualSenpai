@@ -50,14 +50,14 @@
   
   <column xl="3" md="6" class="mb-r">
           <card cascade class="cascading-admin-card">
-          <card-header class="text-left"> Opinion Rating </card-header>
+          <card-header class="text-left"> Difficulty Rating </card-header>
             <div class="admin-up">
               <fa icon="pie-chart" class="light-blue lighten-1"/>
 
             </div>
                           <div class="data">
                   
-                  <strong>  {{opinion_rating}} </strong>
+                   The general sensing for students in<strong> {{AY}} </strong> with respect to difficulty levels 
                 
               </div>
             <card-body>
@@ -68,7 +68,11 @@
                   
                 </b-progress>
 
-              <card-text>Worse than last week (75%)</card-text>
+              <card-text class="text">
+              <span v-if="opinion_rating_bad!=0"> &emsp;&emsp;&emsp;Hard  &emsp; &emsp; &emsp; </span>
+              <span v-if="opinion_rating_average!=0">  Normal </span> 
+              <span v-if="opinion_rating_good!=0"> &emsp; &emsp; Easy </span> 
+               </card-text> 
             </card-body>
           </card>
   </column>
@@ -143,7 +147,6 @@
 <script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </script>
 <script>
-
 import { db } from "../firebase";
 import {
   Row,
@@ -164,14 +167,13 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import Vue from "vue";
 //import wordcloud from "echarts-wordcloud";
 // mods[modulecode][semester]
-import 'echarts-wordcloud'
+import "echarts-wordcloud";
 
 //console.log(modRef)
 export default {
   created() {
     this.modCode = this.$route.params.modCode;
     this.modRef = db.ref("mods/" + this.modCode);
-    
   },
   mounted() {
     this.modRef
@@ -186,11 +188,11 @@ export default {
         this.gradesdist();
         this.avg_rating = this.avgrating();
         this.opinion_rating = this.opinionrating();
-        
       });
-      db.ref("mod_summary/" + this.modCode)
-      .once("value").then(snapshot=>{
-        this.mod_name=snapshot.val().mod_name;
+    db.ref("mod_summary/" + this.modCode)
+      .once("value")
+      .then(snapshot => {
+        this.mod_name = snapshot.val().mod_name;
       });
   },
   props: {},
@@ -219,9 +221,9 @@ export default {
       ins: null,
       echarts: null,
       mods: {},
-      wordcloud:{},
-      wordcloudB:{},
-      mod_name:"" ,
+      wordcloud: {},
+      wordcloudB: {},
+      mod_name: "",
       pieChartOptions: {},
       pieChartData: {},
       gradesdistdata: {},
@@ -315,7 +317,8 @@ export default {
           visited.push("Very good");
           //console.log("here");
           this.total_opinion_rating["good"] += values["Very good"];
-          output += (values["Very good"] * 100).toFixed(1) + "% rated Very good";
+          output +=
+            (values["Very good"] * 100).toFixed(1) + "% rated Very good";
         } else if ("Good" in values && !visited.includes("Good")) {
           visited.push("Good");
           this.total_opinion_rating["good"] += values["Good"];
@@ -331,7 +334,9 @@ export default {
         ) {
           this.total_opinion_rating["bad"] += values["Below average"];
           visited.push("Below average");
-          output += (values["Below average"] * 100).toFixed(1) + "% rated Below average";
+          output +=
+            (values["Below average"] * 100).toFixed(1) +
+            "% rated Below average";
         } else if ("Poor" in values && !visited.includes("Poor")) {
           this.total_opinion_rating["bad"] += values["Poor"];
           visited.push("Poor");
@@ -362,86 +367,85 @@ export default {
       return output;
     },
 
-    onReady (instance, echarts) {
-      const that = this
-      that.ins = instance
-      that.echarts = echarts
+    onReady(instance, echarts) {
+      const that = this;
+      that.ins = instance;
+      that.echarts = echarts;
       that.wordcloud = {
         tooltip: {},
         series: [
           {
-            type: 'wordCloud',
+            type: "wordCloud",
             gridSize: 1,
             sizeRange: [12, 30],
             rotationRange: [0, 0],
-            shape: 'pentagon',
+            shape: "pentagon",
             width: 300,
             height: 350,
             drawOutOfBound: false,
             textStyle: {
               normal: {
-                color: function () {
+                color: function() {
                   return (
-                    'rgb(' +
+                    "rgb(" +
                     [
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160)
-                    ].join(',') +
-                    ')'
-                  )
+                    ].join(",") +
+                    ")"
+                  );
                 }
               },
               emphasis: {
                 shadowBlur: 10,
-                shadowColor: '#333'
+                shadowColor: "#333"
               }
             },
             data: this.word_cloud
           }
         ]
-      }
-    }
-,
-onReadyB (instance, echarts) {
-      const that = this
-      that.ins = instance
-      that.echarts = echarts
+      };
+    },
+    onReadyB(instance, echarts) {
+      const that = this;
+      that.ins = instance;
+      that.echarts = echarts;
       that.wordcloudB = {
         tooltip: {},
         series: [
           {
-            type: 'wordCloud',
+            type: "wordCloud",
             gridSize: 3,
             sizeRange: [12, 30],
             rotationRange: [0, 0],
-            shape: 'pentagon',
+            shape: "pentagon",
             width: 280,
             height: 360,
             drawOutOfBound: false,
             textStyle: {
               normal: {
-                color: function () {
+                color: function() {
                   return (
-                    'rgb(' +
+                    "rgb(" +
                     [
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160),
                       Math.round(Math.random() * 160)
-                    ].join(',') +
-                    ')'
-                  )
+                    ].join(",") +
+                    ")"
+                  );
                 }
               },
               emphasis: {
                 shadowBlur: 10,
-                shadowColor: '#333'
+                shadowColor: "#333"
               }
             },
             data: this.word_cloud_b
           }
         ]
-      }
+      };
     },
 
     // method for piechart to initialise
@@ -568,7 +572,7 @@ onReadyB (instance, echarts) {
       for (var i in words) {
         goodwords.push({
           name: words[i],
-          value: this.mods[this.AY]["likes_WC"][words[i]],
+          value: this.mods[this.AY]["likes_WC"][words[i]]
         });
       }
       var badwords = [];
@@ -595,12 +599,12 @@ onReadyB (instance, echarts) {
   // //grid-auto-rows: minmax(100px, auto);
   // grid-row-gap: 1em;
 }
- .echarts {
-    width: 280px;
-    height: 360px;
-    margin: 0px;
-    padding: 0px;
-  }
+.echarts {
+  width: 280px;
+  height: 360px;
+  margin: 0px;
+  padding: 0px;
+}
 
 .pieandtext {
   // display:grid;
@@ -650,4 +654,7 @@ onReadyB (instance, echarts) {
   margin-top: -25px;
 }
 
+.text {
+  text-align: left;
+}
 </style>
