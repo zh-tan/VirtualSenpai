@@ -9,10 +9,17 @@
               <fa icon="line-chart" class="warning-color"/>
               <div class="data">
               </div>
-            </div>
+            </div>  
+            <div style="height: 130px">
             <card-body>
-              <p> {{modCode}}:  {{mod_name}}</p>
-              <p> Currently Displaying: {{AY}}</p>
+            <div class="moduleinfo">
+            <div class="modulebtn">
+            <b-button :pressed="true" variant="info">{{modCode}}:  {{mod_name}}</b-button>
+              </br>
+              <b-button  variant="warning">Currently Displaying: {{AY}}</b-button>
+              </div>
+               
+              
               Select Semester:
             <select  @change="refreshAY(curSem)" v-model="curSem">
               <option selected disabled>Select a semester</option>
@@ -20,7 +27,9 @@
               {{sem}}
               </option>
             </select>
+            </div>
             </card-body>
+            </div>
           </card>
           </div>
     </column>
@@ -656,5 +665,14 @@ export default {
 
 .text {
   text-align: left;
+}
+
+.moduleinfo {
+  margin-top: -20px;
+  text-align: left;
+}
+
+.modulebtn {
+  margin-left: -15px;
 }
 </style>
