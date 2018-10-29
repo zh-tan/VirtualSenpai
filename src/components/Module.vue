@@ -6,7 +6,7 @@
           <card cascade class="cascading-admin-card">
           <card-header class="text-left">Module Information </card-header>
             <div class="admin-up">
-              <fa icon="line-chart" class="warning-color"/>
+              <fa icon="line-chart" class="success-color"/>
               <div class="data">
               </div>
             </div>  
