@@ -365,7 +365,12 @@ export default {
               "#FDB45C",
               "#949FB1",
               "#4D5360",
-              "#ac64ad"
+              "#ac64ad",
+              "#4f49eb",
+              "#4cec04",
+              "#77c019",
+              "#86c0d1",
+              "#ed4689"
             ],
             hoverBackgroundColor: [
               "#FF5A5E",
