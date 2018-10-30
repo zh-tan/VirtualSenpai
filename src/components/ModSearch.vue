@@ -1,6 +1,6 @@
 <template>
 <div>
-<div v-html="legacySystemHTML"></div>
+<div v-if="false" v-html="legacySystemHTML"></div>
 <h1>Select Module</h1>
 
     <div class="sidebar-fixed position-fixed" v-show="false">
