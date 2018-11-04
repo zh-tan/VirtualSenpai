@@ -286,7 +286,7 @@ export default {
 
       // Sort the array based on the second element
       sortRanking.sort(function(first, second) {
-        return second[1] - first[1];
+        return first[1]-second[1];
       });
       
       const top3Ranking = {};
