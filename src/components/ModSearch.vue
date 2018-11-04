@@ -2,6 +2,7 @@
 <div>
 <div v-if="false" v-html="legacySystemHTML"></div>
 
+
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
@@ -13,6 +14,7 @@
                   placeholder="Search Modules"></b-form-input>
 
   </div>
+
 
       <br>
       <h4>Categories</h4>
@@ -30,7 +32,9 @@
         <div class="col-lg-8">
 <div class="module">
 <h1>Select Module</h1>
+
   <div v-for="mod in this.filteredModule" :key="mod_summary[mod].code" class = "mod_info">
+
     <div>
     <router-link :to="{ path : '/moduleview/'+mod_summary[mod].code}"><h5>{{mod_summary[mod].code}}</h5></router-link>
     <p>{{mod_summary[mod].mod_name}}</p>
