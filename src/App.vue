@@ -5,7 +5,7 @@
     <br>
     <router-view/>
     </main>
-    <b-modal ref="myModalRef" 
+    <b-modal v-if="false" ref="myModalRef" 
     hide-footer title="Welcome to Virtual Senpai!"
                  :header-bg-variant="headerBgVariant"
              :header-text-variant="headerTextVariant"
