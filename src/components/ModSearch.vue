@@ -3,7 +3,6 @@
 <div v-if="false" v-html="legacySystemHTML"></div>
 
 
-
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
@@ -15,6 +14,7 @@
                   placeholder="Search Modules"></b-form-input>
 
   </div>
+
 
       <br>
       <h4>Categories</h4>
@@ -32,14 +32,16 @@
         <div class="col-lg-8">
 <div class="module">
 <h1>Select Module</h1>
-  <div v-for="mod in this.mod_summary" :key="mod.code" class = "mod_info">
+
+  <div v-for="mod in this.filteredModule" :key="mod_summary[mod].code" class = "mod_info">
+
     <div>
-    <router-link :to="{ path : '/moduleview/'+mod.code}"><h5>{{mod.code}}</h5></router-link>
-    <p>{{mod.mod_name}}</p>
+    <router-link :to="{ path : '/moduleview/'+mod_summary[mod].code}"><h5>{{mod_summary[mod].code}}</h5></router-link>
+    <p>{{mod_summary[mod].mod_name}}</p>
     </div>
     <div>
-    <p>Latest Feedback from: {{mod.latest_Sem}}</p>
-    <p :class="{red_rating:mod.avr_rating<3,green_rating:mod.avr_rating>=3}">Average Rating: {{mod.avr_rating}} / 5</p>
+    <p>Latest Feedback from: {{mod_summary[mod].latest_Sem}}</p>
+    <p :class="{red_rating:mod_summary[mod].avr_rating<3,green_rating:mod_summary[mod].avr_rating>=3}">Average Rating: {{mod_summary[mod].avr_rating}} / 5</p>
     </div>
 </div>
 </div>
@@ -101,9 +103,9 @@ export default {
   },
   computed:{
     filteredModule: function(){
-      return Array.from(this.mod_summary).filter((mod)=>{
+      return Object.keys(this.mod_summary).filter((mod)=>{
         return mod.toLowerCase().includes(this.search.toLowerCase())
-      })
+        })
     }
   },
   firebase: {},
