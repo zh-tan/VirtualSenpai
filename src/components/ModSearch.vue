@@ -2,7 +2,6 @@
 <div>
 <div v-if="false" v-html="legacySystemHTML"></div>
 
-
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
@@ -14,7 +13,6 @@
                   placeholder="Search Modules"></b-form-input>
 
   </div>
-
 
       <br>
       <h4>Categories</h4>
@@ -32,9 +30,7 @@
         <div class="col-lg-8">
 <div class="module">
 <h1>Select Module</h1>
-
   <div v-for="mod in this.filteredModule" :key="mod_summary[mod].code" class = "mod_info">
-
     <div>
     <router-link :to="{ path : '/moduleview/'+mod_summary[mod].code}"><h5>{{mod_summary[mod].code}}</h5></router-link>
     <p>{{mod_summary[mod].mod_name}}</p>
@@ -73,7 +69,8 @@ export default {
   data() {
     return {
       search: '',
-      selected: 'first',
+      selected: 'all',
+      category: '',
       options: [
         { text: 'All Faculties', value: 'all' },
         { text: 'School of Business', value: 'Business' },
@@ -103,9 +100,33 @@ export default {
   },
   computed:{
     filteredModule: function(){
-      return Object.keys(this.mod_summary).filter((mod)=>{
+      if(this.search !== ''){
+        return Object.keys(this.mod_summary).filter((mod)=>{
         return mod.toLowerCase().includes(this.search.toLowerCase())
         })
+      }else if(this.selected ==='all'){
+        return Object.keys(this.mod_summary)
+      }else{
+        if(this.selected === 'Business'){
+           this.category = 'acc';
+         }else if(this.selected ==='Computing'){
+           this.category = 'cs';
+         }else if(this.selected ==='design and environment'){
+           this.category = 'ar';
+         }else if(this.selected ==='Social Sciences'){
+           this.category = 'ec';
+         }else if(this.selected ==='Science'){
+           this.category = 'pc';
+         }else if(this.selected ==='Engineering'){
+           this.category = 'ce';
+         }else if(this.selected ==='Law'){
+           this.category = 'lc';
+         }
+      
+        return Object.keys(this.mod_summary).filter((mod)=>{
+          return mod.toLowerCase().includes(this.category.toLowerCase())
+          })
+      }
     }
   },
   firebase: {},
