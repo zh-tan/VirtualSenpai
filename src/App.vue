@@ -3,7 +3,7 @@
     <Navbar></Navbar> 
     <main>
     <br>
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
     </main>
     <b-modal v-if="false" ref="myModalRef" 
     hide-footer title="Welcome to Virtual Senpai!"
