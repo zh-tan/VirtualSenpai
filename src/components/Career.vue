@@ -1,12 +1,18 @@
 <template>
 <div classname="charts">
 <div class = "page-header">
-   <h1>
-      {{careerTitle}}
-   </h1>
+<h1>
+  {{careerTitle}}
+</h1>
 </div>
-
+<select  @change="$router.push({ path: '/careerview/'+prog})" v-model="prog">
+  <option v-for="deg in majorslist" :key="deg">
+  {{deg}}
+</option>
+</select>
 <row>
+
+<div v-if="NotDefault">
 
 <div class="charts">
 
@@ -182,9 +188,10 @@
   </column>
 
 </div>
-
+</div>
 </row>
     </div>
+
 </template>
 
 <script>
@@ -210,15 +217,28 @@ import {
 // mods[modulecode][semester]
 
 
-console.log("Getting the ref ");
 //console.log(modRef)
 export default {
   created() {
+    this.NotDefault = this.$route.path!=="/careerview";
+    if(this.NotDefault){
     this.careerTitle = this.$route.params.careerTitle;
     this.careerRef = db.ref("career/" + this.careerTitle);
     console.log("Getting the title ");
+    console.log(this.$route.path);
+    }
+
   },
   mounted() {
+    db.ref("majors_list")
+      .once("value")
+      .then(snapshot => {
+        return snapshot.val();
+      })
+      .then(result => {
+        this.majorslist = result;
+      });
+    if(this.NotDefault){
     this.careerRef
       .once("value")
       .then(snapshot => {
@@ -227,6 +247,7 @@ export default {
       .then(() => {
         this.rendered = this.getbreakdown();
       });
+      }
   },
   components: {
     Row,
@@ -256,7 +277,10 @@ export default {
       },
       pieChartData: {},
       salaryData: [],
-      hiringData: []
+      hiringData: [],
+      majorslist:[],
+      NotDefault:false,
+      prog: ""
     };
   },
   methods: {

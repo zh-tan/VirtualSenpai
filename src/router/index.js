@@ -42,7 +42,11 @@ export default new Router({
       name: "CareerView",
       component: Career
     },
-
+    {
+      path: "/careerview",
+      name: "CareerViewDefault",
+      component: Career
+    },
     {
       path: "/404",
       name: "BadGateway",
