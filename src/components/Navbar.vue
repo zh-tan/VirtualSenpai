@@ -9,8 +9,10 @@
 
       <navbar-collapse>
         <navbar-nav left>
+
           <router-link to="/module" @click.native="activeItem = 1" active><navbar-item href="" waves-fixed active>Module</navbar-item></router-link>
           <router-link to="/careerview" @click.native="activeItem = 2"><navbar-item href="" waves-fixed active>Career</navbar-item></router-link>
+
         </navbar-nav>
         <navbar-nav right>
           <navbar-item href="https://github.com/zh-tan/VirtualSenpai" waves-fixed class="border border-light rounded mr-1" target="_blank"><fa icon="github" class="mr-2"/> GitHub </navbar-item>
@@ -42,3 +44,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+
+.module{
+  margin-left: 20px;
+}
+
+</style>
