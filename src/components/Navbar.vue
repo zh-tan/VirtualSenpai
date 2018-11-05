@@ -4,7 +4,8 @@
     <navbar expand = "large" dark class = "red" position="top" scrolling>
       
       <mdb-navbar-brand href="#">
-    <h4>VirtualSenpai! </h4>
+    
+    <img src= '../assets/statistics.png' height ="30">
   </mdb-navbar-brand>
 
       <navbar-collapse>
@@ -24,6 +25,7 @@
 
 <script>
 import { Container, Navbar, NavbarItem, NavbarNav, NavbarCollapse, Btn, Fa, ListGroup, ListGroupItem, CardBody, Footer, waves } from 'mdbvue'
+import logo from '../assets/statistics.png';
 export default {
   name: 'AdminTemplace',
   components: {
