@@ -2,7 +2,7 @@
 <div classname="charts">
 <div class = "page-header">
 <h1>
-  {{careerTitle}}
+  {{careerTitle}} 
 </h1>
 </div>
 <select  @change="$router.push({ path: '/careerview/'+prog})" v-model="prog">
@@ -26,8 +26,8 @@
       <pie-chart v-if="rendered"
       :data="pieChartData" 
       :options="pieChartOptions" 
-      :height="420"
-      :width="600"></pie-chart>
+      :height="320"
+      :width="400"></pie-chart>
       </card-body>
       </div>
     </card>
@@ -167,21 +167,29 @@
     <column lx="6">
     <card>
       <card-header class="text-left">Median Salaries</card-header>
-      <card-body>
-      <div class="d-flex justify-content-center" style="display:block">
-      <line-chart :data="salaryData" width="400px" height="250px"/>
+      <div class="d-flex justify-content-left" style="display:block">
+      <line-chart :data="salaryData" legend = "right" width="650px" height="250px" 
+      :min="salMin" 
+      :max="salMax"
+      />
       </div>
-      </card-body>
     </card>
     </column>
     <column lx="6">
     <card>
-      <card-header class="text-left">Hiring Volume</card-header>
-      <card-body>
+      <card-header class="text-left">Hiring Volume
+      <tooltip :options="{placement: 'top'}">
+      <div class="tooltip">
+        info here
+      </div>
+      prediction
+      </tooltip>
+      </card-header>
         <div class="d-flex justify-content-center" style="display:block">
-        <line-chart :data="hiringData" width="400px" height="250px"/>
+        <line-chart :data="hiringData" legend = "right" width="650px" height="250px"
+        :min="hireMin"
+        :max="hireMax"/>
         </div>
-      </card-body>
     </card>
     </column>
   </row>
@@ -212,7 +220,8 @@ import {
   CardBody,
   CardHeader,
   CardText,
-  CardTitle
+  CardTitle,
+  Tooltip
 } from "mdbvue";
 // mods[modulecode][semester]
 
@@ -261,7 +270,8 @@ export default {
     CardHeader,
     CardTitle,
     CardText,
-    careerSearch
+    careerSearch,
+    Tooltip
   },
   data() {
     return {
@@ -277,6 +287,10 @@ export default {
       },
       pieChartData: {},
       salaryData: [],
+      salMin: [],
+      salMax: [],
+      hireMax:[],
+      hireMin:[],
       hiringData: [],
       majorslist:[],
       NotDefault:false,
@@ -339,17 +353,31 @@ export default {
           name: "Healthcare",
           data: { "2015": 33, "2016": 34, "2017": 35, "2018": 34 }
         }*/
+      var salRange = []
+      var hireRange = []
       for(var name in pielabels){
         var oneSal = {}
         var oneHire = {}
         oneSal["name"]=pielabels[name]
         oneHire["name"]=pielabels[name]
         oneSal["data"]=this.career["industries"][pielabels[name]]["median_sal"]
+        var oneMax = this.career["industries"][pielabels[name]]["median_sal"]
+        for(var sal in oneMax){
+          salRange.push(oneMax[sal])
+        }
         oneHire["data"]=this.career["industries"][pielabels[name]]["hiringCount"]
+        var minmaxHire = this.career["industries"][pielabels[name]]["hiringCount"]
+        for(var hire in minmaxHire){
+          hireRange.push(minmaxHire[hire])
+        }
         medianSalary.push(oneSal)
         hiring.push(oneHire)
       }
-      
+      this.salMax = Math.max(...salRange)
+      this.salMin = Math.min(...salRange)
+      this.hireMax = Math.max(...hireRange)
+      this.hireMin = Math.min(...hireRange
+      )
       this.salaryData=medianSalary
       this.hiringData=hiring
 
