@@ -30,14 +30,14 @@
         <div class="col-lg-8">
 <div class="module">
 <h1>Select Module</h1>
-  <div v-for="mod in this.filteredModule" :key="mod_summary[mod].code" class = "mod_info">
+  <div v-for="mod in mod_summary" :key="mod.code" class = "mod_info" v-if="modFiltering(mod)">
     <div>
-    <router-link :to="{ path : '/moduleview/'+mod_summary[mod].code}"><h5>{{mod_summary[mod].code}}</h5></router-link>
-    <p>{{mod_summary[mod].mod_name}}</p>
+    <router-link :to="{ path : '/moduleview/'+mod.code}"><h5>{{mod.code}}</h5></router-link>
+    <p>{{mod.mod_name}}</p>
     </div>
     <div>
-    <p>Latest Feedback from: {{mod_summary[mod].latest_Sem}}</p>
-    <p :class="{red_rating:mod_summary[mod].avr_rating<3,green_rating:mod_summary[mod].avr_rating>=3}">Average Rating: {{mod_summary[mod].avr_rating}} / 5</p>
+    <p>Latest Feedback from: {{mod.latest_Sem}}</p>
+    <p :class="{red_rating:mod.avr_rating<3,green_rating:mod.avr_rating>=3}">Average Rating: {{mod.avr_rating}} / 5</p>
     </div>
 </div>
 </div>
@@ -70,7 +70,6 @@ export default {
     return {
       search: '',
       selected: 'all',
-      category: '',
       options: [
         { text: 'All Faculties', value: 'all' },
         { text: 'School of Business', value: 'Business' },
@@ -99,38 +98,35 @@ export default {
       })
   },
   computed:{
-    filteredModule: function(){
-      if(this.search !== ''){
-        return Object.keys(this.mod_summary).filter((mod)=>{
-        return mod.toLowerCase().includes(this.search.toLowerCase())
-        })
-      }else if(this.selected ==='all'){
-        return Object.keys(this.mod_summary)
-      }else{
-        if(this.selected === 'Business'){
-           this.category = 'acc';
+    category(){
+      if(this.selected === 'Business'){
+           return 'acc';
          }else if(this.selected ==='Computing'){
-           this.category = 'cs';
+           return 'cs';
          }else if(this.selected ==='design and environment'){
-           this.category = 'ar';
+           return 'ar';
          }else if(this.selected ==='Social Sciences'){
-           this.category = 'ec';
+           return 'ec';
          }else if(this.selected ==='Science'){
-           this.category = 'pc';
+           return 'pc';
          }else if(this.selected ==='Engineering'){
-           this.category = 'ce';
+           return 'ce';
          }else if(this.selected ==='Law'){
-           this.category = 'lc';
+           return 'lc';
+         }else{
+           return '';
          }
-      
-        return Object.keys(this.mod_summary).filter((mod)=>{
-          return mod.toLowerCase().includes(this.category.toLowerCase())
-          })
-      }
     }
   },
   firebase: {},
-  methods: {}
+  methods: {
+    modFiltering(mod){
+      let catMatch = mod.code.toLowerCase().includes(this.category.toLowerCase());
+      let codeMatch = mod.code.toLowerCase().includes(this.search.toLowerCase());
+      let nameMatch = mod.mod_name.toLowerCase().includes(this.search.toLowerCase());
+      return nameMatch|codeMatch && catMatch
+    }
+  }
 };
 </script>
 
