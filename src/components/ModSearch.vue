@@ -31,14 +31,16 @@
 <div class="module">
 <h1>Select Module</h1>
   <div v-for="mod in mod_summary" :key="mod.code" class = "mod_info" v-if="modFiltering(mod)">
-    <div>
-    <router-link :to="{ path : '/moduleview/'+mod.code}"><h5>{{mod.code}}</h5></router-link>
-    <p>{{mod.mod_name}}</p>
-    </div>
-    <div>
-    <p>Latest Feedback from: {{mod.latest_Sem}}</p>
-    <p :class="{red_rating:mod.avr_rating<3,green_rating:mod.avr_rating>=3}">Average Rating: {{mod.avr_rating}} / 5</p>
-    </div>
+    
+    <div class="card" style="width: 50rem;">
+  <div class="card-body">
+    <router-link :to="{ path : '/moduleview/'+mod.code}"><h5 class="card-title">{{mod.code}}: {{mod.mod_name}}</h5></router-link>
+    <hr>
+    <p class="card-text">Latest Feedback from: {{mod.latest_Sem}}/p>
+    <p class='card-text' :class="{red_rating:mod.avr_rating<3,green_rating:mod.avr_rating>=3}">Average Rating: {{mod.avr_rating}} / 5</p>
+
+  </div>
+</div>
 </div>
 </div>
         </div>
@@ -146,9 +148,9 @@ export default {
   padding-top: 0;
 }
 .mod_info{
-  border: 1px solid black;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
+  //border: 1px solid black;
+  //display:grid;
+  //grid-template-columns: 1fr 1fr;
 }
 .red_rating{
   color:red;
