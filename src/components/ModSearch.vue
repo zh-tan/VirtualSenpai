@@ -31,14 +31,17 @@
 <div class="module">
 <h1>Select Module</h1>
   <div v-for="mod in this.filteredModule" :key="mod_summary[mod].code" class = "mod_info">
-    <div>
-    <router-link :to="{ path : '/moduleview/'+mod_summary[mod].code}"><h5>{{mod_summary[mod].code}}</h5></router-link>
-    <p>{{mod_summary[mod].mod_name}}</p>
-    </div>
-    <div>
-    <p>Latest Feedback from: {{mod_summary[mod].latest_Sem}}</p>
-    <p :class="{red_rating:mod_summary[mod].avr_rating<3,green_rating:mod_summary[mod].avr_rating>=3}">Average Rating: {{mod_summary[mod].avr_rating}} / 5</p>
-    </div>
+  <div class="card" style="width: 50rem;">
+  <div class="card-body">
+    <router-link :to="{ path : '/moduleview/'+mod_summary[mod].code}"><h5 class="card-title">{{mod_summary[mod].code}}: {{mod_summary[mod].mod_name}}</h5></router-link>
+    <hr>
+
+    <p class="card-text">Latest Feedback from: {{mod_summary[mod].latest_Sem}}</p>
+    <p class="card-text" :class="{red_rating:mod_summary[mod].avr_rating<3,green_rating:mod_summary[mod].avr_rating>=3}">Average Rating: {{mod_summary[mod].avr_rating}} / 5</p>
+    
+  </div>
+</div>
+    
 </div>
 </div>
         </div>
@@ -150,7 +153,7 @@ export default {
   padding-top: 0;
 }
 .mod_info{
-  border: 1px solid black;
+  //border: 1px solid black;
   display:grid;
   grid-template-columns: 1fr 1fr;
 }
