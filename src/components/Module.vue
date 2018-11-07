@@ -43,8 +43,9 @@
               <fa icon="line-chart" class="warning-color"/>
 
             </div>
+          
                           <div class="data">
-  <h4> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h4>
+  <h1> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h1>
               </div>
             <div style="height: 70px">
             <card-body>
@@ -759,7 +760,7 @@ export default {
 }
 
 .commentary {
-  margin-top: -25px;
+  margin-top: -10px;
 }
 
 .text {
