@@ -3,7 +3,7 @@
 <row >
     <column xl="6" md="6" class="mb-r">
     <div class="module" style="height:90px">
-          <card cascade class="cascading-admin-card">
+          <card cascade class="cascading-admin-card" :border="bordercolor">
           <card-header class="text-left">Module Information </card-header>
             <div class="admin-up">
               <fa icon="line-chart" class="success-color"/>
@@ -51,7 +51,7 @@
     </column>
 
  <column xl="3" md="6">
-          <card cascade class="cascading-admin-card">
+          <card cascade class="cascading-admin-card" :border="bordercolor">
           <card-header class="text-left">Average Rating </card-header>
             <div class="admin-up">
               <fa icon="line-chart" class="warning-color"/>
@@ -75,7 +75,7 @@
   </column>
   
   <column xl="3" md="6" class="mb-r">
-          <card cascade class="cascading-admin-card">
+          <card cascade class="cascading-admin-card" :border="bordercolor">
           <card-header class="text-left"> Difficulty Rating </card-header>
             <div class="admin-up">
               <fa icon="pie-chart" class="light-blue lighten-1"/>
@@ -106,7 +106,7 @@
 
   <row>
     <column xl="6" md="6">
-  <card cascade class="cascading-admin-card">
+  <card cascade class="cascading-admin-card" :border="bordercolor">
    <card-header class="text-left">Cohort Breakdown </card-header>
   <card-body>
   <div class="piechart">
@@ -122,7 +122,7 @@
     </column>
 
     <column>
-      <card class="mb-4">
+      <card class="mb-4" :border="bordercolor">
         <card-header class="text-left"> Positive Feedback </card-header>
         <card-body>
       <div class="echarts">
@@ -138,7 +138,7 @@
   </column>
 
 <column>
-<card class="mb-4">
+<card class="mb-4" :border="bordercolor">
           <card-header class="text-left"> Negative Feedback </card-header>
           <card-body>
       <div  class="echarts">
@@ -262,7 +262,8 @@ export default {
       barInstance: null,
       pieselection: [false,false,false,false],
       tabs : "&emsp; &emsp;",
-      profname: ""
+      profname: "",
+      bordercolor : "dark"
     };
   },
   computed: {
