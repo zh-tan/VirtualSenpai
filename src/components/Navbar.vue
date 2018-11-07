@@ -1,11 +1,11 @@
 <template>
   <div class="flexible-content">
     <!--Navbar-->
-    <navbar expand = "large" dark class = "red" position="top" scrolling>
+    <navbar expand = "large" dark class = "unique-color" position="top" scrolling>
       
       <mdb-navbar-brand href="#">
     
-    <img src= '../assets/statistics.png' height ="30">
+    <img src= 'https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/yq4o-newlogo.png' height ="30">
   </mdb-navbar-brand>
 
       <navbar-collapse>
