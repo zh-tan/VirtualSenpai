@@ -41,7 +41,7 @@ export default {
   data() {
     return {
 
-      headerBgVariant: "danger",
+      headerBgVariant: "secondary",
       headerTextVariant: "light",
       bodyBgVariant: "light",
       bodyTextVariant: "dark"
