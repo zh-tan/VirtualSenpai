@@ -213,19 +213,20 @@ export default {
       var ci = self.pieInstance.chart;
        var ci2 = self.barInstance.chart;
         var meta2 = ci2.getDatasetMeta(index);
+
+        // to hide particular chart data on barchart
        meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
 
        // try to modify selection of pie quadrant instance to change color
         // means not selected
         //console.log(self.pieChartData[0])
-        
         if(self.pieselection[index] == false){
-          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#FDB45C"
-          console.log(activePoints)
-          self.pieselection[index] = true; //select
+          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3"
+          //console.log(activePoints)
+          self.pieselection[index] = true; //selected
         } else {
           activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
-          self.pieselection[index] = false; // disselect
+          self.pieselection[index] = false; // disselected
         }
         ci.update();
        ci2.update();
@@ -521,7 +522,6 @@ export default {
               "#D18296",
               "#E9A784",
               "#85A3BC",
-
               "#F7464A",
               "#46BFBD",
               "#FDB45C",
@@ -530,13 +530,26 @@ export default {
               "#ac64ad"
             ],
             hoverBackgroundColor: [
-              "#FF5A5E",
-              "#5AD3D1",
-              "#FFC870",
-              "#A8B3C5",
-              "#616774",
-              "#da92db"
+              // "#FF5A5E",
+              // "#5AD3D1",
+              // "#FFC870",
+              // "#A8B3C5",
+              // "#616774",
+              // "#da92db"
             ]
+            // borderColor: [
+            // "#9284C1",
+            //   "#D18296",
+            //   "#E9A784",
+            //   "#85A3BC",
+            //   "#FF5A5E",
+            //   "#5AD3D1",
+            //   "#FFC870",
+            //   "#A8B3C5",
+            //   "#616774",
+            //   "#da92db"
+            // ],
+            // borderWidth: 3
           }
         ]
       };
