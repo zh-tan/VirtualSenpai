@@ -96,11 +96,11 @@
    <card-header class="text-left">Cohort Breakdown </card-header>
   <card-body>
   <div class="piechart">
-    <canvas id="piecanvas" width="700" height="150"> </canvas>
+    <canvas id="piecanvas" width="700" height="150" > </canvas>
   </div>
   
    <div class="barchart">
-    <canvas id="barcanvas"> </canvas>
+    <canvas id="barcanvas" > </canvas>
   </div>
 
   </card-body>
@@ -190,47 +190,8 @@ export default {
         this.avg_rating = this.avgrating();
         this.opinion_rating = this.opinionrating();
       }).then(() => {
+        this.renderCharts();
         // render charts after obtaining data
-        this.pieInstance = this.renderPieChart();
-        this.barInstance = this.renderBarChart();
-        console.log(this.pieInstance)
-        // onclick event
-        var canvas = document.getElementById("piecanvas");
-        
-        // to prevent reference conflict
-        // in onclick event, "this" refers to chart instance instead of vue instance
-        var self = this
-           canvas.onclick = function(e){
-      //console.log(self.pieInstance)
-      var activePoints = self.pieInstance.getElementsAtEvent(e);
-      console.log(activePoints)
-      
-      // when a pie quadrant is selected, there will be an array of 1
-      // this is to prevent an error if clicked on any part of the canvas 
-      // (Unable to access [0]["_index"] from undefined)
-      if (activePoints.length === 1){
-      var index = activePoints[0]["_index"];
-      var ci = self.pieInstance.chart;
-       var ci2 = self.barInstance.chart;
-        var meta2 = ci2.getDatasetMeta(index);
-       meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
-
-       // try to modify selection of pie quadrant instance to change color
-        // means not selected
-        //console.log(self.pieChartData[0])
-        
-        if(self.pieselection[index] == false){
-          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#FDB45C"
-          console.log(activePoints)
-          self.pieselection[index] = true; //select
-        } else {
-          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
-          self.pieselection[index] = false; // disselect
-        }
-        ci.update();
-       ci2.update();
-      }
-           }
       });
     db.ref("mod_summary/" + this.modCode)
       .once("value")
@@ -307,6 +268,47 @@ export default {
     }
   },
   methods: {
+    renderCharts(){
+      this.pieInstance = this.renderPieChart();
+        this.barInstance = this.renderBarChart();
+        // onclick event
+        var canvas = document.getElementById("piecanvas");
+        
+        // to prevent reference conflict
+        // in onclick event, "this" refers to chart instance instead of vue instance
+        var self = this
+           canvas.onclick = function(e){
+      //console.log(self.pieInstance)
+      var activePoints = self.pieInstance.getElementsAtEvent(e);
+      console.log(activePoints)
+      
+      // when a pie quadrant is selected, there will be an array of 1
+      // this is to prevent an error if clicked on any part of the canvas 
+      // (Unable to access [0]["_index"] from undefined)
+      if (activePoints.length === 1){
+      var index = activePoints[0]["_index"];
+      var ci = self.pieInstance.chart;
+       var ci2 = self.barInstance.chart;
+        var meta2 = ci2.getDatasetMeta(index);
+       meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
+
+       // try to modify selection of pie quadrant instance to change color
+        // means not selected
+        //console.log(self.pieChartData[0])
+        
+        if(self.pieselection[index] == false){
+          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#FDB45C"
+          console.log(activePoints)
+          self.pieselection[index] = true; //select
+        } else {
+          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
+          self.pieselection[index] = false; // disselect
+        }
+        ci.update();
+       ci2.update();
+      }
+           }
+    },
     toggle() {
       this.rendered = false;
       setTimeout(() => {
@@ -327,6 +329,10 @@ export default {
       this.avg_rating = this.avgrating();
       this.opinion_rating = this.opinionrating();
       this.get_words();
+      this.pieInstance.data=this.pieChartData;
+      this.barInstance.data=this.gradesdistdata;
+      this.barInstance.update();
+      this.pieInstance.update();
       this.toggle();
     },
     avgrating() {
