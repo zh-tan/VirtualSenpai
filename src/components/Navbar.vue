@@ -5,7 +5,7 @@
       
       <mdb-navbar-brand href="#">
     
-    <img src= 'https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/yq4o-newlogo.png' height ="30">
+    <img src= 'https://uploads.codesandbox.io/uploads/user/e6772621-92a7-441c-9d05-9ee39758af11/Ksiw-statistics.png' height ="30">
   </mdb-navbar-brand>
 
       <navbar-collapse>
