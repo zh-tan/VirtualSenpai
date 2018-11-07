@@ -527,7 +527,6 @@ export default {
               "#D18296",
               "#E9A784",
               "#85A3BC",
-
               "#F7464A",
               "#46BFBD",
               "#FDB45C",
@@ -536,13 +535,26 @@ export default {
               "#ac64ad"
             ],
             hoverBackgroundColor: [
-              "#FF5A5E",
-              "#5AD3D1",
-              "#FFC870",
-              "#A8B3C5",
-              "#616774",
-              "#da92db"
+              // "#FF5A5E",
+              // "#5AD3D1",
+              // "#FFC870",
+              // "#A8B3C5",
+              // "#616774",
+              // "#da92db"
             ]
+            // borderColor: [
+            // "#9284C1",
+            //   "#D18296",
+            //   "#E9A784",
+            //   "#85A3BC",
+            //   "#FF5A5E",
+            //   "#5AD3D1",
+            //   "#FFC870",
+            //   "#A8B3C5",
+            //   "#616774",
+            //   "#da92db"
+            // ],
+            // borderWidth: 3
           }
         ]
       };
