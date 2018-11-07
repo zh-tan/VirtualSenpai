@@ -5,8 +5,8 @@
     <br>
     <router-view :key="$route.fullPath"/>
     </main>
-    <b-modal v-if="false" ref="myModalRef" 
-    hide-footer title="Welcome to Virtual Senpai!"
+    <b-modal v-if="true" ref="myModalRef" 
+    hide-footer title="Welcome to VirtualSenpai!"
                  :header-bg-variant="headerBgVariant"
              :header-text-variant="headerTextVariant"
              :body-bg-variant="bodyBgVariant"
@@ -14,11 +14,13 @@
       <div class="d-block text-center">
 
      <div classname="Logo">
-  <img class="animated bounce infinite" src="https://mdbootstrap.com/img/logo/mdb-transparent.png">
+  <img class="animated bounce infinite" src='https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/yq4o-newlogo.png'>
   </div>
-        <h3>Hello From My Modal!</h3>
+        <p> Enough of searching for information online just to find that they are of little help? Tired of asking seniors for information regarding academic matters? Worrying that this information might also be unreliable? </p>
+        <p><b><font size="5">Fret not! VirtualSenpai! is here to help!</font></b></p>
+        VirtualSenpai! is a centralised, data driven platform that empowers you with visuals to make more informed decisions. You can now have a more objective view when selecting modules and easily explore your different career prospects in greater details!</p>
       </div>
-      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-btn>
+      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Let's begin!</b-btn>
     </b-modal>
   
   </div>
