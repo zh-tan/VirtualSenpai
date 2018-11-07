@@ -73,16 +73,15 @@
               </div>
             <card-body>
                 <b-progress class="mt-1" :max="100" show-value>
-                  <b-progress-bar :value="opinion_rating_bad" variant="danger"></b-progress-bar>
-                  <b-progress-bar :value="opinion_rating_average" variant="warning"></b-progress-bar>
                   <b-progress-bar :value="opinion_rating_good" variant="success"></b-progress-bar>
-                  
+                  <b-progress-bar :value="opinion_rating_average" variant="warning"></b-progress-bar>
+                  <b-progress-bar :value="opinion_rating_bad" variant="danger"></b-progress-bar>
                 </b-progress>
 
               <card-text class="text">
-              <span v-if="opinion_rating_bad!=0"> &emsp;&emsp;&emsp;Hard  &emsp; &emsp; &emsp; </span>
-              <span v-if="opinion_rating_average!=0">  Normal </span> 
-              <span v-if="opinion_rating_good!=0"> &emsp; &emsp; Easy </span> 
+              <span v-if="opinion_rating_bad!=0" class="easy" style="float:left; width:34%; text-align:left;"> Easy   </span>
+              <span v-if="opinion_rating_average!=0" class="normal" style="float:left; width:33%; text-align: center;">  Normal </span> 
+              <span v-if="opinion_rating_good!=0" class="hard" style="float:right; width:33%; text-align: right;">  Hard </span> 
                </card-text> 
             </card-body>
           </card>
@@ -284,7 +283,8 @@ export default {
       bar_colour: ["#9284C1", "#D18296", "#E9A784", "#85A3BC"],
       pieInstance: null,
       barInstance: null,
-      pieselection: [false,false,false,false]
+      pieselection: [false,false,false,false],
+      tabs : "&emsp; &emsp;"
     };
   },
   computed: {
@@ -769,4 +769,6 @@ export default {
 .modulebtn {
   margin-left: -15px;
 }
+
+
 </style>
