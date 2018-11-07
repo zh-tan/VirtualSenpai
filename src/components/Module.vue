@@ -10,7 +10,10 @@
               <div class="data">
               </div>
             </div>  
+            
             <div style="height: 130px">
+            <row>
+            <column>
             <card-body>
             <div class="moduleinfo">
             <div class="modulebtn">
@@ -30,8 +33,19 @@
               </option>
             </select>
             </div>
+
+
             </card-body>
+            </column>
+
+             <column>
+             Professor-in-charge: <badge pill color="rgba-blue-grey-strong">{{prof_name}}</badge>
+            
+            </column>
+            </row>
             </div>
+
+           
           </card>
           </div>
     </column>
@@ -152,6 +166,7 @@ import {
   Row,
   Column,
   Btn,
+  Badge,
   Fa,
   PieChart,
   BarChart,
@@ -204,6 +219,7 @@ export default {
     Row,
     Column,
     Btn,
+    Badge,
     Fa,
     PieChart,
     BarChart,
@@ -245,7 +261,8 @@ export default {
       pieInstance: null,
       barInstance: null,
       pieselection: [false,false,false,false],
-      tabs : "&emsp; &emsp;"
+      tabs : "&emsp; &emsp;",
+      profname: ""
     };
   },
   computed: {
@@ -266,6 +283,11 @@ export default {
       return (
         "Students have a " + output + " Average Rating of " + percentage + "%"
       );
+    },
+    prof_name(){
+      var output = this.mods[this.AY]["Prof_data"]["name"];
+
+      return output;
     }
   },
   methods: {
