@@ -36,7 +36,7 @@
   <div class="card-body">
     <router-link :to="{ path : '/moduleview/'+mod.code}"><h5 class="card-title">{{mod.code}}: {{mod.mod_name}}</h5></router-link>
     <hr>
-    <p class="card-text">Latest Feedback from: {{mod.latest_Sem}}/p>
+    <p class="card-text">Latest Feedback from: {{mod.latest_Sem}}</p>
     <p class='card-text' :class="{red_rating:mod.avr_rating<3,green_rating:mod.avr_rating>=3}">Average Rating: {{mod.avr_rating}} / 5</p>
 
   </div>

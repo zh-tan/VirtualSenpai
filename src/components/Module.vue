@@ -73,16 +73,15 @@
               </div>
             <card-body>
                 <b-progress class="mt-1" :max="100" show-value>
-                  <b-progress-bar :value="opinion_rating_bad" variant="danger"></b-progress-bar>
-                  <b-progress-bar :value="opinion_rating_average" variant="warning"></b-progress-bar>
                   <b-progress-bar :value="opinion_rating_good" variant="success"></b-progress-bar>
-                  
+                  <b-progress-bar :value="opinion_rating_average" variant="warning"></b-progress-bar>
+                  <b-progress-bar :value="opinion_rating_bad" variant="danger"></b-progress-bar>
                 </b-progress>
 
               <card-text class="text">
-              <span v-if="opinion_rating_bad!=0"> &emsp;&emsp;&emsp;Hard  &emsp; &emsp; &emsp; </span>
-              <span v-if="opinion_rating_average!=0">  Normal </span> 
-              <span v-if="opinion_rating_good!=0"> &emsp; &emsp; Easy </span> 
+              <span v-if="opinion_rating_bad!=0" class="easy" style="float:left; width:34%; text-align:left;"> Easy   </span>
+              <span v-if="opinion_rating_average!=0" class="normal" style="float:left; width:33%; text-align: center;">  Normal </span> 
+              <span v-if="opinion_rating_good!=0" class="hard" style="float:right; width:33%; text-align: right;">  Hard </span> 
                </card-text> 
             </card-body>
           </card>
@@ -96,22 +95,11 @@
    <card-header class="text-left">Cohort Breakdown </card-header>
   <card-body>
   <div class="piechart">
-    <pie-chart ref="PC"
-      v-if="rendered"
-      :data="pieChartData" 
-      :options="pieChartOptions" 
-      :height="150">
-      </pie-chart>
+    <canvas id="piecanvas" width="700" height="150" > </canvas>
   </div>
   
    <div class="barchart">
-    <bar-chart 
-      v-if="rendered"
-      :data="gradesdistdata" 
-      :options="gradedistoptions" 
-      :height="200"
-      :width="600">
-      </bar-chart>
+    <canvas id="barcanvas" > </canvas>
   </div>
 
   </card-body>
@@ -179,6 +167,7 @@ import Vue from "vue";
 //import wordcloud from "echarts-wordcloud";
 // mods[modulecode][semester]
 import "echarts-wordcloud";
+import Chart from 'chart.js';
 
 //console.log(modRef)
 export default {
@@ -199,6 +188,9 @@ export default {
         this.gradesdist();
         this.avg_rating = this.avgrating();
         this.opinion_rating = this.opinionrating();
+      }).then(() => {
+        this.renderCharts();
+        // render charts after obtaining data
       });
     db.ref("mod_summary/" + this.modCode)
       .once("value")
@@ -248,7 +240,11 @@ export default {
       opinion_rating_average: "",
       opinion_rating_good: "",
       opinion_rating_bad: "",
-      bar_colour: ["#9284C1", "#D18296", "#E9A784", "#85A3BC"]
+      bar_colour: ["#9284C1", "#D18296", "#E9A784", "#85A3BC"],
+      pieInstance: null,
+      barInstance: null,
+      pieselection: [false,false,false,false],
+      tabs : "&emsp; &emsp;"
     };
   },
   computed: {
@@ -272,6 +268,47 @@ export default {
     }
   },
   methods: {
+    renderCharts(){
+      this.pieInstance = this.renderPieChart();
+        this.barInstance = this.renderBarChart();
+        // onclick event
+        var canvas = document.getElementById("piecanvas");
+        
+        // to prevent reference conflict
+        // in onclick event, "this" refers to chart instance instead of vue instance
+        var self = this
+           canvas.onclick = function(e){
+      //console.log(self.pieInstance)
+      var activePoints = self.pieInstance.getElementsAtEvent(e);
+      console.log(activePoints)
+      
+      // when a pie quadrant is selected, there will be an array of 1
+      // this is to prevent an error if clicked on any part of the canvas 
+      // (Unable to access [0]["_index"] from undefined)
+      if (activePoints.length === 1){
+      var index = activePoints[0]["_index"];
+      var ci = self.pieInstance.chart;
+       var ci2 = self.barInstance.chart;
+        var meta2 = ci2.getDatasetMeta(index);
+       meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
+
+       // try to modify selection of pie quadrant instance to change color
+        // means not selected
+        //console.log(self.pieChartData[0])
+        
+        if(self.pieselection[index] == false){
+          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#FDB45C"
+          console.log(activePoints)
+          self.pieselection[index] = true; //select
+        } else {
+          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
+          self.pieselection[index] = false; // disselect
+        }
+        ci.update();
+       ci2.update();
+      }
+           }
+    },
     toggle() {
       this.rendered = false;
       setTimeout(() => {
@@ -292,6 +329,10 @@ export default {
       this.avg_rating = this.avgrating();
       this.opinion_rating = this.opinionrating();
       this.get_words();
+      this.pieInstance.data=this.pieChartData;
+      this.barInstance.data=this.gradesdistdata;
+      this.barInstance.update();
+      this.pieInstance.update();
       this.toggle();
     },
     avgrating() {
@@ -486,7 +527,6 @@ export default {
               "#D18296",
               "#E9A784",
               "#85A3BC",
-
               "#F7464A",
               "#46BFBD",
               "#FDB45C",
@@ -495,13 +535,26 @@ export default {
               "#ac64ad"
             ],
             hoverBackgroundColor: [
-              "#FF5A5E",
-              "#5AD3D1",
-              "#FFC870",
-              "#A8B3C5",
-              "#616774",
-              "#da92db"
+              // "#FF5A5E",
+              // "#5AD3D1",
+              // "#FFC870",
+              // "#A8B3C5",
+              // "#616774",
+              // "#da92db"
             ]
+            // borderColor: [
+            // "#9284C1",
+            //   "#D18296",
+            //   "#E9A784",
+            //   "#85A3BC",
+            //   "#FF5A5E",
+            //   "#5AD3D1",
+            //   "#FFC870",
+            //   "#A8B3C5",
+            //   "#616774",
+            //   "#da92db"
+            // ],
+            // borderWidth: 3
           }
         ]
       };
@@ -509,10 +562,25 @@ export default {
       //this.rendered = true;
       this.pieChartData["labels"] = pielabels;
       this.pieChartData["datasets"][0]["data"] = piedata;
-      //this.piedata = piedata;
-      // console.log(this.pieChartData);
-      // console.log(this.AY);
+      
       return true;
+    },
+    renderPieChart(){
+        var self = this;
+
+        var ctx = document.getElementById("piecanvas").getContext('2d');
+        
+        var myPieChart = new Chart(ctx, {
+          type: 'pie',
+          data: this.pieChartData,
+          options: {
+            legend: {
+              position: 'right'
+            }
+          }
+        })
+
+        return myPieChart;
     },
 
     // method for barchart to initialise
@@ -585,6 +653,26 @@ export default {
         }
       };
       this.rendered = true;
+    },
+    renderBarChart(){
+      var self = this;
+      var ctx = document.getElementById("barcanvas").getContext('2d');
+      
+      var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: this.gradesdistdata,
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+          xAxes: [{ stacked: true }],
+          yAxes: [{ stacked: true }]
+        }
+        }
+      })
+
+      return myBarChart;
     },
     get_words() {
       var goodwords = [];
@@ -686,4 +774,6 @@ export default {
 .modulebtn {
   margin-left: -15px;
 }
+
+
 </style>
