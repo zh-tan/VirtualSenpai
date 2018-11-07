@@ -298,7 +298,7 @@ export default {
         //console.log(self.pieChartData[0])
         
         if(self.pieselection[index] == false){
-          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#FDB45C"
+          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3"
           console.log(activePoints)
           self.pieselection[index] = true; //select
         } else {
