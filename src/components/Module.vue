@@ -277,7 +277,7 @@ export default {
         
         // to prevent reference conflict
         // in onclick event, "this" refers to chart instance instead of vue instance
-        var self = this
+        var self = this;
            canvas.onclick = function(e){
       //console.log(self.pieInstance)
       var activePoints = self.pieInstance.getElementsAtEvent(e);
@@ -302,6 +302,7 @@ export default {
           console.log(activePoints)
           self.pieselection[index] = true; //select
         } else {
+
           activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
           self.pieselection[index] = false; // disselect
         }
@@ -576,12 +577,36 @@ export default {
           data: this.pieChartData,
           options: {
             legend: {
-              position: 'right'
+              position: 'right',
+              onClick(e, legendItem){
+                var index = legendItem.index;
+                console.log(index);
+                var ci = self.pieInstance.chart;
+                var ci2 = self.barInstance.chart;
+                var meta2 = ci2.getDatasetMeta(index);
+                meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
+          if(self.pieselection[index] == false){
+          ci["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3"
+          self.pieselection[index] = true; //select
+        } else {
+          ci["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
+          self.pieselection[index] = false; // disselect
+        }
+        ci.update();
+       ci2.update();
+       // try to modify selection of pie quadrant instance to change color
+        // means not selected
+        //console.log(self.pieChartData[0])
+
             }
           }
-        })
+          }
+        }
+        )
 
         return myPieChart;
+        ci.update();
+        ci2.update();
     },
 
     // method for barchart to initialise
