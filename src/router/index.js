@@ -23,6 +23,11 @@ export default new Router({
       component: modSearch
     },
     {
+      path: "/hometest",
+      name: "Hometest",
+      component: Homepage
+    },
+    {
       path: "/module",
       name: "Module",
       component: modSearch

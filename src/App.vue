@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar></Navbar> 
+    <Navbar v-if="this.$route.path!=='/hometest'"></Navbar> 
     <main>
     <br>
     <router-view :key="$route.fullPath"/>
