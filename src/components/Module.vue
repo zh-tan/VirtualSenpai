@@ -180,7 +180,8 @@
   </div>
 </template>
 
-<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></script>
+<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</script>
 <script>
 import { db } from "../firebase";
 import {
@@ -326,6 +327,7 @@ export default {
       canvas.onclick = function(e) {
         //console.log(self.pieInstance)
         var activePoints = self.pieInstance.getElementsAtEvent(e);
+        console.log("Active points from render charts: ");
         console.log(activePoints);
 
         // when a pie quadrant is selected, there will be an array of 1
@@ -346,13 +348,16 @@ export default {
           if (self.pieselection[index] == false) {
             activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
               index
-            ] = "#D3D3D3";
+            ] =
+              "#D3D3D3";
+            console.log("Active points when deselect: ");
             console.log(activePoints);
             self.pieselection[index] = true; //select
           } else {
             activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
               index
-            ] = self.bar_colour[index];
+            ] =
+              self.bar_colour[index];
             self.pieselection[index] = false; // disselect
           }
           ci.update();
@@ -629,6 +634,7 @@ export default {
             position: "right",
             onClick(e, legendItem) {
               var index = legendItem.index;
+              console.log("Index from renderPieChart: ");
               console.log(index);
               var ci = self.pieInstance.chart;
               var ci2 = self.barInstance.chart;
