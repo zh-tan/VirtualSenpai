@@ -69,6 +69,7 @@ router-view {
 }
 
 main {
+  margin-top: 10px;
   background-color: #f0f0f1;
 }
 </style>

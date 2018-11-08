@@ -1,6 +1,5 @@
 <template>
   <div class="charts">
-    <br />
     <row>
       <column xl="6" md="6" class="mb-r">
         <div class="module" style="height:90px">
@@ -776,11 +775,6 @@ export default {
 
 <style scoped>
 .charts {
-  // display:grid;
-  // grid-template-columns: 2fr 1fr;
-  // grid-template-rows: auto auto;
-  // //grid-auto-rows: minmax(100px, auto);
-  // grid-row-gap: 1em;
 }
 .echarts {
   width: 280px;
@@ -848,5 +842,10 @@ export default {
 
 .modulebtn {
   margin-left: -15px;
+}
+
+.card[class*="border"] {
+  border: 1.3px solid #2bbbad;
+  box-shadow: none;
 }
 </style>
