@@ -41,11 +41,11 @@
             >
             <br>
             <card style="width: 50rem;">
-  <router-link :to="{ path: '/moduleview/' + mod.code }"><card-header color="stylish-color" style="font-size:1.5em">{{ mod.code }}: {{ mod.mod_name }}</card-header></router-link>
+  <router-link :to="{ path: '/moduleview/' + mod.code }"><card-header color="default-color" style="font-size:1.5em">{{ mod.code }}: {{ mod.mod_name }}</card-header></router-link>
   <card-body>
-  <card-text><badge pill color="default-color" style="font-size:1.25em">Prof In-charge: {{ mod.prof.name }} </badge></card-text>
-  <card-text><badge pill color="default-color" style="font-size:1.25em">Latest Feedback from: {{ mod.latest_Sem }}</badge></card-text>
-  <card-text><badge pill color="default-color" style="font-size:1.25em">Average Rating: {{ mod.avr_rating }} / 5</badge></card-text>
+  <card-text>Prof In-charge: {{ mod.prof.name }} </card-text>
+  <card-text>Latest Feedback from: {{ mod.latest_Sem }}</card-text>
+  <card-text>Average Rating: {{ mod.avr_rating }} / 5</card-text>
   
     
   </card-body>
