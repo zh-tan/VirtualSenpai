@@ -4,24 +4,31 @@
     <navbar expand="large" dark class="stylish-color" position="top" scrolling>
       <mdb-navbar-brand href="#">
         <img
-          src="https://uploads.codesandbox.io/uploads/user/e6772621-92a7-441c-9d05-9ee39758af11/Ksiw-statistics.png"
-          height="30"
+          src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/WSWu-logonav.png"
+          height="37"
         />
       </mdb-navbar-brand>
 
       <navbar-collapse>
         <navbar-nav left>
           <router-link to="/module" @click.native="activeItem = 1;" active>
-            <btn
-              color="default"
-              size="sm"
+            <button
+              type="button"
+              class="btn btn-default"
               @click.native="toggleActiveState"
               :active="active"
-              >Module</btn
-            ></router-link
+            >
+              <i class="fas fa-book mr-2"></i>Module
+            </button></router-link
           >
           <router-link to="/careerview" @click.native="activeItem = 2;">
-            <btn size="sm">Career</btn></router-link
+            <button
+              type="button"
+              class="btn btn-default"
+              @click.native="toggleActiveState"
+            >
+              <i class="fas fa-graduation-cap mr-2"></i>Career
+            </button></router-link
           >
         </navbar-nav>
         <navbar-nav right>
@@ -30,7 +37,7 @@
             waves-fixed
             class="border border-light rounded mr-1"
             target="_blank"
-            ><fa icon="github" class="mr-2" /> GitHub
+            ><i class="fas fa-github"></i> GitHub
           </navbar-item>
         </navbar-nav>
       </navbar-collapse>
@@ -91,11 +98,11 @@ export default {
   padding-bottom: 5px;
 }
 
-.btn:not(:disabled):not(.disabled).active,
-.btn:not(:disabled):not(.disabled):active {
+.button:not(:disabled):not(.disabled).active,
+.button:not(:disabled):not(.disabled):active {
   background-image: none;
 }
-.btn-default.dropdown-toggle {
+.button-default.dropdown-toggle {
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   background-color: #186860 !important;
 }
