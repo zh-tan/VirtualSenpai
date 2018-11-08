@@ -2,7 +2,9 @@
   <div id="app">
     <Navbar v-if="this.$route.path!=='/hometest'"></Navbar> 
     <main>
+      <div class="routerview">
     <router-view :key="$route.fullPath"/>
+      </div>
     </main>
     <b-modal v-if="true" ref="myModalRef" 
     hide-footer title="Welcome to VirtualSenpai!"
@@ -69,7 +71,10 @@ router-view {
 }
 
 main {
-  margin-top: 10px;
   background-color: #f0f0f1;
+}
+
+.routerview{
+  margin-top:10px;
 }
 </style>

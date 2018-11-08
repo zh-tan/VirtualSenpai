@@ -775,6 +775,7 @@ export default {
 
 <style scoped>
 .charts {
+  margin-top: 30px;
 }
 .echarts {
   width: 280px;
