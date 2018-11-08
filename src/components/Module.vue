@@ -286,7 +286,7 @@ export default {
       pieselection: [false, false, false, false],
       tabs: "&emsp; &emsp;",
       profname: "",
-      bordercolor: "dark"
+      bordercolor: "blue"
     };
   },
   computed: {
