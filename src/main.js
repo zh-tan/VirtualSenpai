@@ -16,8 +16,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import BootstrapVue from "bootstrap-vue";
 import "vue-search-bar/dist/vue-search-bar.min.css";
 import { SearchBar } from "vue-search-bar";
-import Vuetify from "vuetify";
-Vue.use(Vuetify);
+
 Vue.use(SearchBar);
 Vue.use(BootstrapVue);
 

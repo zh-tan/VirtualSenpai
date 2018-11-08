@@ -1,165 +1,187 @@
 <template>
-<div class="charts">
-<row >
-    <column xl="6" md="6" class="mb-r">
-    <div class="module" style="height:90px">
+  <div class="charts">
+    <br />
+    <row>
+      <column xl="6" md="6" class="mb-r">
+        <div class="module" style="height:90px">
           <card cascade class="cascading-admin-card" :border="bordercolor">
-          <card-header class="text-left">Module Information </card-header>
+            <card-header class="text-left">Module Information </card-header>
             <div class="admin-up">
-              <fa icon="line-chart" class="success-color"/>
-              <div class="data">
-              </div>
-            </div>  
-            
+              <fa icon="line-chart" class="success-color" />
+              <div class="data"></div>
+            </div>
+
             <div style="height: 130px">
-            <row>
-            <column>
-            <card-body>
-            <div class="moduleinfo">
-            <div class="modulebtn">
-            <b-button :pressed="true" variant="info">{{modCode}}:  {{mod_name}}</b-button>
-               
-              <br>
-              <b-button  variant="warning">Currently Displaying: {{AY}}</b-button>
-              
-              </div>
-                
-              
-              Select Semester:
-            <select  @change="refreshAY(curSem)" v-model="curSem">
-              <option selected disabled>Select a semester</option>
-              <option v-for="sem in AYList" :key="sem">
-              {{sem}}
-              </option>
-            </select>
+              <row>
+                <column>
+                  <card-body>
+                    <div class="moduleinfo">
+                      <div class="modulebtn">
+                        <b-button :pressed="true" variant="info"
+                          >{{ modCode }}: {{ mod_name }}</b-button
+                        >
+
+                        <br />
+                        <b-button variant="warning"
+                          >Currently Displaying: {{ AY }}</b-button
+                        >
+                      </div>
+
+                      Select Semester:
+                      <select @change="refreshAY(curSem);" v-model="curSem">
+                        <option selected disabled>Select a semester</option>
+                        <option v-for="sem in AYList" :key="sem">
+                          {{ sem }}
+                        </option>
+                      </select>
+                    </div>
+                  </card-body>
+                </column>
+
+                <column>
+                  Professor-in-charge:
+                  <badge pill color="rgba-blue-grey-strong">{{
+                    prof_name
+                  }}</badge>
+                </column>
+              </row>
             </div>
-
-
-            </card-body>
-            </column>
-
-             <column>
-             Professor-in-charge: <badge pill color="rgba-blue-grey-strong">{{prof_name}}</badge>
-            
-            </column>
-            </row>
-            </div>
-
-           
           </card>
-          </div>
-    </column>
+        </div>
+      </column>
 
- <column xl="3" md="6">
-          <card cascade class="cascading-admin-card" :border="bordercolor">
+      <column xl="3" md="6">
+        <card cascade class="cascading-admin-card" :border="bordercolor">
           <card-header class="text-left">Average Rating </card-header>
-            <div class="admin-up">
-              <fa icon="line-chart" class="warning-color"/>
+          <div class="admin-up">
+            <fa icon="line-chart" class="warning-color" />
+          </div>
 
-            </div>
-          
-                          <div class="data">
-  <h1> <span v-bind:style="spancolor"> {{avg_rating}}  / <b>5</b> </span> </h1>
-              </div>
-            <div style="height: 70px">
+          <div class="data">
+            <h1>
+              <span v-bind:style="spancolor">
+                {{ avg_rating }} / <b>5</b>
+              </span>
+            </h1>
+          </div>
+          <div style="height: 70px">
             <card-body>
-            <div class="commentary">
+              <div class="commentary">
+                <div>
+                  <b-progress
+                    :value="avg_rating"
+                    :max="5"
+                    :variant="avg_rating_bar"
+                    animated
+                  ></b-progress>
+                </div>
 
-            <div> <b-progress :value="avg_rating" :max="5" :variant="avg_rating_bar" animated></b-progress> </div>
-
-              <card-text>{{avg_rating_commentary}} </card-text>
+                <card-text>{{ avg_rating_commentary }} </card-text>
               </div>
             </card-body>
-            </div>
-          </card>
-  </column>
-  
-  <column xl="3" md="6" class="mb-r">
-          <card cascade class="cascading-admin-card" :border="bordercolor">
+          </div>
+        </card>
+      </column>
+
+      <column xl="3" md="6" class="mb-r">
+        <card cascade class="cascading-admin-card" :border="bordercolor">
           <card-header class="text-left"> Difficulty Rating </card-header>
-            <div class="admin-up">
-              <fa icon="pie-chart" class="light-blue lighten-1"/>
+          <div class="admin-up">
+            <fa icon="pie-chart" class="light-blue lighten-1" />
+          </div>
+          <div class="data">
+            The general sensing for students in<strong> {{ AY }} </strong> with
+            respect to difficulty levels
+          </div>
+          <card-body>
+            <b-progress class="mt-1" :max="100" show-value>
+              <b-progress-bar
+                :value="opinion_rating_good"
+                variant="success"
+              ></b-progress-bar>
+              <b-progress-bar
+                :value="opinion_rating_average"
+                variant="warning"
+              ></b-progress-bar>
+              <b-progress-bar
+                :value="opinion_rating_bad"
+                variant="danger"
+              ></b-progress-bar>
+            </b-progress>
 
+            <card-text class="text">
+              <span
+                v-if="opinion_rating_bad != 0"
+                class="easy"
+                style="float:left; width:34%; text-align:left;"
+              >
+                Easy
+              </span>
+              <span
+                v-if="opinion_rating_average != 0"
+                class="normal"
+                style="float:left; width:33%; text-align: center;"
+              >
+                Normal
+              </span>
+              <span
+                v-if="opinion_rating_good != 0"
+                class="hard"
+                style="float:right; width:33%; text-align: right;"
+              >
+                Hard
+              </span>
+            </card-text>
+          </card-body>
+        </card>
+      </column>
+    </row>
+
+    <row>
+      <column xl="6" md="6">
+        <card cascade class="cascading-admin-card" :border="bordercolor">
+          <card-header class="text-left">Cohort Breakdown </card-header>
+          <card-body>
+            <div class="piechart">
+              <canvas id="piecanvas" width="700" height="150"> </canvas>
             </div>
-                          <div class="data">
-                  
-                   The general sensing for students in<strong> {{AY}} </strong> with respect to difficulty levels 
-                
-              </div>
-            <card-body>
-                <b-progress class="mt-1" :max="100" show-value>
-                  <b-progress-bar :value="opinion_rating_good" variant="success"></b-progress-bar>
-                  <b-progress-bar :value="opinion_rating_average" variant="warning"></b-progress-bar>
-                  <b-progress-bar :value="opinion_rating_bad" variant="danger"></b-progress-bar>
-                </b-progress>
 
-              <card-text class="text">
-              <span v-if="opinion_rating_bad!=0" class="easy" style="float:left; width:34%; text-align:left;"> Easy   </span>
-              <span v-if="opinion_rating_average!=0" class="normal" style="float:left; width:33%; text-align: center;">  Normal </span> 
-              <span v-if="opinion_rating_good!=0" class="hard" style="float:right; width:33%; text-align: right;">  Hard </span> 
-               </card-text> 
-            </card-body>
-          </card>
-  </column>
+            <div class="barchart"><canvas id="barcanvas"> </canvas></div>
+          </card-body>
+        </card>
+      </column>
 
-</row>
+      <column>
+        <card class="mb-4" :border="bordercolor">
+          <card-header class="text-left"> Positive Feedback </card-header>
+          <card-body>
+            <div class="echarts">
+              <IEcharts v-if="rendered" :option="wordcloud" @ready="onReady" />
+            </div>
+          </card-body>
+        </card>
+      </column>
 
-  <row>
-    <column xl="6" md="6">
-  <card cascade class="cascading-admin-card" :border="bordercolor">
-   <card-header class="text-left">Cohort Breakdown </card-header>
-  <card-body>
-  <div class="piechart">
-    <canvas id="piecanvas" width="700" height="150" > </canvas>
-  </div>
-  
-   <div class="barchart">
-    <canvas id="barcanvas" > </canvas>
-  </div>
-
-  </card-body>
-  </card>
-    </column>
-
-    <column>
-      <card class="mb-4" :border="bordercolor">
-        <card-header class="text-left"> Positive Feedback </card-header>
-        <card-body>
-      <div class="echarts">
-              <IEcharts
-      v-if="rendered"
-      :option='wordcloud'
-      @ready='onReady'
-      />
-      </div>
-        </card-body>
-    </card>
-   
-  </column>
-
-<column>
-<card class="mb-4" :border="bordercolor">
+      <column>
+        <card class="mb-4" :border="bordercolor">
           <card-header class="text-left"> Negative Feedback </card-header>
           <card-body>
-      <div  class="echarts">
-      <IEcharts class="wc"
-      v-if="rendered"
-      :option='wordcloudB'
-      @ready='onReadyB'
-      />
-    </div>
-            </card-body>
-      </card>
-</column>
-  </row>
-
-
-</div>
+            <div class="echarts">
+              <IEcharts
+                class="wc"
+                v-if="rendered"
+                :option="wordcloudB"
+                @ready="onReadyB"
+              />
+            </div>
+          </card-body>
+        </card>
+      </column>
+    </row>
+  </div>
 </template>
 
-
-<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-</script>
+<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></script>
 <script>
 import { db } from "../firebase";
 import {
@@ -183,7 +205,7 @@ import Vue from "vue";
 //import wordcloud from "echarts-wordcloud";
 // mods[modulecode][semester]
 import "echarts-wordcloud";
-import Chart from 'chart.js';
+import Chart from "chart.js";
 
 //console.log(modRef)
 export default {
@@ -204,7 +226,8 @@ export default {
         this.gradesdist();
         this.avg_rating = this.avgrating();
         this.opinion_rating = this.opinionrating();
-      }).then(() => {
+      })
+      .then(() => {
         this.renderCharts();
         // render charts after obtaining data
       });
@@ -260,10 +283,10 @@ export default {
       bar_colour: ["#9284C1", "#D18296", "#E9A784", "#85A3BC"],
       pieInstance: null,
       barInstance: null,
-      pieselection: [false,false,false,false],
-      tabs : "&emsp; &emsp;",
+      pieselection: [false, false, false, false],
+      tabs: "&emsp; &emsp;",
       profname: "",
-      bordercolor : "dark"
+      bordercolor: "dark"
     };
   },
   computed: {
@@ -285,54 +308,58 @@ export default {
         "Students have a " + output + " Average Rating of " + percentage + "%"
       );
     },
-    prof_name(){
+    prof_name() {
       var output = this.mods[this.AY]["Prof_data"]["name"];
 
       return output;
     }
   },
   methods: {
-    renderCharts(){
+    renderCharts() {
       this.pieInstance = this.renderPieChart();
-        this.barInstance = this.renderBarChart();
-        // onclick event
-        var canvas = document.getElementById("piecanvas");
-        
-        // to prevent reference conflict
-        // in onclick event, "this" refers to chart instance instead of vue instance
-        var self = this;
-           canvas.onclick = function(e){
-      //console.log(self.pieInstance)
-      var activePoints = self.pieInstance.getElementsAtEvent(e);
-      console.log(activePoints)
-      
-      // when a pie quadrant is selected, there will be an array of 1
-      // this is to prevent an error if clicked on any part of the canvas 
-      // (Unable to access [0]["_index"] from undefined)
-      if (activePoints.length === 1){
-      var index = activePoints[0]["_index"];
-      var ci = self.pieInstance.chart;
-       var ci2 = self.barInstance.chart;
-        var meta2 = ci2.getDatasetMeta(index);
-       meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
+      this.barInstance = this.renderBarChart();
+      // onclick event
+      var canvas = document.getElementById("piecanvas");
 
-       // try to modify selection of pie quadrant instance to change color
-        // means not selected
-        //console.log(self.pieChartData[0])
-        
-        if(self.pieselection[index] == false){
-          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3"
-          console.log(activePoints)
-          self.pieselection[index] = true; //select
-        } else {
+      // to prevent reference conflict
+      // in onclick event, "this" refers to chart instance instead of vue instance
+      var self = this;
+      canvas.onclick = function(e) {
+        //console.log(self.pieInstance)
+        var activePoints = self.pieInstance.getElementsAtEvent(e);
+        console.log(activePoints);
 
-          activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
-          self.pieselection[index] = false; // disselect
+        // when a pie quadrant is selected, there will be an array of 1
+        // this is to prevent an error if clicked on any part of the canvas
+        // (Unable to access [0]["_index"] from undefined)
+        if (activePoints.length === 1) {
+          var index = activePoints[0]["_index"];
+          var ci = self.pieInstance.chart;
+          var ci2 = self.barInstance.chart;
+          var meta2 = ci2.getDatasetMeta(index);
+          meta2.hidden =
+            meta2.hidden === null ? !ci2.data.datasets[index].hidden : null;
+
+          // try to modify selection of pie quadrant instance to change color
+          // means not selected
+          //console.log(self.pieChartData[0])
+
+          if (self.pieselection[index] == false) {
+            activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
+              index
+            ] = "#D3D3D3";
+            console.log(activePoints);
+            self.pieselection[index] = true; //select
+          } else {
+            activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
+              index
+            ] = self.bar_colour[index];
+            self.pieselection[index] = false; // disselect
+          }
+          ci.update();
+          ci2.update();
         }
-        ci.update();
-       ci2.update();
-      }
-           }
+      };
     },
     toggle() {
       this.rendered = false;
@@ -354,8 +381,8 @@ export default {
       this.avg_rating = this.avgrating();
       this.opinion_rating = this.opinionrating();
       this.get_words();
-      this.pieInstance.data=this.pieChartData;
-      this.barInstance.data=this.gradesdistdata;
+      this.pieInstance.data = this.pieChartData;
+      this.barInstance.data = this.gradesdistdata;
       this.barInstance.update();
       this.pieInstance.update();
       this.toggle();
@@ -587,49 +614,49 @@ export default {
       //this.rendered = true;
       this.pieChartData["labels"] = pielabels;
       this.pieChartData["datasets"][0]["data"] = piedata;
-      
+
       return true;
     },
-    renderPieChart(){
-        var self = this;
+    renderPieChart() {
+      var self = this;
 
-        var ctx = document.getElementById("piecanvas").getContext('2d');
-        
-        var myPieChart = new Chart(ctx, {
-          type: 'pie',
-          data: this.pieChartData,
-          options: {
-            legend: {
-              position: 'right',
-              onClick(e, legendItem){
-                var index = legendItem.index;
-                console.log(index);
-                var ci = self.pieInstance.chart;
-                var ci2 = self.barInstance.chart;
-                var meta2 = ci2.getDatasetMeta(index);
-                meta2.hidden = meta2.hidden === null? !ci2.data.datasets[index].hidden : null;
-          if(self.pieselection[index] == false){
-          ci["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3"
-          self.pieselection[index] = true; //select
-        } else {
-          ci["data"]["datasets"][0]["backgroundColor"][index] = self.bar_colour[index];
-          self.pieselection[index] = false; // disselect
-        }
-        ci.update();
-       ci2.update();
-       // try to modify selection of pie quadrant instance to change color
-        // means not selected
-        //console.log(self.pieChartData[0])
+      var ctx = document.getElementById("piecanvas").getContext("2d");
 
+      var myPieChart = new Chart(ctx, {
+        type: "pie",
+        data: this.pieChartData,
+        options: {
+          legend: {
+            position: "right",
+            onClick(e, legendItem) {
+              var index = legendItem.index;
+              console.log(index);
+              var ci = self.pieInstance.chart;
+              var ci2 = self.barInstance.chart;
+              var meta2 = ci2.getDatasetMeta(index);
+              meta2.hidden =
+                meta2.hidden === null ? !ci2.data.datasets[index].hidden : null;
+              if (self.pieselection[index] == false) {
+                ci["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3";
+                self.pieselection[index] = true; //select
+              } else {
+                ci["data"]["datasets"][0]["backgroundColor"][index] =
+                  self.bar_colour[index];
+                self.pieselection[index] = false; // disselect
+              }
+              ci.update();
+              ci2.update();
+              // try to modify selection of pie quadrant instance to change color
+              // means not selected
+              //console.log(self.pieChartData[0])
             }
           }
-          }
         }
-        )
+      });
 
-        return myPieChart;
-        ci.update();
-        ci2.update();
+      return myPieChart;
+      ci.update();
+      ci2.update();
     },
 
     // method for barchart to initialise
@@ -703,23 +730,23 @@ export default {
       };
       this.rendered = true;
     },
-    renderBarChart(){
+    renderBarChart() {
       var self = this;
-      var ctx = document.getElementById("barcanvas").getContext('2d');
-      
+      var ctx = document.getElementById("barcanvas").getContext("2d");
+
       var myBarChart = new Chart(ctx, {
-        type: 'bar',
+        type: "bar",
         data: this.gradesdistdata,
         options: {
           legend: {
             display: false
           },
           scales: {
-          xAxes: [{ stacked: true }],
-          yAxes: [{ stacked: true }]
+            xAxes: [{ stacked: true }],
+            yAxes: [{ stacked: true }]
+          }
         }
-        }
-      })
+      });
 
       return myBarChart;
     },
@@ -746,7 +773,6 @@ export default {
   } // end of methods brackets
 };
 </script>
-
 
 <style scoped>
 .charts {
@@ -823,6 +849,4 @@ export default {
 .modulebtn {
   margin-left: -15px;
 }
-
-
 </style>
