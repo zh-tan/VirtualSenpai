@@ -5,11 +5,13 @@
   {{careerTitle}} 
 </h1>
 </div>
+
 <select  @change="$router.push({ path: '/careerview/'+prog})" v-model="prog">
   <option v-for="deg in majorslist" :key="deg">
   {{deg}}
 </option>
 </select>
+
 <row>
 
 <div v-if="NotDefault">

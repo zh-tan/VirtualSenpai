@@ -1,5 +1,5 @@
 <template>
-  <div classname="Logo">
+  <div classname="homepage">
     <v-app light>
       <v-content>
         <section>
@@ -222,14 +222,10 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted: function() {
+    $("#switch").lc_switch("ON", "OFF", this.$options._scopeId);
   }
 };
 </script>
-
-// css
-<style>
-#instruction {
-  width: 50px;
-  height: 1000px;
-}
-</style>
+<style scoped src="vuetify/dist/vuetify.min.css"></style>
