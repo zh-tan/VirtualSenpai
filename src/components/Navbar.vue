@@ -91,8 +91,6 @@ export default {
   padding-bottom: 5px;
 }
 
-element.style {
-}
 .btn:not(:disabled):not(.disabled).active,
 .btn:not(:disabled):not(.disabled):active {
   background-image: none;

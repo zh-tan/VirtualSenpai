@@ -2,7 +2,6 @@
   <div id="app">
     <Navbar v-if="this.$route.path!=='/hometest'"></Navbar> 
     <main>
-    <br>
     <router-view :key="$route.fullPath"/>
     </main>
     <b-modal v-if="true" ref="myModalRef" 
