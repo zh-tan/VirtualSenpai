@@ -1,7 +1,7 @@
 <template>
   <div class="flexible-content">
     <!--Navbar-->
-    <navbar expand = "large" dark class = "unique-color" position="top" scrolling>
+    <navbar expand = "large" dark class = "stylish-color" position="top" scrolling>
       
       <mdb-navbar-brand href="#">
     

@@ -39,27 +39,19 @@
               class="mod_info"
               v-if="modFiltering(mod)"
             >
-              <div class="card" style="width: 50rem;">
-                <div class="card-body">
-                  <router-link :to="{ path: '/moduleview/' + mod.code }"
-                    ><h5 class="card-title">
-                      {{ mod.code }}: {{ mod.mod_name }}
-                    </h5></router-link
-                  >
-                  <hr />
-                  <p class="card-text">
-                    Latest Feedback from: {{ mod.latest_Sem }}
-                  </p>
-                  <p
-                    class="card-text"
-                    :class="{
-                      red_rating: mod.avr_rating < 3,
-                      green_rating: mod.avr_rating >= 3
-                    }"
-                  >
-                    Average Rating: {{ mod.avr_rating }} / 5
-                  </p>
-                </div>
+            <br>
+            <card style="width: 50rem;">
+  <router-link :to="{ path: '/moduleview/' + mod.code }"><card-header color="stylish-color" style="font-size:1.5em">{{ mod.code }}: {{ mod.mod_name }}</card-header></router-link>
+  <card-body>
+  <card-text><badge pill color="default-color" style="font-size:1.25em">Prof In-charge: {{ mod.prof.name }} </badge></card-text>
+  <card-text><badge pill color="default-color" style="font-size:1.25em">Latest Feedback from: {{ mod.latest_Sem }}</badge></card-text>
+  <card-text><badge pill color="default-color" style="font-size:1.25em">Average Rating: {{ mod.avr_rating }} / 5</badge></card-text>
+  
+    
+  </card-body>
+</card>
+              
+              
               </div>
             </div>
           </div>
@@ -78,7 +70,12 @@ import {
   Fa,
   SubMenu,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
+  Card,
+  CardBody,
+  CardHeader,
+  CardText,
+  Badge
 } from "mdbvue";
 import "@fortawesome/fontawesome-free/css/all.css";
 
@@ -92,7 +89,12 @@ export default {
     ListGroup,
     ListGroupItem,
     Fa,
-    SubMenu
+    SubMenu,
+    Card,
+  CardBody,
+  CardHeader,
+  CardText,
+  Badge
   },
   data() {
     return {
