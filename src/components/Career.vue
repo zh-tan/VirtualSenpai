@@ -1,61 +1,100 @@
 <template>
-<div classname="charts">
-<row>
-<column xl="6" md="6" class="mb-r">
- <card cascade class="cascading-admin-card">
- <card-header class="text-left">Major</card-header>
-  <div class="moduleinfo">
-      <div class="modulebtn">
-        <b-button :pressed="true" variant="info">
-        {{careerTitle}}
-        </b-button>
-        <br/>
-      </div>
-      Select Major:
-      <select  @change="$router.push({ path: '/careerview/'+prog})" v-model="prog">
-    <option v-for="deg in majorslist" :key="deg">
-    {{deg}}
-    </option>
-      </select>
-  </div>
- </card>
-</column>
-<column xl="6" md="6">
-  <card cascade class="cascading-admin-card">
-  <card-header class="text-left">Common Roles</card-header>
-  </card>
-</column>
-</row>
-<row>
-<div v-if="NotDefault">
-<div class="charts">
-  <column>
-  <row>
-    <card cascade class="cascading-admin-card">
-      <div class="piechart">
-      <card-header class="text-left">Hiring industries </card-header>
-      <card-body>
-      <div class="piechart">
-        <canvas id="piecanvas" width="650" height="150"> </canvas>
-      </div>
-      <br>
-      <row>
-      <div class="d-flex justify-content-left" style="display:block">
-      <canvas id="salaryCanvas" width="325" height="150"> </canvas>
-      </div>
-      <div class="d-flex justify-content-center" style="display:block">
-        <canvas id="hiringCanvas" width="325" height="150"> </canvas>
+  <div classname="charts">
+    <!-- Start of first column -->
+    <row>
+      <column xl="6" md="6">
+        <row>
+          <card cascade class="cascading-admin-card" :border="bordercolor">
+            <card-header class="text-left">
+              <b-button :pressed="true" variant="info">
+                {{ careerTitle }}
+              </b-button></card-header
+            >
+            <div class="moduleinfo">
+              <select
+                @change="$router.push({ path: '/careerview/' + prog });"
+                v-model="prog"
+              >
+                <option v-for="deg in majorslist" :key="deg">
+                  {{ deg }}
+                </option>
+              </select>
+            </div>
+          </card>
+        </row>
+
+        <!--
+          Testing button dropdown
+          <div>
+            <b-dropdown id="ddown1" text="Select your Major" class="m-md-2">
+              <b-dropdown-item v-for="deg in majorslist" :key="deg" @click.native= "$router.push({ path: '/careerview/'+prog})" v-model="prog"> {{ deg }}</b-dropdown-item>
+            </b-dropdown>
+          </div>
+        -->
+        <!-- Charts -->
+
+        <div v-if="NotDefault">
+          <div class="charts">
+            <row>
+              <card cascade class="cascading-admin-card" :border="bordercolor">
+                <div class="piechart">
+                  <card-header class="text-left"
+                    >Hiring industries
+                  </card-header>
+                  <card-body>
+                    <div class="piechart">
+                      <canvas id="piecanvas" width="650" height="150"> </canvas>
+                    </div>
+                    <br />
+                    <row>
+                      <div
+                        class="d-flex justify-content-left"
+                        style="display:block"
+                      >
+                        <canvas id="salaryCanvas" width="325" height="150">
+                        </canvas>
+                      </div>
+                      <div
+                        class="d-flex justify-content-center"
+                        style="display:block"
+                      >
+                        <canvas id="hiringCanvas" width="325" height="150">
+                        </canvas>
+                      </div>
+                    </row>
+                  </card-body>
+                </div>
+              </card>
+            </row>
+          </div>
         </div>
-      </row>
-      </card-body>
-      </div>
-    </card>
-  </row>
-  </column>
-</div>
-</div>
-</row>
-    </div>
+
+        <!-- End of Charts -->
+      </column>
+
+      <!-- End of first column -->
+
+      <!-- Start of second column -->
+      <column xl="6" md="6">
+        <!-- Common roles table -->
+        <row>
+          <card cascade class="cascading-admin-card" :border="bordercolor">
+            <card-header class="text-left">Common Roles</card-header>
+          </card>
+        </row>
+        <!-- End of common roles table -->
+
+        <!-- Skills leaderboard -->
+        <row>
+          <card cascade class="cascading-admin-caard" :border="bordercolor">
+            <card-header class="text-left">Skills Board</card-header>
+            <b-table striped hover :items="items"></b-table>
+          </card>
+        </row>
+        <!-- End of Skills leaderboard -->
+      </column>
+    </row>
+  </div>
 </template>
 
 <script>
@@ -134,8 +173,10 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
-      top3Skills: [],
-      top3Scores: [],
+      items: [],
+      careerTitle: null,
+      top10Skills: [],
+      top10Scores: [],
       rendered: false,
       careerRef: [],
       pieChartOptions: {
@@ -145,6 +186,7 @@ export default {
           position: "right"
         }
       },
+      bordercolor: "#42b883",
       pieInstance: null,
       salaryInstance: null,
       hiringInstance: null,
@@ -160,7 +202,7 @@ export default {
       majorslist: [],
       NotDefault: false,
       pieselection: [false, false, false, false, false],
-      myColors:[
+      myColors: [
         "#F7464A",
         "#46BFBD",
         "#FDB45C",
@@ -184,16 +226,16 @@ export default {
 
       var canvas = document.getElementById("piecanvas");
       var self = this;
-      console.log(self.myColors)
+      console.log(self.myColors);
       canvas.onclick = function(e) {
-        console.log(self.myColors)
+        console.log(self.myColors);
         var activePoints = self.pieInstance.getElementsAtEvent(e);
-        console.log(activePoints)
+        console.log(activePoints);
         //console.log(activePoints);
         if (activePoints.length === 1) {
           var index = activePoints[0]["_index"];
-          console.log(index)
-          
+          console.log(index);
+
           var ci = self.pieInstance.chart;
           var ci2 = self.salaryInstance.chart;
           var ci3 = self.hiringInstance.chart;
@@ -209,29 +251,30 @@ export default {
           //console.log(self.pieChartData[0])
 
           if (self.pieselection[index] === false) {
-           
-            activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3";
-            
+            activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
+              index
+            ] = "#D3D3D3";
+
             //console.log(activePoints);
             self.pieselection[index] = true; //select
           } else {
-            
-            activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][index] = self.myColors[index];
+            activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
+              index
+            ] = self.myColors[index];
             self.pieselection[index] = false; // disselect
           }
           ci.update();
           ci2.update();
           ci3.update();
         }
-      }
-
+      };
     },
     getbreakdown() {
       let pielabels = [];
       let piedata = [];
       let industryObjects = [];
       let ranking = {};
-      
+
       //This line below gets all the industry names for this major
       let salaryLineData = {
         labels: [],
@@ -254,18 +297,21 @@ export default {
 
       //store the years
       let salYears = [];
-      for (var year in this.career["industries"][industryNames[0]]["median_sal"]) {
+      for (var year in this.career["industries"][industryNames[0]][
+        "median_sal"
+      ]) {
         salYears.push(year);
       }
       salaryLineData["labels"] = salYears;
 
       let hireYears = [];
-      for (var hyear in this.career["industries"][industryNames[0]]["hiringCount"]) {
+      for (var hyear in this.career["industries"][industryNames[0]][
+        "hiringCount"
+      ]) {
         hireYears.push(hyear);
       }
       hiringLineData["labels"] = hireYears;
 
-      
       for (var name in industryNames) {
         var oneInd = {
           data: [],
@@ -285,7 +331,7 @@ export default {
         }
         salaryLineData["datasets"].push(oneInd);
       }
-      console.log(salaryLineData)
+      console.log(salaryLineData);
       for (var hname in industryNames) {
         var honeInd = {
           data: [],
@@ -305,7 +351,7 @@ export default {
         }
         hiringLineData["datasets"].push(honeInd);
       }
-      console.log(hiringLineData)
+      console.log(hiringLineData);
       for (var year in preparedness) {
         for (var k in preparedness[year]) {
           ranking[preparedness[year][k][0]] = preparedness[year][k][1];
@@ -322,18 +368,27 @@ export default {
         return first[1] - second[1];
       });
 
-      const top3Ranking = {};
+      const top10Ranking = {};
       var count = 0;
       for (var i in sortRanking) {
-        top3Ranking[sortRanking[i][0]] = sortRanking[i][1];
+        top10Ranking[sortRanking[i][0]] = sortRanking[i][1];
         count++;
-        if (count === 3) {
+        if (count === 10) {
           break;
         }
       }
-      for (var i in top3Ranking) {
-        this.top3Skills.push(i);
-        this.top3Scores.push(top3Ranking[i]);
+      for (var i in top10Ranking) {
+        this.top10Skills.push(i);
+        this.top10Scores.push(top10Ranking[i]);
+      }
+      var counter = 1;
+      for (var skill in this.top10Skills) {
+        var oneSkill = {};
+
+        oneSkill["rank"] = counter;
+        counter++;
+        oneSkill["Skill"] = this.top10Skills[skill];
+        this.items.push(oneSkill);
       }
 
       for (var value in data) {
@@ -410,18 +465,18 @@ export default {
           {
             data: [],
             backgroundColor: [
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C",
-        "#949FB1",
-        "#4D5360",
-        "#ac64ad",
-        "#4f49eb",
-        "#4cec04",
-        "#77c019",
-        "#86c0d1",
-        "#ed4689"
-      ]
+              "#F7464A",
+              "#46BFBD",
+              "#FDB45C",
+              "#949FB1",
+              "#4D5360",
+              "#ac64ad",
+              "#4f49eb",
+              "#4cec04",
+              "#77c019",
+              "#86c0d1",
+              "#ed4689"
+            ]
           }
         ]
       };
@@ -429,7 +484,7 @@ export default {
       this.rendered = true;
       this.pieChartData["labels"] = pielabels;
       this.pieChartData["datasets"][0]["data"] = piedata;
-      
+
       //salaryLineData["datasets"][0]["data"] = [1000,1500,2000,900,2399]
 
       this.salaryLineData = salaryLineData;
@@ -451,7 +506,7 @@ export default {
           legend: {
             position: "right",
             onClick(e, legendItem) {
-              console.log("Should not show")
+              console.log("Should not show");
               var index = legendItem.index;
               var ci = self.pieInstance.chart;
               var ci2 = self.salaryInstance.chart;
@@ -463,13 +518,12 @@ export default {
               meta3.hidden =
                 meta3.hidden === null ? !ci3.data.datasets[index].hidden : null;
               if (self.pieselection[index] === false) {
-                
                 ci["data"]["datasets"][0]["backgroundColor"][index] = "#D3D3D3";
                 self.pieselection[index] = true; //select
               } else {
-                
                 //console.log(index)
-                ci["data"]["datasets"][0]["backgroundColor"][index] = self.myColors[index];
+                ci["data"]["datasets"][0]["backgroundColor"][index] =
+                  self.myColors[index];
                 self.pieselection[index] = false; // disselect
               }
               ci.update();
@@ -527,5 +581,8 @@ export default {
 .card[class*="border"] {
   border: 1.9px solid #2bbbad;
   box-shadow: none;
+}
+.cascading-admin-card .admin-up .fa {
+  color: #fff;
 }
 </style>
