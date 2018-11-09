@@ -45,7 +45,7 @@
   <card-body>
   <card-text>Prof In-charge: {{ mod.prof.name }} </card-text>
   <card-text>Latest Feedback from: {{ mod.latest_Sem }}</card-text>
-  <card-text>Average Rating: {{ mod.avr_rating }} / 5</card-text>
+  <card-text><p :class="{red_rating: mod.avr_rating<3, green_rating: mod.avr_rating>3}">Average Rating: {{ mod.avr_rating }} / 5</p></card-text>
   
     
   </card-body>
