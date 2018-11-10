@@ -1,28 +1,14 @@
 <template>
   <div classname="charts">
+    <select
+      @change="$router.push({ path: '/careerview/' + prog });"
+      v-model="prog"
+    >
+      <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
+    </select>
     <!-- Start of first column -->
     <row>
-      <column xl="6" md="6">
-        <row>
-          <card cascade class="cascading-admin-card" :border="bordercolor">
-            <card-header class="text-left">
-              <b-button :pressed="true" variant="info">
-                {{ careerTitle }}
-              </b-button></card-header
-            >
-            <div class="moduleinfo">
-              <select
-                @change="$router.push({ path: '/careerview/' + prog });"
-                v-model="prog"
-              >
-                <option v-for="deg in majorslist" :key="deg">
-                  {{ deg }}
-                </option>
-              </select>
-            </div>
-          </card>
-        </row>
-
+      <column xl="7" md="7">
         <!--
           Testing button dropdown
           <div>
@@ -31,6 +17,7 @@
             </b-dropdown>
           </div>
         -->
+
         <!-- Charts -->
 
         <div v-if="NotDefault">
@@ -38,10 +25,15 @@
             <row>
               <card cascade class="cascading-admin-card" :border="bordercolor">
                 <div class="piechart">
-                  <card-header class="text-left"
-                    >Hiring industries
+                  <card-header class="text-left">
+                    <b-button :pressed="true" variant="info">
+                      {{ careerTitle }}
+                    </b-button>
                   </card-header>
                   <card-body>
+                    <div class="hiring">
+                      <h6><b>Hiring Industries</b></h6>
+                    </div>
                     <div class="piechart">
                       <canvas id="piecanvas" width="650" height="150"> </canvas>
                     </div>
@@ -51,14 +43,14 @@
                         class="d-flex justify-content-left"
                         style="display:block"
                       >
-                        <canvas id="salaryCanvas" width="325" height="150">
+                        <canvas id="salaryCanvas" width="325" height="175">
                         </canvas>
                       </div>
                       <div
                         class="d-flex justify-content-center"
                         style="display:block"
                       >
-                        <canvas id="hiringCanvas" width="325" height="150">
+                        <canvas id="hiringCanvas" width="325" height="175">
                         </canvas>
                       </div>
                     </row>
@@ -75,20 +67,47 @@
       <!-- End of first column -->
 
       <!-- Start of second column -->
-      <column xl="6" md="6">
+      <column xl="5" md="5">
         <!-- Common roles table -->
         <row>
           <card cascade class="cascading-admin-card" :border="bordercolor">
-            <card-header class="text-left">Common Roles</card-header>
+            <card-header class="text-left"
+              >Common Roles
+              <select @change="refreshYR(curYr);" v-model="curYr">
+                <option selected disabled>Select a year</option>
+                <option v-for="year in years" :key="year"> {{ year }} </option>
+              </select>
+            </card-header>
+
+            <div class="rolestable">
+              <div width="650" height="550">
+                <b-table
+                  small
+                  hover
+                  :items="top5roles"
+                  head-variant="light"
+                ></b-table>
+              </div>
+            </div>
           </card>
         </row>
         <!-- End of common roles table -->
 
         <!-- Skills leaderboard -->
         <row>
-          <card cascade class="cascading-admin-caard" :border="bordercolor">
+          <card cascade class="cascading-admin-card" :border="bordercolor">
             <card-header class="text-left">Skills Board</card-header>
-            <b-table striped hover :items="items"></b-table>
+            <div class="skillstable">
+              <div width="650" height="550">
+                <b-table
+                  class="skillsTable"
+                  small
+                  hover
+                  :items="items"
+                  head-variant="light"
+                ></b-table>
+              </div>
+            </div>
           </card>
         </row>
         <!-- End of Skills leaderboard -->
@@ -173,19 +192,15 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
-      items: [],
+      currYR: "2017",
+      top5roles: [],
+      years: [],
+      roles: [],
       careerTitle: null,
-      top10Skills: [],
-      top10Scores: [],
+      top5Skills: [],
+      top5Scores: [],
       rendered: false,
       careerRef: [],
-      pieChartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: "right"
-        }
-      },
       bordercolor: "#42b883",
       pieInstance: null,
       salaryInstance: null,
@@ -226,15 +241,13 @@ export default {
 
       var canvas = document.getElementById("piecanvas");
       var self = this;
-      console.log(self.myColors);
+
       canvas.onclick = function(e) {
-        console.log(self.myColors);
         var activePoints = self.pieInstance.getElementsAtEvent(e);
-        console.log(activePoints);
+
         //console.log(activePoints);
         if (activePoints.length === 1) {
           var index = activePoints[0]["_index"];
-          console.log(index);
 
           var ci = self.pieInstance.chart;
           var ci2 = self.salaryInstance.chart;
@@ -274,6 +287,10 @@ export default {
       let piedata = [];
       let industryObjects = [];
       let ranking = {};
+      this.top5Skills = [];
+      this.items = [];
+      this.top5roles = [];
+      this.top5Ranking = [];
 
       //This line below gets all the industry names for this major
       let salaryLineData = {
@@ -302,7 +319,32 @@ export default {
       ]) {
         salYears.push(year);
       }
+
+      var tracker = [];
       salaryLineData["labels"] = salYears;
+      for (var industry in industryNames) {
+        for (var role in this.career["industries"][industryNames[industry]][
+          "roles"
+        ][this.currYR]) {
+          tracker.push(role);
+        }
+      }
+      tracker = Array.from(new Set(tracker));
+
+      for (var role in tracker) {
+        var oneRole = {};
+        oneRole["Role"] = tracker[role];
+        oneRole["Popularity %"] = 0.0;
+        for (var industry in industryNames) {
+          oneRole["Popularity %"] =
+            oneRole["Popularity %"] +
+            this.career["industries"][industryNames[industry]]["roles"][
+              this.currYR
+            ][tracker[role]]["percent"];
+        }
+        this.top5roles.push(oneRole);
+      }
+      // salYears = years
 
       let hireYears = [];
       for (var hyear in this.career["industries"][industryNames[0]][
@@ -310,6 +352,7 @@ export default {
       ]) {
         hireYears.push(hyear);
       }
+      this.years = hireYears;
       hiringLineData["labels"] = hireYears;
 
       for (var name in industryNames) {
@@ -331,7 +374,7 @@ export default {
         }
         salaryLineData["datasets"].push(oneInd);
       }
-      console.log(salaryLineData);
+
       for (var hname in industryNames) {
         var honeInd = {
           data: [],
@@ -351,7 +394,7 @@ export default {
         }
         hiringLineData["datasets"].push(honeInd);
       }
-      console.log(hiringLineData);
+
       for (var year in preparedness) {
         for (var k in preparedness[year]) {
           ranking[preparedness[year][k][0]] = preparedness[year][k][1];
@@ -368,26 +411,26 @@ export default {
         return first[1] - second[1];
       });
 
-      const top10Ranking = {};
+      const top5Ranking = {};
       var count = 0;
       for (var i in sortRanking) {
-        top10Ranking[sortRanking[i][0]] = sortRanking[i][1];
+        top5Ranking[sortRanking[i][0]] = sortRanking[i][1];
         count++;
-        if (count === 10) {
+        if (count === 5) {
           break;
         }
       }
-      for (var i in top10Ranking) {
-        this.top10Skills.push(i);
-        this.top10Scores.push(top10Ranking[i]);
+      for (var i in top5Ranking) {
+        this.top5Skills.push(i);
+        this.top5Scores.push(top5Ranking[i]);
       }
       var counter = 1;
-      for (var skill in this.top10Skills) {
+      for (var skill in this.top5Skills) {
         var oneSkill = {};
 
         oneSkill["rank"] = counter;
         counter++;
-        oneSkill["Skill"] = this.top10Skills[skill];
+        oneSkill["Skill"] = this.top5Skills[skill];
         this.items.push(oneSkill);
       }
 
@@ -503,10 +546,14 @@ export default {
         type: "pie",
         data: this.pieChartData,
         options: {
+          title: {
+            display: false,
+            text: "Hiring Industries",
+            position: "top"
+          },
           legend: {
             position: "right",
             onClick(e, legendItem) {
-              console.log("Should not show");
               var index = legendItem.index;
               var ci = self.pieInstance.chart;
               var ci2 = self.salaryInstance.chart;
@@ -547,6 +594,13 @@ export default {
         type: "line",
         data: this.salaryLineData,
         options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: "Median Salaries",
+            position: "top"
+          },
           legend: {
             display: false
           }
@@ -563,12 +617,30 @@ export default {
         type: "line",
         data: this.hiringLineData,
         options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: "Hiring Trend",
+            position: "top"
+          },
           legend: {
             display: false
           }
         }
       });
       return myHiringLine;
+    },
+    toggle() {
+      this.rendered = false;
+      setTimeout(() => {
+        this.rendered = true;
+      }, 1);
+    },
+    refreshYR(yr) {
+      this.currYR = yr;
+      this.getbreakdown();
+      this.toggle();
     }
   }
 };
@@ -584,5 +656,15 @@ export default {
 }
 .cascading-admin-card .admin-up .fa {
   color: #fff;
+}
+.hiring {
+  font-family: "Arial";
+}
+
+.html {
+  overflow-y: scroll;
+}
+.rolestable {
+  vertical-align: left;
 }
 </style>
