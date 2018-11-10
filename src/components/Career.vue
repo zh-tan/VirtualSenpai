@@ -334,13 +334,15 @@ export default {
         }
       }
       tracker = Array.from(new Set(tracker));
-
+      
       for (var role in tracker) {
         var oneRole = {};
         oneRole["Role"] = tracker[role];
         oneRole["Popularity"] = 0.0;
+        console.log(industryNames)
         for (var industry in industryNames) {
-          oneRole["Popularity"] =
+          if(tracker[role] in this.career["industries"][industryNames[industry]]["roles"][this.currYR]){
+            oneRole["Popularity"] =
             Math.round(
               (oneRole["Popularity"] +
                 this.career["industries"][industryNames[industry]]["roles"][
@@ -348,6 +350,8 @@ export default {
                 ][tracker[role]]["percent"]) *
                 100
             ) / 100;
+          }
+          
         }
         this.top5roles.push(oneRole);
       }
