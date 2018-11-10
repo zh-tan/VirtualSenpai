@@ -82,9 +82,11 @@
             <div class="rolestable">
               <div width="650" height="550">
                 <b-table
+                  :items="top5roles"
+                  :sort-by.sync="sort"
+                  :sort-desc.sync="dir"
                   small
                   hover
-                  :items="top5roles"
                   head-variant="light"
                 ></b-table>
               </div>
@@ -192,6 +194,8 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
+      sort: "Popularity",
+      dir: true,
       currYR: "2017",
       top5roles: [],
       years: [],
@@ -334,13 +338,16 @@ export default {
       for (var role in tracker) {
         var oneRole = {};
         oneRole["Role"] = tracker[role];
-        oneRole["Popularity %"] = 0.0;
+        oneRole["Popularity"] = 0.0;
         for (var industry in industryNames) {
-          oneRole["Popularity %"] =
-            oneRole["Popularity %"] +
-            this.career["industries"][industryNames[industry]]["roles"][
-              this.currYR
-            ][tracker[role]]["percent"];
+          oneRole["Popularity"] =
+            Math.round(
+              (oneRole["Popularity"] +
+                this.career["industries"][industryNames[industry]]["roles"][
+                  this.currYR
+                ][tracker[role]]["percent"]) *
+                100
+            ) / 100;
         }
         this.top5roles.push(oneRole);
       }
