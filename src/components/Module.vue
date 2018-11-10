@@ -2,8 +2,13 @@
   <div class="charts">
     <row>
       <column xl="6" md="6" class="mb-r">
-        <div class="module" style="height:90px">
-          <card cascade class="cascading-admin-card" :border="bordercolor">
+        <div class="module">
+          <card
+            cascade
+            class="cascading-admin-card"
+            style="height:96%"
+            :border="bordercolor"
+          >
             <card-header class="text-left">Module Information </card-header>
             <div class="admin-up">
               <fa icon="line-chart" class="success-color" />
@@ -25,7 +30,6 @@
                           >Currently Displaying: {{ AY }}</b-button
                         >
                       </div>
-
                       Select Semester:
                       <select @change="refreshAY(curSem);" v-model="curSem">
                         <option selected disabled>Select a semester</option>
@@ -56,7 +60,12 @@
       </column>
 
       <column xl="3" md="6">
-        <card cascade class="cascading-admin-card" :border="bordercolor">
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:96%"
+          :border="bordercolor"
+        >
           <card-header class="text-left">Average Rating </card-header>
           <div class="admin-up">
             <fa icon="line-chart" class="warning-color" />
@@ -89,7 +98,12 @@
       </column>
 
       <column xl="3" md="6" class="mb-r">
-        <card cascade class="cascading-admin-card" :border="bordercolor">
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:96%"
+          :border="bordercolor"
+        >
           <card-header class="text-left"> Difficulty Rating </card-header>
           <div class="admin-up">
             <fa icon="pie-chart" class="light-blue lighten-1" />
@@ -144,9 +158,14 @@
 
     <row>
       <column xl="6" md="6">
-        <card cascade class="cascading-admin-card" :border="bordercolor">
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:98.5%"
+          :border="bordercolor"
+        >
           <card-header class="text-left">Cohort Breakdown </card-header>
-          <card-body>
+          <card-body id="chartCard">
             <div class="piechart">
               <canvas id="piecanvas" width="700" height="150"> </canvas>
             </div>
@@ -156,22 +175,33 @@
         </card>
       </column>
 
-      <column>
-        <card class="mb-4" :border="bordercolor">
+      <column xl="3" md="6">
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:98.5%"
+          :border="bordercolor"
+        >
           <card-header class="text-left"> Positive Feedback </card-header>
-          <card-body>
-            <div class="echarts">
+
+          <card-body id="positiveFB_card">
+            <div style="height:380px">
               <IEcharts v-if="rendered" :option="wordcloud" @ready="onReady" />
             </div>
           </card-body>
         </card>
       </column>
 
-      <column>
-        <card class="mb-4" :border="bordercolor">
+      <column xl="3" md="6">
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:98.5%"
+          :border="bordercolor"
+        >
           <card-header class="text-left"> Negative Feedback </card-header>
-          <card-body>
-            <div class="echarts">
+          <card-body id="negativeFB_card">
+            <div style="height:380px">
               <IEcharts
                 class="wc"
                 v-if="rendered"
@@ -492,8 +522,8 @@ export default {
             sizeRange: [12, 30],
             rotationRange: [0, 0],
             shape: "pentagon",
-            width: 300,
-            height: 350,
+            width: document.getElementById("positiveFB_card").width,
+            height: 380,
             drawOutOfBound: false,
             textStyle: {
               normal: {
@@ -532,8 +562,8 @@ export default {
             sizeRange: [12, 30],
             rotationRange: [0, 0],
             shape: "pentagon",
-            width: 280,
-            height: 360,
+            width: document.getElementById("negativeFB_card").width,
+            height: 380,
             drawOutOfBound: false,
             textStyle: {
               normal: {
@@ -787,8 +817,8 @@ export default {
   margin-top: 30px;
 }
 .echarts {
-  width: 280px;
-  height: 360px;
+  width: 100%;
+  height: 100%;
   margin: 0px;
   padding: 0px;
 }
