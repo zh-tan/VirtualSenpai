@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Homepage from "@/components/Homepage";
 import Module from "@/components/Module";
 import Career from "@/components/Career";
+import CareerDefault from "@/components/CareerDefault";
 import BadGateway from "@/components/BadGateway";
 import Navbar from "@/components/Navbar";
 import dashboard from "@/components/dashboardlayout";
@@ -50,7 +51,7 @@ export default new Router({
     {
       path: "/careerview",
       name: "CareerViewDefault",
-      component: Career
+      component: CareerDefault
     },
     {
       path: "/404",
