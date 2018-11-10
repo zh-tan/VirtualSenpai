@@ -194,6 +194,7 @@ export default {
     return {
       // i think this is needed to make it reactive
       // got to do with Vue Lifecycle
+
       sort: "Popularity",
       dir: true,
       currYR: "2017",
@@ -338,6 +339,7 @@ export default {
       for (var role in tracker) {
         var oneRole = {};
         oneRole["Role"] = tracker[role];
+
         oneRole["Popularity"] = 0.0;
         for (var industry in industryNames) {
           oneRole["Popularity"] =
@@ -348,6 +350,7 @@ export default {
                 ][tracker[role]]["percent"]) *
                 100
             ) / 100;
+
         }
         this.top5roles.push(oneRole);
       }
