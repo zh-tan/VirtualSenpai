@@ -39,20 +39,41 @@
               class="mod_info"
               v-if="modFiltering(mod)"
             >
-            <br>
-            <card style="width: 50rem;">
-  <router-link :to="{ path: '/moduleview/' + mod.code }"><card-header color="default-color" style="font-size:1.5em">{{ mod.code }}: {{ mod.mod_name }}</card-header></router-link>
-  <card-body>
-  <card-text>Prof In-charge: {{ mod.prof.name }} </card-text>
-  <card-text>Latest Feedback from: {{ mod.latest_Sem }}</card-text>
-  <card-text><p :class="{red_rating: mod.avr_rating<3, green_rating: mod.avr_rating>3}">Average Rating: {{ mod.avr_rating }} / 5</p></card-text>
-  
-    
-  </card-body>
-</card>
-              
-              
-              </div>
+              <br />
+              <card style="width: 50rem;">
+                <router-link :to="{ path: '/moduleview/' + mod.code }"
+                  ><card-header color="default-color" style="font-size:1.5em"
+                    >{{ mod.code }}: {{ mod.mod_name }}</card-header
+                  ></router-link
+                >
+                <card-body
+                  style="display:grid; grid-template-columns: 3fr 2fr ; margin: 5px; padding: 0px;"
+                >
+                  <div style="text-align:left;text-indent: 120px">
+                    <card-text
+                      ><h5>
+                        Latest Feedback from: {{ mod.latest_Sem }}
+                      </h5></card-text
+                    >
+                    <card-text
+                      ><h5>Prof In-charge: {{ mod.prof.name }}</h5></card-text
+                    >
+                  </div>
+                  <div>
+                    <card-text
+                      ><h5>Average Rating:</h5>
+                      <h1
+                        :class="{
+                          red_rating: mod.avr_rating < 3,
+                          green_rating: mod.avr_rating >= 3
+                        }"
+                      >
+                        {{ mod.avr_rating }} / 5
+                      </h1></card-text
+                    >
+                  </div>
+                </card-body>
+              </card>
             </div>
           </div>
         </div>
@@ -91,10 +112,10 @@ export default {
     Fa,
     SubMenu,
     Card,
-  CardBody,
-  CardHeader,
-  CardText,
-  Badge
+    CardBody,
+    CardHeader,
+    CardText,
+    Badge
   },
   data() {
     return {
