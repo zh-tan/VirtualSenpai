@@ -37,11 +37,17 @@
                   </card-body>
                 </column>
 
-                <column>
+                <column style="text-align:left;">
                   Professor-in-charge:
-                  <badge pill color="rgba-blue-grey-strong">{{
-                    prof_name
-                  }}</badge>
+                  <badge pill color="rgba-blue-grey-strong">
+                    {{ prof_data.name }}
+                  </badge>
+                  Guiding Students:
+                  {{ prof_data.guiding_students.toFixed(1) }} /5 <br />
+                  Providing Feedback:
+                  {{ prof_data.providing_feedback.toFixed(1) }} /5 <br />
+                  Fostering Interest:
+                  {{ prof_data.fostering_interest.toFixed(1) }} /5 <br />
                 </column>
               </row>
             </div>
@@ -180,8 +186,7 @@
   </div>
 </template>
 
-<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-</script>
+<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></script>
 <script>
 import { db } from "../firebase";
 import {
@@ -308,8 +313,8 @@ export default {
         "Students have a " + output + " Average Rating of " + percentage + "%"
       );
     },
-    prof_name() {
-      var output = this.mods[this.AY]["Prof_data"]["name"];
+    prof_data() {
+      var output = this.mods[this.AY]["Prof_data"];
 
       return output;
     }
@@ -348,16 +353,14 @@ export default {
           if (self.pieselection[index] == false) {
             activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
               index
-            ] =
-              "#D3D3D3";
+            ] = "#D3D3D3";
             console.log("Active points when deselect: ");
             console.log(activePoints);
             self.pieselection[index] = true; //select
           } else {
             activePoints[0]["_chart"]["data"]["datasets"][0]["backgroundColor"][
               index
-            ] =
-              self.bar_colour[index];
+            ] = self.bar_colour[index];
             self.pieselection[index] = false; // disselect
           }
           ci.update();
