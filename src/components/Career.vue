@@ -1,8 +1,10 @@
 <template>
   <div classname="charts">
     <br />
-    <div style="display:grid ;margin:0px;padding-right: 10px">
-      <card style="grid-column: 17/18">
+    <div
+      style="display:grid; grid-template-columns:repeat(4,1fr);margin:0px;padding-left:5px"
+    >
+      <card style="grid-column: 1/2" :border="bordercolor">
         <h5>Want to view another major?</h5>
         <select
           @change="$router.push({ path: '/careerview/' + prog });"
@@ -34,9 +36,13 @@
         >
           <div class="piechart">
             <card-header class="text-left">
-              <b-button :pressed="true" variant="info">
-                {{ careerTitle }}
-              </b-button>
+              <div
+                style="display:grid; grid-template-columns:3fr 2fr;margin:0px;padding:0px;"
+              >
+                <b-button :pressed="true" variant="info">
+                  {{ careerTitle }}
+                </b-button>
+              </div>
             </card-header>
             <card-body>
               <div class="hiring">
