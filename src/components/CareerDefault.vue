@@ -1,5 +1,6 @@
 <template>
   <div classname="charts">
+    <br />
     <row>
       <column xl="4" md="4"></column>
       <column xl="4" md="4">

@@ -1,12 +1,17 @@
 <template>
   <div classname="charts">
     <br />
-    <select
-      @change="$router.push({ path: '/careerview/' + prog });"
-      v-model="prog"
-    >
-      <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
-    </select>
+    <div style="display:grid ;margin:0px;padding-right: 10px">
+      <card style="grid-column: 17/18">
+        <h5>Want to view another major?</h5>
+        <select
+          @change="$router.push({ path: '/careerview/' + prog });"
+          v-model="prog"
+        >
+          <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
+        </select>
+      </card>
+    </div>
     <div style="display:grid;grid-template-columns:3fr 2fr">
       <!-- Start of first column -->
 
