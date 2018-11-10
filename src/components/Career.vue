@@ -43,13 +43,13 @@
               <br />
               <div style="display:grid;grid-template-columns:1fr 1fr">
                 <div class="d-flex justify-content-left" style="display:block">
-                  <canvas id="salaryCanvas" width="370" height="300"> </canvas>
+                  <canvas id="salaryCanvas" width="370" height="270"> </canvas>
                 </div>
                 <div
                   class="d-flex justify-content-center"
                   style="display:block"
                 >
-                  <canvas id="hiringCanvas" width="370" height="300"> </canvas>
+                  <canvas id="hiringCanvas" width="370" height="270"> </canvas>
                 </div>
               </div>
             </card-body>
