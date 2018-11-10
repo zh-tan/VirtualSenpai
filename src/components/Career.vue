@@ -1,120 +1,121 @@
 <template>
   <div classname="charts">
+    <br />
     <select
       @change="$router.push({ path: '/careerview/' + prog });"
       v-model="prog"
     >
       <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
     </select>
-    <!-- Start of first column -->
-    <row>
-      <column xl="7" md="7">
-        <!--
-          Testing button dropdown
-          <div>
-            <b-dropdown id="ddown1" text="Select your Major" class="m-md-2">
-              <b-dropdown-item v-for="deg in majorslist" :key="deg" @click.native= "$router.push({ path: '/careerview/'+prog})" v-model="prog"> {{ deg }}</b-dropdown-item>
-            </b-dropdown>
-          </div>
-        -->
+    <div style="display:grid;grid-template-columns:3fr 2fr">
+      <!-- Start of first column -->
 
-        <!-- Charts -->
-
-        <div v-if="NotDefault">
-          <div class="charts">
-            <row>
-              <card cascade class="cascading-admin-card" :border="bordercolor">
-                <div class="piechart">
-                  <card-header class="text-left">
-                    <b-button :pressed="true" variant="info">
-                      {{ careerTitle }}
-                    </b-button>
-                  </card-header>
-                  <card-body>
-                    <div class="hiring">
-                      <h6><b>Hiring Industries</b></h6>
-                    </div>
-                    <div class="piechart">
-                      <canvas id="piecanvas" width="650" height="150"> </canvas>
-                    </div>
-                    <br />
-                    <row>
-                      <div
-                        class="d-flex justify-content-left"
-                        style="display:block"
-                      >
-                        <canvas id="salaryCanvas" width="325" height="175">
-                        </canvas>
-                      </div>
-                      <div
-                        class="d-flex justify-content-center"
-                        style="display:block"
-                      >
-                        <canvas id="hiringCanvas" width="325" height="175">
-                        </canvas>
-                      </div>
-                    </row>
-                  </card-body>
-                </div>
-              </card>
-            </row>
-          </div>
+      <!--
+        Testing button dropdown
+        <div>
+          <b-dropdown id="ddown1" text="Select your Major" class="m-md-2">
+            <b-dropdown-item v-for="deg in majorslist" :key="deg" @click.native= "$router.push({ path: '/careerview/'+prog})" v-model="prog"> {{ deg }}</b-dropdown-item>
+          </b-dropdown>
         </div>
+      -->
 
-        <!-- End of Charts -->
-      </column>
+      <!-- Charts -->
+      <div v-if="NotDefault" style="height:97.5%">
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:100%"
+          :border="bordercolor"
+        >
+          <div class="piechart">
+            <card-header class="text-left">
+              <b-button :pressed="true" variant="info">
+                {{ careerTitle }}
+              </b-button>
+            </card-header>
+            <card-body>
+              <div class="hiring">
+                <h6><b>Hiring Industries</b></h6>
+              </div>
+              <div class="piechart">
+                <canvas id="piecanvas" width="650" height="150"> </canvas>
+              </div>
+              <br />
+              <div style="display:grid;grid-template-columns:1fr 1fr">
+                <div class="d-flex justify-content-left" style="display:block">
+                  <canvas id="salaryCanvas" width="370" height="300"> </canvas>
+                </div>
+                <div
+                  class="d-flex justify-content-center"
+                  style="display:block"
+                >
+                  <canvas id="hiringCanvas" width="370" height="300"> </canvas>
+                </div>
+              </div>
+            </card-body>
+          </div>
+        </card>
+      </div>
+
+      <!-- End of Charts -->
 
       <!-- End of first column -->
 
       <!-- Start of second column -->
-      <column xl="5" md="5">
-        <!-- Common roles table -->
-        <row>
-          <card cascade class="cascading-admin-card" :border="bordercolor">
-            <card-header class="text-left"
-              >Common Roles
-              <select @change="refreshYR(curYr);" v-model="curYr">
-                <option selected disabled>Select a year</option>
-                <option v-for="year in years" :key="year"> {{ year }} </option>
-              </select>
-            </card-header>
+      <!-- Common roles table -->
+      <div style="height:96%">
+        <card
+          cascade
+          class="cascading-admin-card"
+          :border="bordercolor"
+          style="height:50%"
+        >
+          <card-header class="text-left"
+            >Common Roles
+            <select @change="refreshYR(curYr);" v-model="curYr">
+              <option selected disabled>Select a year</option>
+              <option v-for="year in years" :key="year"> {{ year }} </option>
+            </select>
+          </card-header>
 
-            <div class="rolestable">
-              <div width="650" height="550">
-                <b-table
-                  :items="top5roles"
-                  :sort-by.sync="sort"
-                  :sort-desc.sync="dir"
-                  small
-                  hover
-                  head-variant="light"
-                ></b-table>
-              </div>
+          <div class="rolestable">
+            <div width="650" height="550">
+              <b-table
+                :items="top5roles"
+                :sort-by.sync="sort"
+                :sort-desc.sync="dir"
+                small
+                hover
+                head-variant="light"
+              ></b-table>
             </div>
-          </card>
-        </row>
+          </div>
+        </card>
         <!-- End of common roles table -->
 
         <!-- Skills leaderboard -->
-        <row>
-          <card cascade class="cascading-admin-card" :border="bordercolor">
-            <card-header class="text-left">Skills Board</card-header>
-            <div class="skillstable">
-              <div width="650" height="550">
-                <b-table
-                  class="skillsTable"
-                  small
-                  hover
-                  :items="items"
-                  head-variant="light"
-                ></b-table>
-              </div>
+        <card
+          cascade
+          class="cascading-admin-card"
+          style="height:50%"
+          :border="bordercolor"
+        >
+          <card-header class="text-left">Skills Board</card-header>
+          <div class="skillstable">
+            <div>
+              <b-table
+                class="skillsTable"
+                small
+                hover
+                :items="items"
+                head-variant="light"
+              ></b-table>
             </div>
-          </card>
-        </row>
-        <!-- End of Skills leaderboard -->
-      </column>
-    </row>
+          </div>
+        </card>
+      </div>
+    </div>
+    <!-- End of Skills leaderboard -->
   </div>
 </template>
 
@@ -334,24 +335,28 @@ export default {
         }
       }
       tracker = Array.from(new Set(tracker));
-      
+
       for (var role in tracker) {
         var oneRole = {};
         oneRole["Role"] = tracker[role];
         oneRole["Popularity"] = 0.0;
-        console.log(industryNames)
+        console.log(industryNames);
         for (var industry in industryNames) {
-          if(tracker[role] in this.career["industries"][industryNames[industry]]["roles"][this.currYR]){
+          if (
+            tracker[role] in
+            this.career["industries"][industryNames[industry]]["roles"][
+              this.currYR
+            ]
+          ) {
             oneRole["Popularity"] =
-            Math.round(
-              (oneRole["Popularity"] +
-                this.career["industries"][industryNames[industry]]["roles"][
-                  this.currYR
-                ][tracker[role]]["percent"]) *
-                100
-            ) / 100;
+              Math.round(
+                (oneRole["Popularity"] +
+                  this.career["industries"][industryNames[industry]]["roles"][
+                    this.currYR
+                  ][tracker[role]]["percent"]) *
+                  100
+              ) / 100;
           }
-          
         }
         this.top5roles.push(oneRole);
       }
@@ -658,8 +663,9 @@ export default {
 </script>
 <style scoped>
 .cascading-admin-card {
-  margin: 25px;
+  margin: 5px;
   margin-top: 10px;
+  padding: 5px;
 }
 .card[class*="border"] {
   border: 1.9px solid #2bbbad;
