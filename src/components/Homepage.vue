@@ -11,7 +11,7 @@
                 A centralised, data driven platform that empowers you with visuals to make more informed decisions. 
              </h1>
              
-              <br> Click me to explore different modules and career prospects in greater details! <br>
+              <br> <h3> Click me to explore different modules and career prospects in greater details! </h3><br>
               <a class="btn btn-default btn-lg" @click="$router.push({ path: '/module'})" role="button"><i class="fas fa-book mr-2"></i>Modules</a>
               <a class="btn btn-default btn-lg" @click="$router.push({ path: '/careerview'})" role="button"><i class="fas fa-graduation-cap mr-2"></i>Career</a>
 						</div>												
@@ -39,14 +39,16 @@
         <b></b>
 					<div class="row">
 						<div class="sigle-service col-lg-4 col-md-6">
-							<i class="fas fa-question mr-2"></i>
+							<i class="fas fa-question mr-2 fa-2x"></i>
+              <br>
 							<h4>Huge dilemma </h4>
 							<p>
 								Find yourself constantly revolving around seniors' advices regarding academic matters? Unsure of which senior's advice to follow?
 							</p>
 						</div>
 						<div class="sigle-service col-lg-4 col-md-6">
-							<i class="fas fa-lightbulb-o mr-2"></i>
+							<i class="fas fa-lightbulb-o mr-2 fa-2x"></i>
+              <br>
 							<h4>Unequal access to information</h4>
 							<p>
                 Based on our survey results, many students rely on seniors for advice yet not all students have seniors to turn to!
@@ -54,7 +56,8 @@
 							</p>
 						</div>
 						<div class="sigle-service col-lg-4 col-md-4">
-							<i class="fas fa-thumbs-down mr-2"></i>
+							<i class="fas fa-thumbs-down mr-2 fa-2x"></i>
+              <br>
 							<h4>Unreliable and ineffective source of information</h4>
 							<p>
 								Enough of searching for information online just to find that they are of little help? Worrying that this information might also be unreliable? 
@@ -228,7 +231,7 @@ export default {
 
 .presentedby{
   background: rgba(255, 255, 255, 255);
-  opacity: 0.85;
+  opacity: 0.90;
   border-radius: 3px;
   margin-top:0px;
   position: relative  ;
@@ -245,6 +248,12 @@ h2 {
   font-weight: bold;
   font-size: 30px;
 }
+h3{
+  font-weight: bold;
+  color: #fff;
+  font-size: 16px;
+}
+
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -254,5 +263,8 @@ h2 {
     height: 225px;
     border: 7px solid #fff;
     opacity: 1;
+}
+.fa.fa-question {
+font-size: 70px;
 }
 </style>
