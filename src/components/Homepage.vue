@@ -253,5 +253,6 @@ h2 {
     width: 225px;
     height: 225px;
     border: 7px solid #fff;
+    opacity: 1;
 }
 </style>
