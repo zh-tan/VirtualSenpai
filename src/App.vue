@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <div class="landing" v-if="this.$route.path='/hometest'"> </div>
+  <div class="landing" v-if="this.$route.path=='/hometest'"> </div>
     <link rel="stylesheet" 
         href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" 
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" 
@@ -84,11 +84,11 @@ main {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-image: url("https://uploads.codesandbox.io/uploads/user/dd765973-f46f-483a-b5f6-a5c9e6d70786/vfv2-resize.jpg");
+  background-image: url("https://uploads.codesandbox.io/uploads/user/dd765973-f46f-483a-b5f6-a5c9e6d70786/dddV-students.jpg");
   background-size:100% 100%;
   background-repeat: no-repeat;
-    filter: blur(1px);
-  -webkit-filter: blur(1px);
+  //   filter: blur(1px);
+  // -webkit-filter: blur(1px);
 }
 .routerview{
   margin-top:10px;
