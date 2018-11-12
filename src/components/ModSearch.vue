@@ -85,11 +85,9 @@
 <script>
 import { db } from "../firebase";
 import {
-  SideNav,
   Btn,
   Container,
   Fa,
-  SubMenu,
   ListGroup,
   ListGroupItem,
   Card,
@@ -104,13 +102,11 @@ import "@fortawesome/fontawesome-free/css/all.css";
 export default {
   name: "modSearch",
   components: {
-    SideNav,
     Btn,
     Container,
     ListGroup,
     ListGroupItem,
     Fa,
-    SubMenu,
     Card,
     CardBody,
     CardHeader,
