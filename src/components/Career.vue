@@ -391,7 +391,7 @@ export default {
       this.top5roles = this.top5roles.slice(0,5)
       
 
-      this.years = hireYears;
+      this.years = hireYears.sort();
       hiringLineData["labels"] = hireYears;
 
       for (var name in industryNames) {
