@@ -42,7 +42,11 @@
             <a
               style="color:white"
               href="https://github.com/zh-tan/VirtualSenpai/"
-              ><fa icon="github" class="mr-2" />GitHub</a
+              ><img
+                height="32"
+                src="https://uploads.codesandbox.io/uploads/user/e6772621-92a7-441c-9d05-9ee39758af11/zYU6-GitHub-Mark-Light-64px.png"
+              />
+              GitHub</a
             >
           </navbar-item>
         </navbar-nav>
