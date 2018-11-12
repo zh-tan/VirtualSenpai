@@ -35,11 +35,15 @@
         </navbar-nav>
         <navbar-nav right>
           <navbar-item
-            href="https://github.com/zh-tan/VirtualSenpai"
             waves-fixed
             class="border border-light rounded mr-1"
             target="_blank"
-            ><i class="fas fa-github"></i> GitHub
+          >
+            <a
+              style="color:white"
+              href="https://github.com/zh-tan/VirtualSenpai/"
+              ><fa icon="github" class="mr-2" />GitHub</a
+            >
           </navbar-item>
         </navbar-nav>
       </navbar-collapse>
