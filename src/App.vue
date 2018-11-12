@@ -38,6 +38,7 @@
 
 <script>
 import Navbar from "./components/Navbar";
+
 export default {
   mounted() {
     this.$refs.myModalRef.show();
