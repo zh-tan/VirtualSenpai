@@ -11,7 +11,7 @@
           >
             <card-header class="text-left">Module Information </card-header>
             <div class="admin-up">
-              <fa icon="line-chart" class="success-color" />
+              <fa icon="id-card" class="success-color" />
               <div class="data"></div>
             </div>
 
@@ -106,7 +106,7 @@
         >
           <card-header class="text-left"> Difficulty Rating </card-header>
           <div class="admin-up">
-            <fa icon="pie-chart" class="light-blue lighten-1" />
+            <fa icon="users" class="light-blue lighten-1" />
           </div>
           <div class="data">
             The general sensing for students in<strong> {{ AY }} </strong> with
@@ -813,6 +813,9 @@ export default {
 </script>
 
 <style scoped>
+html {
+  zoom: 90%;
+}
 .charts {
   margin-top: 30px;
 }
