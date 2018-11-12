@@ -388,7 +388,7 @@ export default {
         this.top5roles.push(oneRole);
       }
       // salYears = years
-
+      this.top5roles = this.top5roles.slice(0,5)
       
 
       this.years = hireYears;
