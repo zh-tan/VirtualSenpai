@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-  <div class="landing" v-if="this.$route.path=='/hometest'"> </div>
+  <div class="landing" v-if="this.$route.path=='/home'"> </div>
     <link rel="stylesheet" 
         href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" 
         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" 
         crossorigin="anonymous">
-    <Navbar v-if="this.$route.path!=='/hometest'"></Navbar> 
+    <Navbar v-if="this.$route.path!=='/home'"></Navbar> 
     
     <main>
       

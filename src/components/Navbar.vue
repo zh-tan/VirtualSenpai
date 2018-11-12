@@ -3,10 +3,12 @@
     <!-- Navbar -->
     <navbar expand="large" dark class="stylish-color" position="top" scrolling>
       <mdb-navbar-brand href="#">
-        <img
-          src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/WSWu-logonav.png"
-          height="37"
-        />
+        <router-link to="/home" active>
+          <img
+            src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/WSWu-logonav.png"
+            height="37"
+          />
+        </router-link>
       </mdb-navbar-brand>
 
       <navbar-collapse>
