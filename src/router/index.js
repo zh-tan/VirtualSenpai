@@ -16,15 +16,11 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/hometest"
+      redirect: "/home"
     },
+
     {
       path: "/home",
-      name: "Home",
-      component: modSearch
-    },
-    {
-      path: "/hometest",
       name: "Hometest",
       component: Homepage
     },
