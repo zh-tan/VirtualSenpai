@@ -208,7 +208,7 @@ export default {
       // got to do with Vue Lifecycle
       sort: "Popularity",
       dir: true,
-      currYR: "2017",
+      currYR: null,
       top5roles: [],
       years: [],
       roles: [],
@@ -221,6 +221,7 @@ export default {
       pieInstance: null,
       salaryInstance: null,
       hiringInstance: null,
+      changing: false,
       pieChartData: {},
       salaryLineData: {},
       hiringLineData: {},
@@ -234,17 +235,16 @@ export default {
       NotDefault: false,
       pieselection: [false, false, false, false, false],
       myColors: [
+        "#9284C1",
+        "#D18296",
+        "#E9A784",
+        "#85A3BC",
         "#F7464A",
         "#46BFBD",
         "#FDB45C",
         "#949FB1",
         "#4D5360",
-        "#ac64ad",
-        "#4f49eb",
-        "#4cec04",
-        "#77c019",
-        "#86c0d1",
-        "#ed4689"
+        "#ac64ad"
       ],
       prog: ""
     };
@@ -328,6 +328,17 @@ export default {
         industryNames.push(label);
       }
 
+      let hireYears = [];
+      for (var hyear in this.career["industries"][industryNames[0]][
+        "hiringCount"
+      ]) {
+        hireYears.push(hyear);
+      }
+      if(!this.changing){
+        this.currYR = hireYears.reverse()[0]
+      }
+      
+      
       //store the years
       let salYears = [];
       for (var year in this.career["industries"][industryNames[0]][
@@ -335,7 +346,7 @@ export default {
       ]) {
         salYears.push(year);
       }
-
+      
       var tracker = [];
       salaryLineData["labels"] = salYears;
       for (var industry in industryNames) {
@@ -345,40 +356,41 @@ export default {
           tracker.push(role);
         }
       }
+      
       tracker = Array.from(new Set(tracker));
+      console.log(tracker)
 
       for (var role in tracker) {
         var oneRole = {};
         oneRole["Role"] = tracker[role];
         oneRole["Popularity"] = 0.0;
-        console.log(industryNames);
         for (var industry in industryNames) {
-          if (
-            tracker[role] in
-            this.career["industries"][industryNames[industry]]["roles"][
-              this.currYR
-            ]
-          ) {
-            oneRole["Popularity"] =
-              Math.round(
-                (oneRole["Popularity"] +
-                  this.career["industries"][industryNames[industry]]["roles"][
-                    this.currYR
-                  ][tracker[role]]["percent"]) *
-                  100
-              ) / 100;
+
+          if(this.currYR in this.career["industries"][industryNames[industry]]["roles"]){
+              if (
+              tracker[role] in
+              this.career["industries"][industryNames[industry]]["roles"][
+                this.currYR
+              ]
+            ) {
+              oneRole["Popularity"] =
+                Math.round(
+                  (oneRole["Popularity"] +
+                    this.career["industries"][industryNames[industry]]["roles"][
+                      this.currYR
+                    ][tracker[role]]["percent"]) *
+                    100
+                ) / 100;
+            }
           }
+          
         }
         this.top5roles.push(oneRole);
       }
       // salYears = years
 
-      let hireYears = [];
-      for (var hyear in this.career["industries"][industryNames[0]][
-        "hiringCount"
-      ]) {
-        hireYears.push(hyear);
-      }
+      
+
       this.years = hireYears;
       hiringLineData["labels"] = hireYears;
 
@@ -535,17 +547,16 @@ export default {
           {
             data: [],
             backgroundColor: [
+              "#9284C1",
+              "#D18296",
+              "#E9A784",
+              "#85A3BC",
               "#F7464A",
               "#46BFBD",
               "#FDB45C",
               "#949FB1",
               "#4D5360",
-              "#ac64ad",
-              "#4f49eb",
-              "#4cec04",
-              "#77c019",
-              "#86c0d1",
-              "#ed4689"
+              "#ac64ad"
             ]
           }
         ]
@@ -666,6 +677,7 @@ export default {
     },
     refreshYR(yr) {
       this.currYR = yr;
+      this.changing = true
       this.getbreakdown();
       this.toggle();
     }
