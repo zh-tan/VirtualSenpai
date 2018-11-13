@@ -123,17 +123,25 @@ export default {
       NotDefault: false,
       pieselection: [false, false, false, false, false],
       myColors: [
-        "#F7464A",
-        "#46BFBD",
-        "#FDB45C",
-        "#949FB1",
-        "#4D5360",
-        "#ac64ad",
-        "#4f49eb",
-        "#4cec04",
-        "#77c019",
-        "#86c0d1",
-        "#ed4689"
+        "#9284C1",
+        "#B2C183",
+        "#C19283",
+        "#83B2C1",
+        "#D18296",
+        "#BC82D1",
+        "#96D182",
+        "#82D1BD",
+
+        "#E9A784",
+        "#E883C5",
+        "#83E8A6",
+        "#83C5E8",
+
+        "#85A3BC",
+        "#84BC9E",
+        "#BC84A3",
+        "#BC9D84",
+        "#989898"
       ],
       prog: ""
     };
