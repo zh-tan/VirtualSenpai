@@ -9,9 +9,9 @@
             style="height:96%"
             :border="bordercolor"
           >
-            <card-header class="text-left">Module Information </card-header>
+            <card-header class="text-left">Module Information:  <strong>{{ modCode }} {{ mod_name }}</strong></card-header>
             <div class="admin-up">
-              <fa icon="id-card" class="success-color" />
+              <fa icon="id-card" class="default-color" />
               <div class="data"></div>
             </div>
 
@@ -21,37 +21,39 @@
                   <card-body>
                     <div class="moduleinfo">
                       <div class="modulebtn">
-                        <b-button :pressed="true" variant="info"
-                          >{{ modCode }}: {{ mod_name }}</b-button
-                        >
-
-                        <br />
-                        <b-button variant="warning"
-                          >Currently Displaying: {{ AY }}</b-button
-                        >
-                      </div>
-                      Select Semester:
+                       <strong>Select Semester: </strong>
                       <select @change="refreshAY(curSem);" v-model="curSem">
                         <option selected disabled>Select a semester</option>
                         <option v-for="sem in AYList" :key="sem">
                           {{ sem }}
                         </option>
                       </select>
+                    <br/>
+                    <br/>
+                    <strong>Currently Displaying:</strong> {{ AY }}
+                    <br/>
+                     <br/>
+
+                    <strong>Professor-in-charge: </strong>{{ prof_data.name }} 
+
+                        
+                      </div>
                     </div>
                   </card-body>
                 </column>
 
                 <column style="text-align:left;">
-                  Professor-in-charge:
-                  <badge pill color="rgba-blue-grey-strong">
-                    {{ prof_data.name }} </badge
-                  ><br />
-                  Guiding Students:
-                  {{ prof_data.guiding_students.toFixed(1) }} /5 <br />
-                  Providing Feedback:
-                  {{ prof_data.providing_feedback.toFixed(1) }} /5 <br />
-                  Fostering Interest:
-                  {{ prof_data.fostering_interest.toFixed(1) }} /5 <br />
+                
+                <h5>Professor's Ratings: </h5>
+                <ul>
+
+                  <li><strong>Guiding Students:</strong>
+                  {{ prof_data.guiding_students.toFixed(1) }} /5</li>
+                  <li><strong>Providing Feedback:</strong>
+                  {{ prof_data.providing_feedback.toFixed(1) }} /5</li>
+                  <li><strong>Fostering Interest:</strong>
+                  {{ prof_data.fostering_interest.toFixed(1) }} /5</li> 
+                 </ul> 
                 </column>
               </row>
             </div>
@@ -68,7 +70,7 @@
         >
           <card-header class="text-left">Average Rating </card-header>
           <div class="admin-up">
-            <fa icon="line-chart" class="warning-color" />
+            <fa icon="line-chart" class="default-color" />
           </div>
 
           <div class="data">
@@ -106,7 +108,7 @@
         >
           <card-header class="text-left"> Difficulty Rating </card-header>
           <div class="admin-up">
-            <fa icon="users" class="light-blue lighten-1" />
+            <fa icon="users" class="default-color" />
           </div>
           <div class="data">
             The general sensing for students in<strong> {{ AY }} </strong> with
