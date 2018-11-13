@@ -635,7 +635,7 @@ export default {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: "Median Salaries",
+            text: "Median Salaries ($)",
             position: "top"
           },
           legend: {
@@ -658,7 +658,7 @@ export default {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: "Hiring Trend",
+            text: "Hiring Trend (number of people)",
             position: "top"
           },
           legend: {
