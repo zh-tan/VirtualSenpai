@@ -4,18 +4,22 @@
 <section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="img/header-bg.jpg">
 				<div class="overlay-bg overlay"></div>
 				<div class="container">
-					<div class="row fullscreen  d-flex align-items-center justify-content-center" style="height: 800px;">
+					<div id ="intro">
+            <div class="row fullscreen  d-flex align-items-center justify-content-left" style="height: 900px;">
 						<div class="banner-content col-lg-6 col-md-6">
               <img src='https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/yq4o-newlogo.png' height="150">  
-              <h1>
+              <h9>
                 A centralised, data driven platform that empowers you with visuals to make more informed decisions. 
-             </h1>
-             
-              <br> <h3> Click me to explore different modules and career prospects in greater details! </h3><br>
+             </h9>
+              <br>
+              <br> <h3> Click me to explore different modules and career prospects in greater details! </h3>
               <a class="btn btn-default btn-lg" @click="$router.push({ path: '/module'})" role="button"><i class="fas fa-book mr-2"></i>Modules</a>
               <a class="btn btn-default btn-lg" @click="$router.push({ path: '/careerview'})" role="button"><i class="fas fa-graduation-cap mr-2"></i>Career</a>
-						</div>												
-					</div>
+						  </div>
+        										
+					  </div>
+            </div>
+        
 				</div>
 			</section>
 
@@ -179,21 +183,20 @@ export default {
   height:450px;
   padding: 0;
 }
-.catchyinfo {
-  background: rgba(255, 255, 255, 0.35);
+.info {
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 3px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  margin-top: 50px;
+  margin-top: 0px;
   text-align: centre;
-  left: 0;
   position: relative;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
   right: 0;
   z-index: 2;
-  padding: 0 10px;
-  width: 700px;
+  padding: 0 px;
+  width: 100%;
 }
 
 .content {
@@ -234,14 +237,14 @@ export default {
   opacity: 0.90;
   border-radius: 3px;
   margin-top:0px;
-  position: relative  ;
+  position: relative ;
   width:100%;
   height:750px;
   
 }
-h1 {
+h9{
   font-weight: bold;
-  color: #fff;
+  color: #FFF;
   font-size: 24px;
 }
 h2 {
@@ -250,8 +253,8 @@ h2 {
 }
 h3{
   font-weight: bold;
-  color: #fff;
-  font-size: 16px;
+  color: #FFF;
+  font-size: 18px;
 }
 
 .img-fluid {
@@ -266,5 +269,15 @@ h3{
 }
 .fa.fa-question {
 font-size: 70px;
+}
+.banner-content{
+  position: relative;
+  left: -100px;
+  top: -65px;
+}
+.btn {
+    border: 1.5px solid white;
+    border-radius: 10px;
+    background-color: #fff;
 }
 </style>
