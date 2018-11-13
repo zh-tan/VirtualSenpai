@@ -325,8 +325,9 @@ export default {
         "#E5BFBC",
         "#989898",
         "#9284C1",
-        "#D18296",
+
         "#85A3BC",
+        "#D18296",
         "#B2C183",
         "#E8D983",
         "#C1B083",
@@ -461,11 +462,11 @@ export default {
     avgrating() {
       const test = this.mods[this.AY]["avr_rating"];
       if (test > 3.5) {
-        this.spancolor = "color:lightgreen";
+        this.spancolor = "color: #82D195";
       } else if (test > 2.5) {
         this.spancolor = "color:orange";
       } else {
-        this.spancolor = "color:red";
+        this.spancolor = "color:#F86E71";
       }
       //console.log(this.mods[this.AY]["opinion"]);
       return test;
@@ -649,8 +650,9 @@ export default {
               "#E5BFBC",
               "#989898",
               "#9284C1",
-              "#D18296",
+
               "#85A3BC",
+              "#D18296",
               "#B2C183",
               "#E8D983",
               "#C1B083",
