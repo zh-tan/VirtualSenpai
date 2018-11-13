@@ -1,5 +1,5 @@
 <template>
-  <div classname="charts">
+  <div classname="charts" class="zoomout">
     <br />
     <div
       style="display:grid; grid-template-columns:repeat(4,1fr);margin:0px;padding-left:5px"
@@ -334,11 +334,10 @@ export default {
       ]) {
         hireYears.push(hyear);
       }
-      if(!this.changing){
-        this.currYR = hireYears.reverse()[0]
+      if (!this.changing) {
+        this.currYR = hireYears.reverse()[0];
       }
-      
-      
+
       //store the years
       let salYears = [];
       for (var year in this.career["industries"][industryNames[0]][
@@ -346,7 +345,7 @@ export default {
       ]) {
         salYears.push(year);
       }
-      
+
       var tracker = [];
       salaryLineData["labels"] = salYears;
       for (var industry in industryNames) {
@@ -356,18 +355,20 @@ export default {
           tracker.push(role);
         }
       }
-      
+
       tracker = Array.from(new Set(tracker));
-      console.log(tracker)
+      console.log(tracker);
 
       for (var role in tracker) {
         var oneRole = {};
         oneRole["Role"] = tracker[role];
         oneRole["Popularity"] = 0.0;
         for (var industry in industryNames) {
-
-          if(this.currYR in this.career["industries"][industryNames[industry]]["roles"]){
-              if (
+          if (
+            this.currYR in
+            this.career["industries"][industryNames[industry]]["roles"]
+          ) {
+            if (
               tracker[role] in
               this.career["industries"][industryNames[industry]]["roles"][
                 this.currYR
@@ -383,13 +384,11 @@ export default {
                 ) / 100;
             }
           }
-          
         }
         this.top5roles.push(oneRole);
       }
       // salYears = years
-      this.top5roles = this.top5roles.slice(0,5)
-      
+      this.top5roles = this.top5roles.slice(0, 5);
 
       this.years = hireYears.sort();
       hiringLineData["labels"] = hireYears;
@@ -677,7 +676,7 @@ export default {
     },
     refreshYR(yr) {
       this.currYR = yr;
-      this.changing = true
+      this.changing = true;
       this.getbreakdown();
       this.toggle();
     }
@@ -685,6 +684,10 @@ export default {
 };
 </script>
 <style scoped>
+.zoomout {
+  zoom: 90%;
+}
+
 .cascading-admin-card {
   margin: 5px;
   margin-top: 10px;

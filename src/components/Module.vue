@@ -44,8 +44,8 @@
                 <column style="text-align:left;">
                   Professor-in-charge:
                   <badge pill color="rgba-blue-grey-strong">
-                    {{ prof_data.name }}
-                  </badge>
+                    {{ prof_data.name }} </badge
+                  ><br />
                   Guiding Students:
                   {{ prof_data.guiding_students.toFixed(1) }} /5 <br />
                   Providing Feedback:
@@ -818,6 +818,7 @@ html {
 }
 .charts {
   margin-top: 30px;
+  zoom: 90%;
 }
 .echarts {
   width: 100%;
