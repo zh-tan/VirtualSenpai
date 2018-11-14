@@ -93,6 +93,7 @@
                 :items="top5roles"
                 :sort-by.sync="sort"
                 :sort-desc.sync="dir"
+                :no-sort-reset="dir"
                 small
                 hover
                 head-variant="light"
