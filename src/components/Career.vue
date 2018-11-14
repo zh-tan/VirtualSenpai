@@ -233,21 +233,22 @@ export default {
       majorslist: [],
       NotDefault: false,
       pieselection: [false, false, false, false, false],
-      myColors: [
-        "#E5BFBC",
-        "#989898",
-        "#9284C1",
+      myColors:  [
+      "#9284C1",
+      "#D18296",
+      "#E9A784",
+      "#85A3BC",
 
-        "#85A3BC",
-        "#D18296",
-        "#B2C183",
-        "#E8D983",
-        "#C1B083",
+      "#989898",
 
-        "#BC82D1",
-        "#96D182",
+
+      "#B2C183",
+      "#E8D983",
+      "#C1B083",
+
+      "#BC82D1",
+      "#96D182",
         "#82D1BD",
-        "#E9A784",
         "#E883C5",
         "#83C5E8",
 
@@ -261,7 +262,8 @@ export default {
         "#C19283",
         "#4D5360",
         "#FDB45C",
-        "#E4BCE2"
+        "#E4BCE2",
+        "#E5BFBC",
       ],
       prog: ""
     };
