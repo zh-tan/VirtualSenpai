@@ -325,20 +325,21 @@ export default {
       opinion_rating_good: "",
       opinion_rating_bad: "",
       bar_colour: [
-        "#E5BFBC",
-        "#989898",
-        "#9284C1",
+      "#9284C1",
+      "#D18296",
+      "#E9A784",
+      "#85A3BC",
 
-        "#85A3BC",
-        "#D18296",
-        "#B2C183",
-        "#E8D983",
-        "#C1B083",
+      "#989898",
 
-        "#BC82D1",
-        "#96D182",
+
+      "#B2C183",
+      "#E8D983",
+      "#C1B083",
+
+      "#BC82D1",
+      "#96D182",
         "#82D1BD",
-        "#E9A784",
         "#E883C5",
         "#83C5E8",
 
@@ -352,7 +353,8 @@ export default {
         "#C19283",
         "#4D5360",
         "#FDB45C",
-        "#E4BCE2"
+        "#E4BCE2",
+        "#E5BFBC",
       ],
       pieInstance: null,
       barInstance: null,
@@ -649,36 +651,38 @@ export default {
         datasets: [
           {
             data: [],
-            backgroundColor: [
-              "#E5BFBC",
-              "#989898",
-              "#9284C1",
+            backgroundColor:[
+                  "#9284C1",
+                  "#D18296",
+                  "#E9A784",
+                  "#85A3BC",
 
-              "#85A3BC",
-              "#D18296",
-              "#B2C183",
-              "#E8D983",
-              "#C1B083",
+                  "#989898",
 
-              "#BC82D1",
-              "#96D182",
-              "#82D1BD",
-              "#E9A784",
-              "#E883C5",
-              "#83C5E8",
 
-              "#84BC9E",
-              "#BC84A3",
-              "#BC9D84",
-              "#989898",
-              "#83E8A6",
-              "#F87B7E",
-              "#83B2C1",
-              "#C19283",
-              "#4D5360",
-              "#FDB45C",
-              "#E4BCE2"
-            ],
+                  "#B2C183",
+                  "#E8D983",
+                  "#C1B083",
+
+                  "#BC82D1",
+                  "#96D182",
+                    "#82D1BD",
+                    "#E883C5",
+                    "#83C5E8",
+
+                    "#84BC9E",
+                    "#BC84A3",
+                    "#BC9D84",
+                    "#989898",
+                    "#83E8A6",
+                    "#F87B7E",
+                    "#83B2C1",
+                    "#C19283",
+                    "#4D5360",
+                    "#FDB45C",
+                    "#E4BCE2",
+                    "#E5BFBC",
+                  ],
             hoverBackgroundColor: [
               // "#FF5A5E",
               // "#5AD3D1",
@@ -729,8 +733,6 @@ export default {
             position: "right",
             onClick(e, legendItem) {
               var index = legendItem.index;
-              console.log("Index from renderPieChart: ");
-              console.log(index);
               var ci = self.pieInstance.chart;
               var ci2 = self.barInstance.chart;
               var meta2 = ci2.getDatasetMeta(index);

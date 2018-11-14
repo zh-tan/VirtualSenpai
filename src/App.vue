@@ -12,7 +12,7 @@
     <router-view :key="$route.fullPath"/>
       </div>
     </main>
-    <b-modal v-if="true" ref="myModalRef"
+    <b-modal v-if="false" ref="myModalRef"
     hide-footer title="Welcome to VirtualSenpai!"
                  :header-bg-variant="headerBgVariant"
              :header-text-variant="headerTextVariant"
