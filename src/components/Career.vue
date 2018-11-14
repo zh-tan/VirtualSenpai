@@ -4,7 +4,7 @@
     <div
       style="display:grid; grid-template-columns:repeat(4,1fr);margin:0px;padding-left:5px"
     >
-      <card style="grid-column: 1/2" :border="bordercolor">
+     
         <h5>Want to view another major?</h5>
         <select
           @change="$router.push({ path: '/careerview/' + prog });"
@@ -12,7 +12,7 @@
         >
           <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
         </select>
-      </card>
+  
     </div>
     <div style="display:grid;grid-template-columns:3fr 2fr">
       <!-- Start of first column -->
@@ -35,15 +35,10 @@
           :border="bordercolor"
         >
           <div class="piechart">
-            <card-header class="text-left">
-              <div
-                style="display:grid; grid-template-columns:3fr 2fr;margin:0px;padding:0px;"
-              >
-                <b-button :pressed="true" variant="info">
-                  {{ careerTitle }}
-                </b-button>
-              </div>
-            </card-header>
+          <card-header class="text-left"><h4>Breakdown of  
+              <strong><u>{{ careerTitle }}</u></strong></h4></card-header
+            >
+           
             <card-body>
               <div class="hiring">
                 <h6><b>Hiring Industries</b></h6>

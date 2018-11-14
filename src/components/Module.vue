@@ -12,7 +12,7 @@
           >
             <card-header class="text-left"
               >Module Information:
-              <strong>{{ modCode }} {{ mod_name }}</strong></card-header
+              <strong><u>{{ modCode }} {{ mod_name }}</u></strong></card-header
             >
             <div class="admin-up">
               <fa icon="id-card" class="default-color" />
