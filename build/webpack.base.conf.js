@@ -13,9 +13,6 @@ const createLintingRule = () => ({
   loader: "eslint-loader",
   enforce: "pre",
   include: [
-    resolve("src"),
-    resolve("test"),
-    resolve("node_modules/vue-echarts-v3/src")
   ],
   options: {
     formatter: require("eslint-friendly-formatter"),

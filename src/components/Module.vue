@@ -222,7 +222,7 @@
   </div>
 </template>
 
-<script src="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></script>
+<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"></script>
 <script>
 import { db } from "../firebase";
 import {
@@ -269,8 +269,10 @@ export default {
         this.opinion_rating = this.opinionrating();
       })
       .then(() => {
+
         this.renderCharts();
         this.get_words();
+        this.toggle();
         // render charts after obtaining data
       });
     db.ref("mod_summary/" + this.modCode)

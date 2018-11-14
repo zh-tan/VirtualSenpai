@@ -1,19 +1,18 @@
 <template>
   <div id="app">
   <div class="landing" v-if="this.$route.path=='/home'"> </div>
-    <link rel="stylesheet" 
-        href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" 
-        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" 
-        crossorigin="anonymous">
-    <Navbar v-if="this.$route.path!=='/home'"></Navbar> 
-    
+    <link rel="stylesheet"
+        type="text/css"
+        href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <Navbar v-if="this.$route.path!=='/home'"></Navbar>
+
     <main>
-      
+
       <div class="routerview">
     <router-view :key="$route.fullPath"/>
       </div>
     </main>
-    <b-modal v-if="true" ref="myModalRef" 
+    <b-modal v-if="true" ref="myModalRef"
     hide-footer title="Welcome to VirtualSenpai!"
                  :header-bg-variant="headerBgVariant"
              :header-text-variant="headerTextVariant"
@@ -30,7 +29,7 @@
       </div>
       <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Let's begin!</b-btn>
     </b-modal>
-  
+
   </div>
 </template>
 
