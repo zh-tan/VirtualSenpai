@@ -65,6 +65,8 @@ export default {
 
 <style>
 #app {
+  scroll-behavior: smooth;
+  overflow-y:scroll;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
