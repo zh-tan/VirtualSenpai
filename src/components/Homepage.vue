@@ -42,8 +42,8 @@
               >
               <br />
               <br />
-              <h1 style="color:white">Find out more!</h1>
-              <a href="#section02"><span></span></a>
+              <h1 style="color:white" @click="scroll">Find out more!</h1>
+              <a ><span @click="scroll"></span></a>
             </div>
           </div>
         </div>
@@ -198,13 +198,20 @@
 import { Btn, Fa } from "mdbvue";
 import image from "../assets/clouds-cold-dark-540518.png";
 
+
 export default {
   components: {
     Btn,
     Fa,
     image
   },
-  data() {
+  methods:{
+    scroll(){
+      let element = document.getElementById("section02");
+      element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }
+  }
+  ,data() {
     return {
       image:
         "https://uploads.codesandbox.io/uploads/user/dd765973-f46f-483a-b5f6-a5c9e6d70786/vnnw-Nature-Background-HD.jpg"
@@ -340,4 +347,6 @@ h3 {
   transform: rotate(-45deg);
   box-sizing: border-box;
 }
+
+
 </style>
