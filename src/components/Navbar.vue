@@ -5,7 +5,7 @@
       <mdb-navbar-brand href="#">
         <router-link to="/home" active>
           <img
-            src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/WSWu-logonav.png"
+            src="../assets/newlogo.png"
             height="37"
           />
         </router-link>
@@ -44,7 +44,7 @@
               href="https://github.com/zh-tan/VirtualSenpai/"
               ><img
                 height="32"
-                src="https://uploads.codesandbox.io/uploads/user/e6772621-92a7-441c-9d05-9ee39758af11/zYU6-GitHub-Mark-Light-64px.png"
+                src="../assets/GH.png"
               />
               GitHub</a
             >

@@ -21,7 +21,7 @@
       <div class="d-block text-center">
 
      <div classname="Logo">
-  <img class="animated bounce infinite" src='https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/yq4o-newlogo.png'>
+  <img class="animated bounce infinite" src='./assets/newlogo.png'>
   </div>
         <p> Enough of searching for information online just to find that they are of little help? Tired of asking seniors for information regarding academic matters? Worrying that this information might also be unreliable? </p>
         <p><b><font size="5">Fret not! VirtualSenpai! is here to help!</font></b></p>
@@ -84,7 +84,7 @@ main {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-image: url("https://uploads.codesandbox.io/uploads/user/dd765973-f46f-483a-b5f6-a5c9e6d70786/dddV-students.jpg");
+  background-image: url("./assets/students.jpg");
   background-size:100% 100%;
   background-repeat: no-repeat;
   //   filter: blur(1px);

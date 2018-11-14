@@ -15,7 +15,7 @@
           >
             <div class="banner-content col-lg-6 col-md-6">
               <img
-                src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/yq4o-newlogo.png"
+                src="../assets/newlogo.png"
                 height="150"
               />
               <h9>
@@ -124,7 +124,7 @@
                 <div class="team-member">
                   <img
                     class="mx-auto rounded-circle"
-                    src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/RSJ0-zh.jpeg"
+                    src="../assets/zh.jpg"
                     alt=""
                   />
                   <div
@@ -137,7 +137,7 @@
                 <div class="team-member">
                   <img
                     class="mx-auto rounded-circle"
-                    src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/K2xg-tri.jpeg"
+                    src="../assets/tricia.jpeg"
                     alt=""
                   />
                   <div
@@ -150,7 +150,7 @@
                 <div class="team-member">
                   <img
                     class="mx-auto rounded-circle"
-                    src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/pif_-wulin.jpeg"
+                    src="../assets/wulin.jpg"
                     alt=""
                   />
                   <div
@@ -163,7 +163,7 @@
                 <div class="team-member">
                   <img
                     class="mx-auto rounded-circle"
-                    src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/PXvj-chiran.jpeg"
+                    src="../assets/chiran.jpeg"
                     alt=""
                   />
                   <div
@@ -176,7 +176,7 @@
                 <div class="team-member">
                   <img
                     class="mx-auto rounded-circle"
-                    src="https://uploads.codesandbox.io/uploads/user/3a08ee57-9e2b-4499-ab22-63c72bf3362e/ebvV-yy.jpeg"
+                    src="../assets/yy.jpg"
                     alt=""
                   />
                   <div
@@ -213,8 +213,6 @@ export default {
   }
   ,data() {
     return {
-      image:
-        "https://uploads.codesandbox.io/uploads/user/dd765973-f46f-483a-b5f6-a5c9e6d70786/vnnw-Nature-Background-HD.jpg"
     };
   }
 };
