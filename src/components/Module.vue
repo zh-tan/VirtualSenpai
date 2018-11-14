@@ -16,9 +16,8 @@
                 ><u>{{ modCode }} {{ mod_name }}</u></strong
               ></card-header
             >
-            <div class="admin-up">
+            <div class="admin-up" style="margin-left: 85%;">
               <fa icon="id-card" class="default-color" />
-              <div class="data"></div>
             </div>
 
             <div style="height: 130px">
@@ -172,7 +171,7 @@
           :border="bordercolor"
         >
           <card-header class="text-left">Cohort Breakdown </card-header>
-          <card-body id="chartCard">
+          <card-body id="chartCard" style="padding-top:0px;">
             <div class="piechart">
               <canvas id="piecanvas" width="700" height="150"> </canvas>
             </div>
@@ -263,7 +262,7 @@ export default {
       })
       .then(() => {
         this.getAY();
-        this.get_words();
+
         this.rendered = this.getbreakdown();
         this.gradesdist();
         this.avg_rating = this.avgrating();
@@ -271,6 +270,7 @@ export default {
       })
       .then(() => {
         this.renderCharts();
+        this.get_words();
         // render charts after obtaining data
       });
     db.ref("mod_summary/" + this.modCode)
@@ -715,8 +715,14 @@ export default {
 
       var myPieChart = new Chart(ctx, {
         type: "pie",
+
         data: this.pieChartData,
         options: {
+          title: {
+            display: false,
+            text: "Cohort student majors",
+            position: "top"
+          },
           legend: {
             position: "right",
             onClick(e, legendItem) {
@@ -830,6 +836,11 @@ export default {
         type: "bar",
         data: this.gradesdistdata,
         options: {
+          title: {
+            display: true,
+            text: "Grades Distribution",
+            position: "top"
+          },
           legend: {
             display: false
           },
