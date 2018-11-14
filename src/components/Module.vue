@@ -12,7 +12,9 @@
           >
             <card-header class="text-left"
               >Module Information:
-              <strong><u>{{ modCode }} {{ mod_name }}</u></strong></card-header
+              <strong
+                ><u>{{ modCode }} {{ mod_name }}</u></strong
+              ></card-header
             >
             <div class="admin-up">
               <fa icon="id-card" class="default-color" />
@@ -22,7 +24,7 @@
             <div style="height: 130px">
               <row>
                 <column>
-                  <card-body>
+                  <card-body style="padding-right:0px;">
                     <div class="moduleinfo">
                       <div class="modulebtn">
                         <strong>Select Semester: </strong>
@@ -35,7 +37,6 @@
                         <br />
                         <br />
                         <strong>Currently Displaying:</strong> {{ AY }} <br />
-                        <br />
 
                         <strong>Professor-in-charge: </strong
                         >{{ prof_data.name }}
@@ -866,12 +867,8 @@ export default {
 </script>
 
 <style scoped>
-html {
-  zoom: 90%;
-}
 .charts {
   margin-top: 30px;
-  zoom: 90%;
 }
 .echarts {
   width: 100%;

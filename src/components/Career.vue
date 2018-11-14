@@ -4,15 +4,13 @@
     <div
       style="display:grid; grid-template-columns:repeat(4,1fr);margin:0px;padding-left:5px"
     >
-     
-        <h5>Want to view another major?</h5>
-        <select
-          @change="$router.push({ path: '/careerview/' + prog });"
-          v-model="prog"
-        >
-          <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
-        </select>
-  
+      <h5>Want to view another major?</h5>
+      <select
+        @change="$router.push({ path: '/careerview/' + prog });"
+        v-model="prog"
+      >
+        <option v-for="deg in majorslist" :key="deg"> {{ deg }} </option>
+      </select>
     </div>
     <div style="display:grid;grid-template-columns:3fr 2fr">
       <!-- Start of first column -->
@@ -35,10 +33,15 @@
           :border="bordercolor"
         >
           <div class="piechart">
-          <card-header class="text-left"><h4>Breakdown of  
-              <strong><u>{{ careerTitle }}</u></strong></h4></card-header
+            <card-header class="text-left"
+              ><h4>
+                Breakdown of
+                <strong
+                  ><u>{{ careerTitle }}</u></strong
+                >
+              </h4></card-header
             >
-           
+
             <card-body>
               <div class="hiring">
                 <h6><b>Hiring Industries</b></h6>
@@ -106,7 +109,7 @@
           style="height:50%"
           :border="bordercolor"
         >
-          <card-header class="text-left">Skills Board</card-header>
+          <card-header class="text-left">Key Areas of Improvement</card-header>
           <div class="skillstable">
             <div>
               <b-table
@@ -689,7 +692,7 @@ export default {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: "Hiring Trend (number of people)",
+            text: "Hiring Trend (Number of people by Year)",
             position: "top"
           },
           legend: {
@@ -716,7 +719,6 @@ export default {
 </script>
 <style scoped>
 .zoomout {
-  zoom: 90%;
 }
 
 .cascading-admin-card {
