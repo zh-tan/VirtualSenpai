@@ -136,21 +136,21 @@
 
             <card-text class="text">
               <span
-                v-if="opinion_rating_bad != 0"
+                v-if="opinion_rating_good!= 0"
                 class="easy"
                 style="float:left; width:34%; text-align:left;"
               >
                 Easy
               </span>
               <span
-                v-if="opinion_rating_average != 0"
+                v-if="opinion_rating_average!= 0"
                 class="normal"
                 style="float:left; width:33%; text-align: center;"
               >
                 Normal
               </span>
               <span
-                v-if="opinion_rating_good != 0"
+                v-if="opinion_rating_bad!= 0"
                 class="hard"
                 style="float:right; width:33%; text-align: right;"
               >
