@@ -5,7 +5,7 @@
       <mdb-navbar-brand href="#">
         <router-link to="/home" active>
           <img
-            src="../assets/newlogo.png"
+            src="../assets/logonav.png"
             height="37"
           />
         </router-link>

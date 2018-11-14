@@ -12,8 +12,8 @@
     <router-view :key="$route.fullPath"/>
       </div>
     </main>
-    <b-modal v-if="false" ref="myModalRef"
-    hide-footer title="Welcome to VirtualSenpai!"
+    <b-modal v-if="true" ref="myModalRef"
+    hide-footer title="VirtualSenpai! README"
                  :header-bg-variant="headerBgVariant"
              :header-text-variant="headerTextVariant"
              :body-bg-variant="bodyBgVariant"
@@ -23,11 +23,30 @@
      <div classname="Logo">
   <img class="animated bounce infinite" src='./assets/newlogo.png'>
   </div>
-        <p> Enough of searching for information online just to find that they are of little help? Tired of asking seniors for information regarding academic matters? Worrying that this information might also be unreliable? </p>
-        <p><b><font size="5">Fret not! VirtualSenpai! is here to help!</font></b></p>
-        VirtualSenpai! is a centralised, data driven platform that empowers you with visuals to make more informed decisions. You can now have a more objective view when selecting modules and easily explore your different career prospects in greater details!</p>
+        <b><font size="5">Hi Prof Chris or any other visitors</font></b><br>
+
+          Welcome to virtual senpai! <br/>
+          Since our team mainly used the provided data catalogue, what we have done is populate
+          the original dataset with additional realistic data.
+          However, it was not feasible for us to populate data for every module & every major program<br/>
+        </p>
+        <strong>The pages that we have additionally populated are</strong><br/>
+        <strong>For Modules</strong>
+        <ul>
+          <li>ACC1002, Financial Accounting</li>
+          <li>CS1020, Data Structures and Algorithms I</li>
+          <li>IE2110, Operations Research I</li>
+        </ul>
+
+        <strong>For Career</strong>
+        <ul>
+          <li>Bachelor of Business Administration (Accountancy)</li>
+          <li>Bachelor of Computing (Computer Science)</li>
+          <li>Bachelor of Engineering(Industrial System Engineering)</li>
+        </ul>
+
       </div>
-      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">Let's begin!</b-btn>
+      <b-btn class="mt-3" variant="outline-danger" block @click="hideModal">To view this again, just refresh from any page</b-btn>
     </b-modal>
 
   </div>
