@@ -4,7 +4,9 @@
 > A centralised and data driven platform that aims to empower students with visuals to make more informed decisions
 
 ## Description
-Based on our survey results, many students in NUS rely on seniors for advice but not all students have seniors to turn to! Knowing more seniors give students an unfair advantage in terms of unequal access to information. We want to eradicate this information inequality by transfering student's reliance on seniors to VirtualSenpai!
+Based on our survey results, many students in NUS rely on seniors for advice but not all students have seniors to turn to! Knowing more seniors give students an unfair advantage in terms of unequal access to information. 
+<br/>
+**We want to eradicate this information inequality by transfering student's reliance on seniors to VirtualSenpai!**
 
 
 ## Build Setup
