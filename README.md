@@ -1,6 +1,7 @@
-# test-project
+# VirtualSenpai!
 
-> A Vue.js project
+> A Vue.js project for BT3103
+> A centralised and data driven platform that empowers you with visuals to make more informed decisions
 
 ## Build Setup
 
